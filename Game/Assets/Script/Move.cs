@@ -6,8 +6,8 @@ public class Move : MonoBehaviour
 {
     Rigidbody2D rigidbody;
 
-    [SerializeField]
-    int speedbase = 1000;
+    
+    public int speedbase = 1000;
 
     void Start()
     {
