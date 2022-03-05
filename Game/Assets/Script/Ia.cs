@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Ia : MonoBehaviour
 {
 
-    public int speedbase = 10;
+    public int speedbase = 5;
     private float waitTime;
     public float startWaitTime;
     public Transform moveSpots;
