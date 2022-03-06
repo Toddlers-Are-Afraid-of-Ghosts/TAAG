@@ -4,35 +4,40 @@ using UnityEngine;
 
 public class Turn : MonoBehaviour
 {
-     Transform[] moveSpots;
+     GameObject[] moveSpots;
     public GameObject Player;
     public GameObject enemyPefab;
     public float speed;
-    
-    int amountToSpawn;
-    int pos;
-     Transform playerSpots;
+
+    int amountToSpawn,pos;
+   
+    Transform playerSpots;
     // Start is called before the first frame update
     void Start()
     {
+        amountToSpawn = 64;
 
-        pos = 0;
-        playerSpots.position = new Vector2(Player.transform.position.x, Player.transform.position.y);
+        moveSpots = new GameObject[amountToSpawn];
+
+        playerSpots = Player.transform;
+
+        playerSpots.position = new Vector3(Player.transform.position.x, Player.transform.position.y, 0);
+
+        CreateEnemiesAroundPoint(amountToSpawn, playerSpots.position, 3, playerSpots);
+
+        pos = Random.Range(0,amountToSpawn-1);
+
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerSpots.position = new Vector2(Player.transform.position.x, Player.transform.position.y);
-        CreateEnemiesAroundPoint(8,playerSpots.position,2);
-        
+        TurnCircle();
+
     }
-    float DistanceToSpot()
-    {
-        return Vector2.Distance(moveSpots[pos].transform.position, transform.position);
-    }
-    public void CreateEnemiesAroundPoint(int num, Vector2 point, float radius)
+    public void CreateEnemiesAroundPoint(int num, Vector3 point, float radius, Transform parent)
     {
 
         for (int i = 0; i < num; i++)
@@ -45,35 +50,30 @@ public class Turn : MonoBehaviour
             var vertrical = Mathf.Sin(radians);
             var horizontal = Mathf.Cos(radians);
 
-            var spawnDir = new Vector2(horizontal, vertrical);
+            var spawnDir = new Vector3(horizontal, vertrical, 0);
 
             /* Get the spawn position */
             var spawnPos = point + spawnDir * radius; // Radius is just the distance away from the point
 
             /* Now spawn */
-            var enemy = Instantiate(enemyPefab, spawnPos, Quaternion.identity) as GameObject;
 
-            /* Rotate the enemy to face towards player */
-            enemy.transform.LookAt(point);
+            GameObject move = Instantiate(enemyPefab, spawnPos, Quaternion.identity, parent);
+            moveSpots[i] = move;
 
-            /* Adjust height */
-            enemy.transform.Translate(new Vector3(0, enemy.transform.localScale.y / 2, 0));
+
         }
     }
+    float DistanceToSpot()
+    {
+        return Vector2.Distance(moveSpots[pos].transform.position, transform.position);
+    }
+
     void TurnCircle()
     {
-        playerSpots.position = new Vector2(Player.transform.position.x, Player.transform.position.y);
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots[pos].position, speed * Time.deltaTime);
-        if (DistanceToSpot() < 0.2f)
+        transform.position = Vector2.MoveTowards(transform.position, moveSpots[pos].transform.position, speed * Time.deltaTime);
+        if (DistanceToSpot() < 1)
         {
-            if (pos >= moveSpots.Length - 1)
-            {
-                pos = 0;
-            }
-            else
-            {
-                pos++;
-            }
+           pos=(pos+1)%amountToSpawn;
         }
     }
 }
