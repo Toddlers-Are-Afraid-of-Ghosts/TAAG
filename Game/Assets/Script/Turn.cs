@@ -23,7 +23,7 @@ public class Turn : MonoBehaviour
 
         playerSpots.position = new Vector3(Player.transform.position.x, Player.transform.position.y, 0);
 
-        CreateEnemiesAroundPoint(amountToSpawn, playerSpots.position, 3, playerSpots);
+        CreateMoveAroundPoint(amountToSpawn, playerSpots.position, 3, playerSpots);
 
         pos = Random.Range(0,amountToSpawn-1);
 
@@ -37,13 +37,13 @@ public class Turn : MonoBehaviour
         TurnCircle();
 
     }
-    public void CreateEnemiesAroundPoint(int num, Vector3 point, float radius, Transform parent)
+    public void CreateMoveAroundPoint(int num, Vector3 point, float radius, Transform parent)
     {
 
         for (int i = 0; i < num; i++)
         {
 
-            /* Distance around the circle */
+            /* Distance circle */
             var radians = 2 * Mathf.PI / num * i;
 
             /* Get the vector direction */
@@ -52,7 +52,7 @@ public class Turn : MonoBehaviour
 
             var spawnDir = new Vector3(horizontal, vertrical, 0);
 
-            /* Get the spawn position */
+            /* Spawn pos */
             var spawnPos = point + spawnDir * radius; // Radius is just the distance away from the point
 
             /* Now spawn */
@@ -63,12 +63,12 @@ public class Turn : MonoBehaviour
 
         }
     }
-    float DistanceToSpot()
+    private float DistanceToSpot()
     {
         return Vector2.Distance(moveSpots[pos].transform.position, transform.position);
     }
 
-    void TurnCircle()
+    private void TurnCircle()
     {
         transform.position = Vector2.MoveTowards(transform.position, moveSpots[pos].transform.position, speed * Time.deltaTime);
         if (DistanceToSpot() < 1)

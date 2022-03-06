@@ -58,7 +58,7 @@ public class Patrol : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, moveSpots.position, speed * Time.deltaTime);
 
     }
-    void Patro()
+    private void Patro()
     {
 
         Move();
@@ -78,11 +78,11 @@ public class Patrol : MonoBehaviour
             }
         }
     }
-    float DistanceToPlayer()
+    private float DistanceToPlayer()
     {
         return Vector2.Distance(Player.transform.position, this.transform.position);
     }
-    void Chase()
+    private void Chase()
     {
         if (DistanceToPlayer() > 1.3)
         {
