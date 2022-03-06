@@ -6,8 +6,8 @@ public class Move : MonoBehaviour
 {
     Rigidbody2D rb;
 
-    
-    public int speedbase = 1000;
+    [SerializeField]
+     private int speedbase = 40;
 
     void Start()
     {
@@ -16,9 +16,10 @@ public class Move : MonoBehaviour
 
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
-        float vertical = Input.GetAxis("Vertical") * Time.deltaTime;
-        rb.velocity = new Vector2(horizontal * speedbase, vertical * speedbase);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical") ;
+        Vector2 move = new Vector2(horizontal * speedbase, vertical * speedbase);
+        rb.velocity= (move*speedbase*Time.deltaTime);
 
         if (Input.GetKey(KeyCode.B))
         {
