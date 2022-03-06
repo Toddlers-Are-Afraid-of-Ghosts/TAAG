@@ -16,8 +16,12 @@ public class class_perso : MonoBehaviour
     protected int attackrange;//distance d'attaque
     [SerializeField]
     int speedbase = 1000;
-    Rigidbody2D rigidbody=GetComponent<Rigidbody2D>();
+    Rigidbody2D rb;
 
+    void Start()
+    {
+        rb=GetComponent<Rigidbody2D>();
+    }
     
 
     public string Name=>this.name;
@@ -70,6 +74,7 @@ public class class_perso : MonoBehaviour
         set { this.attackrange = value; }
     }
 
+
     bool IsDead() //if player still alive
     { 
         return (this.health+this.bonushealth > this.damage);
@@ -98,6 +103,10 @@ public class class_perso : MonoBehaviour
         }
     }
 
+    //void Fire()
+    //{
+    //    
+    //}
 
     // Update is called once per frame
     void Update()
