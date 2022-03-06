@@ -2,30 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class class_perso : MonoBehaviour
+public class ennemi : MonoBehaviour
 {
-    protected string name; //name of the perso
+    protected string name;//name of the perso
     protected int health; //nombre de health
     protected int dammage;//nombre de dommages
-    protected int bonushealth;//nombre de health bonus
     protected int speed; //stat de vitesse
     protected int attack;//stat d'attaque
     protected int shotspeed; //vitesse des projeciles
     protected int attackspeed;//cadence de l'attaque
     protected int attackrange;//distance d'attaque
-    [SerializeField]
-    int speedbase = 1000;
-    Rigidbody2D rb;
-
-    void Start()
-    {
-        rb=GetComponent<Rigidbody2D>();
-    }
-    
 
     public string Name=>this.name;
-
+    
     public int Health
     {
         get => this.health;
@@ -36,12 +25,6 @@ public class class_perso : MonoBehaviour
     {
         get => this.dammage;
         set { this.dammage = value; }
-    }
-
-    public int Bonushealth
-    {
-        get => this.bonushealth;
-        set { this.bonushealth = value; }
     }
 
     public int Speed
@@ -74,38 +57,17 @@ public class class_perso : MonoBehaviour
         set { this.attackrange = value; }
     }
 
-
-    bool IsDead() //if player still alive
+    bool IsDead() //if ennemi still alive
     { 
-        return (this.health+this.bonushealth > this.dammage);
+        return (this.health > this.dammage);
     }
 
-    void Move()
-    {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical") ;
-        Vector2 move = new Vector2(horizontal * speedbase, vertical * speedbase);
-        rb.velocity= (move*speedbase*Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.B))
-        {
-            if (speedbase < 5000)
-            {
-                speedbase += 100;
-            }
-        }
-        if (Input.GetKey(KeyCode.N))
-        {
-            if (speedbase > 0)
-            {
-                speedbase -= 100;
-            }
-        }
-    }
-
-    //void Fire()
+    //si les dégats doivent affaiblir l'ennmi, il est impacté à un certain pourcentage
+    //void Degats()
     //{
-    //    
+    //    this.attack-=this.dammage*100/this.health;
+    //    this.attackspeed-=this.dammage*100/this.health;
+    //    this.shotspeed-=this.dammage*100/this.health;
     //}
 
     // Update is called once per frame
@@ -113,8 +75,7 @@ public class class_perso : MonoBehaviour
     {
         if (IsDead())
         {
-            Move();
+            //Move(); //mettre fonction move de l'IA
         }
-        
     }
 }
