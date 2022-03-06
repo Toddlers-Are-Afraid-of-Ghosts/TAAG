@@ -4,18 +4,33 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class Ia : MonoBehaviour
+public class Patrol : MonoBehaviour
 {
-    
+
     public Transform moveSpots;
     public GameObject Player;
     public int speed = 5;
     private float waitTime;
+    private bool wallhit = false;
+   
     public float maxX, minX, maxY, minY, chaseRange, startWaitTime;
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+
+        if (other.gameObject.tag == "Wall")
+        {
+            moveSpots.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+            wallhit = true;
+           
+        }
+
+    }
 
     void Start()
     {
-        
+
+       
         waitTime = Random.Range(0, startWaitTime);
         moveSpots.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
     }
@@ -24,31 +39,37 @@ public class Ia : MonoBehaviour
     void Update()
     {
 
-        if (DistanceToPlayer() <= chaseRange)
+
+        if (DistanceToPlayer() <= chaseRange && !wallhit)
         {
 
             Chase();
         }
         else
         {
-            Patrol();
+            Patro();
+
 
         }
+
     }
-    void Move()
+    private void Move()
     {
         transform.position = Vector2.MoveTowards(transform.position, moveSpots.position, speed * Time.deltaTime);
+
     }
-    void Patrol()
+    void Patro()
     {
 
         Move();
+        
         if (Vector2.Distance(transform.position, moveSpots.position) <= 0.2f)
         {
+            wallhit = false;
             if (waitTime <= 0)
             {
                 moveSpots.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
-
+                
                 waitTime = Random.Range(0, startWaitTime);
             }
             else
