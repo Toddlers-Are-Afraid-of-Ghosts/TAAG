@@ -44,11 +44,11 @@ public class Turn : MonoBehaviour
         {
 
             /* Distance circle */
-            var radians = 2 * Mathf.PI / num * i;
+            var rad = 2 * Mathf.PI / num * i;
 
             /* Get the vector direction */
-            var vertrical = Mathf.Sin(radians);
-            var horizontal = Mathf.Cos(radians);
+            var vertrical = Mathf.Sin(rad);
+            var horizontal = Mathf.Cos(rad);
 
             var spawnDir = new Vector3(horizontal, vertrical, 0);
 

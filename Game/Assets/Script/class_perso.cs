@@ -86,21 +86,6 @@ public class class_perso : MonoBehaviour
         float vertical = Input.GetAxis("Vertical") ;
         Vector2 move = new Vector2(horizontal * speedbase, vertical * speedbase);
         rb.velocity= (move*speedbase*Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.B))
-        {
-            if (speedbase < 5000)
-            {
-                speedbase += 100;
-            }
-        }
-        if (Input.GetKey(KeyCode.N))
-        {
-            if (speedbase > 0)
-            {
-                speedbase -= 100;
-            }
-        }
     }
 
     //void Fire()
