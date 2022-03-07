@@ -37,14 +37,14 @@ public class Turn : MonoBehaviour
         TurnCircle();
 
     }
-    public void CreateMoveAroundPoint(int num, Vector3 point, float radius, Transform parent)
+    public void CreateMoveAroundPoint(int AmountToSpawn, Vector3 point, float radius, Transform parent)
     {
 
-        for (int i = 0; i < num; i++)
+        for (int i = 0; i < AmountToSpawn; i++)
         {
 
             /* Distance circle */
-            var rad = 2 * Mathf.PI / num * i;
+            var rad = 2 * Mathf.PI / AmountToSpawn * i;
 
             /* Get the vector direction */
             var vertrical = Mathf.Sin(rad);

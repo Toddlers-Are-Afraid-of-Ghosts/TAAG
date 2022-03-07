@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ennemi : MonoBehaviour
+public class Ennemi : MonoBehaviour
 {
     protected string name;//name of the perso
     protected int health; //nombre de health
@@ -12,6 +12,7 @@ public class ennemi : MonoBehaviour
     protected int shotspeed; //vitesse des projeciles
     protected int attackspeed;//cadence de l'attaque
     protected int attackrange;//distance d'attaque
+    
 
     public string Name=>this.name;
     
@@ -57,7 +58,7 @@ public class ennemi : MonoBehaviour
         set { this.attackrange = value; }
     }
 
-    bool IsDead() //if ennemi still alive
+    public bool IsDead() //if ennemi still alive
     { 
         return (this.health > this.dammage);
     }
@@ -71,11 +72,5 @@ public class ennemi : MonoBehaviour
     //}
 
     // Update is called once per frame
-    void Update()
-    {
-        if (IsDead())
-        {
-            //Move(); //mettre fonction move de l'IA
-        }
-    }
+ 
 }

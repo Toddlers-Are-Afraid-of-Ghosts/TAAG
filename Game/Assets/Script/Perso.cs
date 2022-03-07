@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class class_perso : MonoBehaviour
+public class Perso : MonoBehaviour
 {
     protected string name; //name of the perso
     protected int health; //nombre de health
@@ -15,16 +15,10 @@ public class class_perso : MonoBehaviour
     protected int attackspeed;//cadence de l'attaque
     protected int attackrange;//distance d'attaque
     [SerializeField]
-    int speedbase = 1000;
+    int speedbase = 40;
     Rigidbody2D rb;
 
-    void Start()
-    {
-        rb=GetComponent<Rigidbody2D>();
-    }
-    
-
-    public string Name=>this.name;
+    public string Name => this.name;
 
     public int Health
     {
@@ -74,32 +68,29 @@ public class class_perso : MonoBehaviour
         set { this.attackrange = value; }
     }
 
-
-    bool IsDead() //if player still alive
-    { 
-        return (this.health+this.bonushealth > this.dammage);
-    }
-
-    void Move()
+    void Start()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical") ;
-        Vector2 move = new Vector2(horizontal * speedbase, vertical * speedbase);
-        rb.velocity= (move*speedbase*Time.deltaTime);
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    //void Fire()
-    //{
-    //    
-    //}
 
-    // Update is called once per frame
     void Update()
     {
         if (IsDead())
         {
             Move();
         }
-        
+
+    }
+    void Move()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector2 move = new Vector2(horizontal * speedbase, vertical * speedbase);
+        rb.velocity = (move * speedbase * Time.deltaTime);
+    }
+    bool IsDead() //if player still alive
+    {
+        return (this.health + this.bonushealth > this.dammage);
     }
 }
