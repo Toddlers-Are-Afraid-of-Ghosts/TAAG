@@ -18,6 +18,7 @@ public class RoomTemplates : MonoBehaviour
 
     private void Update()
     {
+        // fonction qui apres un certain defini la derniere salles de la liste rooms comme etant la salle de boss
         if (waitTime <= 0 && spawnedBoss == false)
         {
             for (int i = 0; i < rooms.Count; i++)
