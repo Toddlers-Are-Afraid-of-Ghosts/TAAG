@@ -4,16 +4,17 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class Patrol : MonoBehaviour
+public class Patrol : Enemy 
 {
 
     public Transform moveSpots;
     public GameObject Player;
-    public int speed = 5;
+    
     private float waitTime;
     private bool wallhit = false;
    
     public float maxX, minX, maxY, minY, chaseRange, startWaitTime;
+    Enemy enemy;
 
     public void OnCollisionEnter2D(Collision2D other)
     {
@@ -30,7 +31,7 @@ public class Patrol : MonoBehaviour
     void Start()
     {
 
-       
+        enemy = new Enemy();
         waitTime = Random.Range(0, startWaitTime);
         moveSpots.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
     }
@@ -55,7 +56,7 @@ public class Patrol : MonoBehaviour
     }
     private void Move()
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, moveSpots.position, enemy.Speed * Time.deltaTime);
 
     }
     private void Patro()
