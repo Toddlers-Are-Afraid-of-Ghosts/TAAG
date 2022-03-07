@@ -36,19 +36,19 @@ public class RoomSpawn : MonoBehaviour
                 rand = Random.Range(0, templates.bottomRooms.Length);
                 Instantiate(templates.bottomRooms[rand], transform.position, quaternion.identity);
             }
-            if (openingDirection == 2)
+            else if (openingDirection == 2)
             {
                 //top
                 rand = Random.Range(0, templates.topRooms.Length);
                 Instantiate(templates.topRooms[rand], transform.position, quaternion.identity);
             }
-            if (openingDirection == 3)
+            else if (openingDirection == 3)
             {
                 //left
                 rand = Random.Range(0, templates.leftRooms.Length);
                 Instantiate(templates.leftRooms[rand], transform.position, quaternion.identity);
             }
-            if (openingDirection == 4)
+            else if (openingDirection == 4)
             {
                 //right
                 rand = Random.Range(0, templates.rightRooms.Length);
