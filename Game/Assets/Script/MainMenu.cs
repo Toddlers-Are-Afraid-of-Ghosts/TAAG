@@ -7,18 +7,24 @@ public class MainMenu : MonoBehaviour
 {
     public string LevelToLoad;
     public GameObject settingsWindows;
+    public GameObject playPanel;
+    bool flag=true;
     public void PlayGame()
     {
-        SceneManager.LoadScene(LevelToLoad);
+        SceneManager.LoadScene("Menu");
+    }
+    public void PanelPlay()
+    {
+
+        playPanel.SetActive(flag);
+        flag=!flag;
     }
     public void SettingBoutton()
     {
-        settingsWindows.SetActive(true);
+        settingsWindows.SetActive(flag);
+        flag=!flag;
     }
-    public void CloseSettingsWindows()
-     {
-         settingsWindows.SetActive(false);
-     }
+
     public void QuitGame()
     {
         Application.Quit();
