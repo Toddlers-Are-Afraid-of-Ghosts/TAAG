@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
     bool flag=true;
     public void PlayGame()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("World");
     }
     public void PanelPlay()
     {
