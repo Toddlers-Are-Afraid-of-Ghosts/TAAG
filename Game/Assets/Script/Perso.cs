@@ -2,21 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+
+public class Perso : MonoBehaviour
 {
-    // Start is called before the first frame update
- protected string name;//name of the perso
+    protected string name; //name of the perso
     protected int health; //nombre de health
     protected int dammage;//nombre de dommages
+    protected int bonushealth;//nombre de health bonus
     protected int speed; //stat de vitesse
     protected int attack;//stat d'attaque
     protected int shotspeed; //vitesse des projeciles
     protected int attackspeed;//cadence de l'attaque
     protected int attackrange;//distance d'attaque
-    
+    [SerializeField]
+    int speedbase = 40;
+    Rigidbody2D rb;
 
-    public string Name=>this.name;
-    
+    public string Name => this.name;
+
     public int Health
     {
         get => this.health;
@@ -27,6 +30,12 @@ public class Enemy : MonoBehaviour
     {
         get => this.dammage;
         set { this.dammage = value; }
+    }
+
+    public int Bonushealth
+    {
+        get => this.bonushealth;
+        set { this.bonushealth = value; }
     }
 
     public int Speed
@@ -59,19 +68,29 @@ public class Enemy : MonoBehaviour
         set { this.attackrange = value; }
     }
 
-    public bool IsDead() //if ennemi still alive
-    { 
-        return (this.health > this.dammage);
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    //si les dégats doivent affaiblir l'ennmi, il est impacté à un certain pourcentage
-    //void Degats()
-    //{
-    //    this.attack-=this.dammage*100/this.health;
-    //    this.attackspeed-=this.dammage*100/this.health;
-    //    this.shotspeed-=this.dammage*100/this.health;
-    //}
 
-    // Update is called once per frame
- 
+    void Update()
+    {
+        if (IsDead())
+        {
+            Move();
+        }
+
+    }
+    void Move()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector2 move = new Vector2(horizontal * speedbase, vertical * speedbase);
+        rb.velocity = (move * speedbase * Time.deltaTime);
+    }
+    bool IsDead() //if player still alive
+    {
+        return (this.health + this.bonushealth > this.dammage);
+    }
 }
