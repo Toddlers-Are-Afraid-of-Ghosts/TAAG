@@ -19,12 +19,15 @@ public class RoomSpawn : MonoBehaviour
     {
         Destroy	(gameObject, waitTime);
         templates = GameObject.FindGameObjectWithTag("ROOMS").GetComponent<RoomTemplates>();
-        Invoke("Spawn", 0.1f);
+        Invoke("Spawn", 0.1f); // permet de ne pas continuellement creer de nouvelles salles,
+                                            // et permet de mettre un delai entre chaque appel de fonction
     }
 
     
-    void Spawn()
+    void Spawn() 
     {
+        // En fonction de la variable oppening direction que chaque spawn point indique,
+        // on spawn une salle ayant une entree dans la direction requise
         if (!spawned)
         {
             if (openingDirection == 1)
@@ -59,6 +62,7 @@ public class RoomSpawn : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Fonction qui empeche de spawn une salle au dessus d'une salle preexistante
         if (other.CompareTag("Spawnpoint"))
         {
             if (other.GetComponent<RoomSpawn>().spawned == false && spawned == false)
