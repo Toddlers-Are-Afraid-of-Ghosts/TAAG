@@ -9,12 +9,12 @@ public class Vdoor : MonoBehaviour
     public int movementDirection;
     public Transform mc;
     private bool isLerp = false;
-    private float Speed = 1f;
+    private float Speed = 3f;
 
     
     private void Start()
     {
-        mc = transform;
+        mc = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     private void Update()
@@ -30,32 +30,36 @@ public class Vdoor : MonoBehaviour
         if (movementDirection == 1)
         {
             //bottom
-            dest = new Vector3(mc.position.x, mc.position.y - 13, mc.position.z);
-            mc.transform.position = Vector3.Lerp(mc.position, dest, Time.deltaTime * Speed);
+            var position = mc.position;
+            dest = new Vector3(position.x, - 13, position.z);
+            mc.transform.position = Vector3.Lerp(position, dest, Time.deltaTime * Speed);
         }
         else if (movementDirection == 2)
         {
             //top
-            dest = new Vector3(mc.position.x, mc.position.y + 13, mc.position.z);
-            mc.transform.position = Vector3.Lerp(mc.position, dest, Time.deltaTime * Speed);
+            var position = mc.position;
+            dest = new Vector3(position.x, 13, position.z);
+            mc.transform.position = Vector3.Lerp(position, dest, Time.deltaTime * Speed);
         }
         else if (movementDirection == 3)
         {
             //left
-            dest = new Vector3(mc.position.x - 27, mc.position.y , mc.position.z);
-            mc.transform.position = Vector3.Lerp(mc.position, dest, Time.deltaTime * Speed);
+            var position = mc.position;
+            dest = new Vector3(- 27, position.y , position.z);
+            mc.transform.position = Vector3.Lerp(position, dest, Time.deltaTime * Speed);
         }
         else if (movementDirection == 4)
         {
             //right
-            dest = new Vector3(mc.position.x + 27, mc.position.y, mc.position.z);
-            mc.transform.position = Vector3.Lerp(mc.position, dest, Time.deltaTime * Speed);
+            var position = mc.position;
+            dest = new Vector3(27, position.y, position.z);
+            mc.transform.position = Vector3.Lerp(position, dest, Time.deltaTime * Speed);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             isLerp = true;
         }
