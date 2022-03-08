@@ -37,50 +37,39 @@ public class Vdoor : MonoBehaviour
         if (movementDirection == 1)
         {
             //bottom
-            var position = mc.position;
-            var tp = player.position;
-            dest = new Vector3(position.x, - 13, position.z);
-           // playerTP = new Vector3(tp.x, - 1, tp.z);
-            mc.transform.position = Vector3.Lerp(position, dest, Time.deltaTime * Speed);
-            //player.transform.position = Vector3.Lerp(tp, playerTP, 100000000);
-            Delay = 10f;
-            isLerp = false;
+            for (int i = 0; i < 13; i++)
+            {
+                mc.transform.position += Vector3.down;
+            }
+            player.transform.position += Vector3.down;
         }
         else if (movementDirection == 2)
         {
             //top
-            var position = mc.position;
-            var tp = player.position;
-            dest = new Vector3(position.x, 13, position.z);
-           // player.transform.position = new Vector3(tp.x, 1, tp.z);
-            mc.transform.position = Vector3.Lerp(position, dest, Time.deltaTime * Speed);
-            //player.transform.position = Vector3.Lerp(tp, playerTP, 100000000);
-            Delay = 10f;
-            isLerp = false;
+            for (int i = 0; i < 13; i++)
+            {
+                mc.transform.position += Vector3.up;
+            }
+            player.transform.position += Vector3.up;
         }
         else if (movementDirection == 3)
         {
             //left
-            var position = mc.position;
-            var tp = player.position;
-            dest = new Vector3(- 27, position.y , position.z);
-           // player.transform.position = new Vector3(-1, tp.y, tp.z);
-            mc.transform.position = Vector3.Lerp(position, dest, Time.deltaTime * Speed);
-            //player.transform.position = Vector3.Lerp(tp, playerTP, 100000000);
-            Delay = 10f;
-            isLerp = false;
+            for (int i = 0; i < 13; i++)
+            {
+                mc.transform.position += Vector3.left;
+            }
+            player.transform.position += Vector3.left;
+            
         }
         else if (movementDirection == 4)
         {
             //right
-            var position = mc.position;
-            var tp = player.position;
-            dest = new Vector3(27, position.y, position.z);
-            //player.transform.position = new Vector3(1, tp.y, tp.z);
-            mc.transform.position = Vector3.Lerp(position, dest, Time.deltaTime * Speed);
-            //player.transform.position = Vector3.Lerp(tp, playerTP, 100000000);
-            Delay = 10f;
-            isLerp = false;
+            for (int i = 0; i < 13; i++)
+            {
+                mc.transform.position += Vector3.right;
+            }
+            player.transform.position += Vector3.right;
         }
     }
 
@@ -90,7 +79,11 @@ public class Vdoor : MonoBehaviour
         {
             isLerp = true;
         }
-        else
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
         {
             isLerp = false;
         }
