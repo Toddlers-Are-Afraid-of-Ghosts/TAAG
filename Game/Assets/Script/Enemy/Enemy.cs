@@ -59,6 +59,18 @@ public class Enemy : MonoBehaviour
         set { this.attackrange = value; }
     }
 
+    public Enemy(string name, int health, int dammage, int speed, int attack, int shotspeed, int attackspeed, int attackrange)
+    {
+        this.name = name;
+        this.health = health;
+        this.dammage = dammage;
+        this.speed = speed;
+        this.attack = attack;
+        this.shotspeed = shotspeed;
+        this.attackspeed = attackspeed;
+        this.attackrange = attackrange;
+    }
+
     public bool IsDead() //if ennemi still alive
     { 
         return (this.health > this.dammage);

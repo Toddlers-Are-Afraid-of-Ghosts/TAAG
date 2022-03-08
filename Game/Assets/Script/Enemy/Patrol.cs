@@ -4,17 +4,17 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class Patrol : Enemy 
+public class Patrol : MonoBehaviour 
 {
 
     public Transform moveSpots;
-    public GameObject Player;
+    public GameObject player;
     
     private float waitTime;
     private bool wallhit = false;
    
     public float maxX, minX, maxY, minY, chaseRange, startWaitTime;
-    Enemy enemy;
+    Enemy enemy = new Enemy("Patroler",10,0,3,3,5,10,10);
 
     public void OnCollisionEnter2D(Collision2D other)
     {
@@ -31,7 +31,7 @@ public class Patrol : Enemy
     void Start()
     {
 
-        enemy = new Enemy();
+        player= GameObject.FindWithTag("Player");
         waitTime = Random.Range(0, startWaitTime);
         moveSpots.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
     }
@@ -43,14 +43,12 @@ public class Patrol : Enemy
 
         if (DistanceToPlayer() <= chaseRange && !wallhit)
         {
-
-            Chase();
+            
+             Chase();
         }
         else
         {
             Patro();
-
-
         }
 
     }
@@ -81,14 +79,14 @@ public class Patrol : Enemy
     }
     private float DistanceToPlayer()
     {
-        return Vector2.Distance(Player.transform.position, this.transform.position);
+        return Vector2.Distance(player.transform.position, this.transform.position);
     }
     private void Chase()
     {
-        if (DistanceToPlayer() > 1.3)
+        if (DistanceToPlayer() > 1.3) // evite que l'ennemi soit trop
         {
             Move();
-            moveSpots.position = new Vector2(Player.transform.position.x, Player.transform.position.y);
+            moveSpots.position = new Vector2(player.transform.position.x, player.transform.position.y);
         }
     }
 

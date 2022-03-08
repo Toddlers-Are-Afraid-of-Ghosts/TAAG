@@ -11,7 +11,7 @@ public class SettingsMenu : MonoBehaviour
     public Dropdown resolutionDropdown;
     public void Start()
     {
-        resolutions =Screen.resolutions;
+        resolutions = Screen.resolutions;
         //recupere toute les resolutions et filtre pour eviter une duplication
         resolutionDropdown.ClearOptions(); //clear les 3 Options A B C
 
