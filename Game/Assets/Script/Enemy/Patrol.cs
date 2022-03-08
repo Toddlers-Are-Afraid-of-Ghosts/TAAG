@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class Patrol : Enemy 
+public class Patrol : MonoBehaviour 
 {
 
     public Transform moveSpots;
@@ -14,7 +14,7 @@ public class Patrol : Enemy
     private bool wallhit = false;
    
     public float maxX, minX, maxY, minY, chaseRange, startWaitTime;
-    Enemy enemy;
+    Enemy enemy = new Enemy("Patroler",10,0,3,3,5,10,10);
 
     public void OnCollisionEnter2D(Collision2D other)
     {
@@ -31,7 +31,7 @@ public class Patrol : Enemy
     void Start()
     {
 
-        enemy = new Enemy();
+        
         waitTime = Random.Range(0, startWaitTime);
         moveSpots.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
     }
@@ -43,8 +43,11 @@ public class Patrol : Enemy
 
         if (DistanceToPlayer() <= chaseRange && !wallhit)
         {
+            
+               Chase();
+            
 
-            Chase();
+            
         }
         else
         {

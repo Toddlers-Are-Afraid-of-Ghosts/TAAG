@@ -7,8 +7,8 @@ public class Turn : MonoBehaviour
      GameObject[] moveSpots;
     public GameObject Player;
     public GameObject enemyPefab;
-    public float speed;
-
+   
+Enemy enemy = new Enemy("Turner",10,0,7,5,5,10,10);
     int amountToSpawn,pos;
    
     Transform playerSpots;
@@ -70,7 +70,7 @@ public class Turn : MonoBehaviour
 
     private void TurnCircle()
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots[pos].transform.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, moveSpots[pos].transform.position, enemy.Speed * Time.deltaTime);
         if (DistanceToSpot() < 1)
         {
            pos=(pos+1)%amountToSpawn;

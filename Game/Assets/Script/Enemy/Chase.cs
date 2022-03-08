@@ -6,7 +6,7 @@ public class Chase : MonoBehaviour
 {
     public GameObject Player;
     public Transform moveSpots;
-    public float speed = 5;
+    Enemy enemy = new Enemy("Chaser",10,0,5,5,5,10,10);
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +27,7 @@ public class Chase : MonoBehaviour
     }
     private void Move()
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, moveSpots.position, enemy.Speed * Time.deltaTime);
     }
     private void Chased()
     {
