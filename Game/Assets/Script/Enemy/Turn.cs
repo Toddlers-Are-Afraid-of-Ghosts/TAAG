@@ -5,23 +5,24 @@ using UnityEngine;
 public class Turn : MonoBehaviour
 {
      GameObject[] moveSpots;
-    public GameObject Player;
-    public GameObject enemyPefab;
+    public GameObject player;
+    public GameObject moveSpawn;
    
-Enemy enemy = new Enemy("Turner",10,0,7,5,5,10,10);
+Enemy enemy = new Enemy("Toupis",10,0,7,5,5,10,10);
     int amountToSpawn,pos;
    
     Transform playerSpots;
     // Start is called before the first frame update
     void Start()
     {
+        player= GameObject.FindWithTag("Player");
         amountToSpawn = 64;
 
         moveSpots = new GameObject[amountToSpawn];
 
-        playerSpots = Player.transform;
+        playerSpots = player.transform;
 
-        playerSpots.position = new Vector3(Player.transform.position.x, Player.transform.position.y, 0);
+        playerSpots.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
 
         CreateMoveAroundPoint(amountToSpawn, playerSpots.position, 3, playerSpots);
 
@@ -57,7 +58,7 @@ Enemy enemy = new Enemy("Turner",10,0,7,5,5,10,10);
 
             /* Now spawn */
 
-            GameObject move = Instantiate(enemyPefab, spawnPos, Quaternion.identity, parent);
+            GameObject move = Instantiate(moveSpawn, spawnPos, Quaternion.identity, parent);
             moveSpots[i] = move;
 
 

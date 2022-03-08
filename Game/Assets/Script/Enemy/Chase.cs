@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Chase : MonoBehaviour
 {
-    public GameObject Player;
+    public GameObject player;
     public Transform moveSpots;
-    Enemy enemy = new Enemy("Chaser",10,0,5,5,5,10,10);
+    Enemy enemy = new Enemy("Chaser", 10, 0, 5, 5, 5, 10, 10);
     // Start is called before the first frame update
     void Start()
     {
-
-        moveSpots.position = new Vector2(Player.transform.position.x, Player.transform.position.y);
+        player = GameObject.FindWithTag("Player");
+        moveSpots.position = new Vector2(player.transform.position.x, player.transform.position.y);
     }
 
     // Update is called once per frame
@@ -23,7 +23,7 @@ public class Chase : MonoBehaviour
     }
     private float DistanceToPlayer()
     {
-        return Vector2.Distance(Player.transform.position, this.transform.position);
+        return Vector2.Distance(player.transform.position, this.transform.position);
     }
     private void Move()
     {
@@ -34,7 +34,7 @@ public class Chase : MonoBehaviour
         if (DistanceToPlayer() > 1.3)
         {
             Move();
-            moveSpots.position = new Vector2(Player.transform.position.x, Player.transform.position.y);
+            moveSpots.position = new Vector2(player.transform.position.x, player.transform.position.y);
         }
     }
 }

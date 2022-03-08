@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class Stay : MonoBehaviour
 {
-    public GameObject Player;
+    public GameObject player;
     public Transform moveSpots;
    
     private float stayedx, stayedy;
     public float minX, minY, maxX, maxY;
-    Enemy enemy = new Enemy("Stayer",10,0,5,5,5,10,10);
+    Enemy enemy = new Enemy("Spawner",10,0,5,5,5,10,10);
     // Start is called before the first frame update
     void Start()
     {
+        player= GameObject.FindWithTag("Player");
         stayedx = 5;
         stayedy = 0;
-        moveSpots.position = new Vector2(Player.transform.position.x + stayedx, Player.transform.position.y + stayedy);
+        moveSpots.position = new Vector2(player.transform.position.x + stayedx, player.transform.position.y + stayedy);
     }
 
     // Update is called once per frame
@@ -31,17 +32,17 @@ public class Stay : MonoBehaviour
                     stayedy = Random.Range(-8, 8);
 
 
-                    moveSpots.position = new Vector2(Player.transform.position.x + stayedx, Player.transform.position.y + stayedy);
+                    moveSpots.position = new Vector2(player.transform.position.x + stayedx, player.transform.position.y + stayedy);
 
                 }
             }
-            Stayed();
+            Move();
         }
         else
         {
             stayedx = Random.Range(-8, 8);
             stayedy = Random.Range(-8, 8);
-            moveSpots.position = new Vector2(Player.transform.position.x + stayedx, Player.transform.position.y + stayedy);
+            moveSpots.position = new Vector2(player.transform.position.x + stayedx, player.transform.position.y + stayedy);
         }
 
     }
@@ -50,14 +51,10 @@ public class Stay : MonoBehaviour
        
         transform.position = Vector2.MoveTowards(transform.position, moveSpots.position, enemy.Speed*Time.deltaTime );
     }
-    private void Stayed()
-    {
-        Move();
 
-    }
     private float DistanceToPlayer()
     {
-        return Vector2.Distance(Player.transform.position, this.transform.position);
+        return Vector2.Distance(player.transform.position, this.transform.position);
     }
     private bool OnPoint()
     {
