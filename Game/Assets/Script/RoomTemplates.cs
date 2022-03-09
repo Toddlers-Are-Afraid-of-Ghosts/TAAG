@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoomTemplates : MonoBehaviour
 {
@@ -18,6 +19,12 @@ public class RoomTemplates : MonoBehaviour
 
     private void Update()
     {
+        if (waitTime <= 0 && (rooms.Count < 8 || rooms.Count > 32))
+        {
+            SceneManager.UnloadSceneAsync("World");
+            SceneManager.LoadScene("World");
+        }
+            
         // fonction qui apres un certain defini la derniere salles de la liste rooms comme etant la salle de boss
         if (waitTime <= 0 && spawnedBoss == false)
         {

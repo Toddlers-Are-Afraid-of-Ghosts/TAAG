@@ -14,7 +14,7 @@ public class Vdoor : MonoBehaviour
     public Transform player;
     private bool isLerp = false;
     private float Speed = 3f;
-    public float Delay = 0f;
+    public float Delay = 10f;
     
 
     
@@ -37,39 +37,45 @@ public class Vdoor : MonoBehaviour
         if (movementDirection == 1)
         {
             //bottom
-            for (int i = 0; i < 13; i++)
-            {
-                mc.transform.position += Vector3.down;
-            }
-            player.transform.position += Vector3.down;
+            mc.transform.position += new Vector3(0, (float) -13, 0);
+
+            player.transform.position += Vector3.up;
+            player.transform.position += Vector3.right*2;
+            player.transform.position += Vector3.down*3;
+            player.transform.position += Vector3.left*2;
+            isLerp = false;
         }
         else if (movementDirection == 2)
         {
             //top
-            for (int i = 0; i < 13; i++)
-            {
-                mc.transform.position += Vector3.up;
-            }
-            player.transform.position += Vector3.up;
+            mc.transform.position += new Vector3(0, (float) 13, 0);
+            
+            player.transform.position += Vector3.down;
+            player.transform.position += Vector3.right*2;
+            player.transform.position += Vector3.up*3;
+            player.transform.position += Vector3.left*2;
+            isLerp = false;
         }
         else if (movementDirection == 3)
         {
             //left
-            for (int i = 0; i < 13; i++)
-            {
-                mc.transform.position += Vector3.left;
-            }
-            player.transform.position += Vector3.left;
-            
+            mc.transform.position += new Vector3((float) -27, 0, 0);
+
+            player.transform.position += Vector3.right;
+            player.transform.position += Vector3.up*2;
+            player.transform.position += Vector3.left*3;
+            player.transform.position += Vector3.down*2;
+            isLerp = false;
         }
         else if (movementDirection == 4)
         {
             //right
-            for (int i = 0; i < 13; i++)
-            {
-                mc.transform.position += Vector3.right;
-            }
-            player.transform.position += Vector3.right;
+            mc.transform.position += new Vector3((float) 27, 0, 0);
+            player.transform.position += Vector3.left;
+            player.transform.position += Vector3.up*2;
+            player.transform.position += Vector3.right*3;
+            player.transform.position += Vector3.down*2;
+            isLerp = false;
         }
     }
 
