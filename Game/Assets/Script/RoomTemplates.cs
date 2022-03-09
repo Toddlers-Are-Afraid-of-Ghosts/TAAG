@@ -21,7 +21,6 @@ public class RoomTemplates : MonoBehaviour
     {
         if (waitTime <= 0 && (rooms.Count < 8 || rooms.Count > 32))
         {
-            SceneManager.UnloadSceneAsync("World");
             SceneManager.LoadScene("World");
         }
             
