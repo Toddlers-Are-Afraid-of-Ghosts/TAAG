@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8249988126736134429}
   - component: {fileID: 5649082023150095914}
   - component: {fileID: 8249988126736134499}
-  - component: {fileID: 2812450684000180370}
+  - component: {fileID: 3181500879226281601}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -66,7 +66,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -134,7 +134,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2812450684000180370
+--- !u!114 &3181500879226281601
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,13 +146,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4e22bff0a56ac40a996c1a0ae0ebf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 10
   bonusHealth: 0
   speed: 40
-  attack: 0
-  shotSpeed: 0
-  fireRate: 0
-  attackRange: 0
+  attack: 5
+  shotSpeed: 10
+  fireRate: 10
+  attackRange: 5
   player: {fileID: 8249988126736134428}
 --- !u!114 &4487662079799331877
 MonoBehaviour:

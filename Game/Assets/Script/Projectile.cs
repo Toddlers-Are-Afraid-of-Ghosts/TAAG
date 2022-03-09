@@ -20,7 +20,7 @@
 //         fire=GetComponent<Rigidbody2D>();
 //     }
 
-//     public Projectile(int attack, int shotspeed, int attackrange, int x, int y, string direction)
+//     public Projectile(int attack, int shotspeed, int attackrange,Vector2 position, int dirx, int diry)
 //     {
 //         this.attack=attack;
 //         this.shotspeed=shotspeed;

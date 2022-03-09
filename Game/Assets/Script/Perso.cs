@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Perso : MonoBehaviour
+public class class_perso : MonoBehaviour
 {
     protected string name; //name of the perso
     protected int health; //nombre de health
@@ -15,10 +15,16 @@ public class Perso : MonoBehaviour
     protected int attackspeed;//cadence de l'attaque
     protected int attackrange;//distance d'attaque
     [SerializeField]
-    int speedbase = 40;
+    int speedbase = 1000;
     Rigidbody2D rb;
 
-    public string Name => this.name;
+    void Start()
+    {
+        rb=GetComponent<Rigidbody2D>();
+    }
+    
+
+    public string Name=>this.name;
 
     public int Health
     {
@@ -68,29 +74,34 @@ public class Perso : MonoBehaviour
         set { this.attackrange = value; }
     }
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
+
+    bool IsDead() //if player still alive
+    { 
+        return (this.health+this.bonushealth > this.dammage);
     }
 
+    void Move()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical") ;
+        Vector2 move = new Vector2(horizontal * speedbase, vertical * speedbase);
+        rb.velocity= (move*speedbase*Time.deltaTime);
+    }
 
+    //void Fire()
+    //{
+    //    float firehorizontal = Input.GetAxis("firehorizontal")
+    //    float firevertical = Input.GetAxis("firevertical")
+    //    new Projectile(attack, shotspeed, attackrange, transform.position, firehorizontal, firevertical)
+    //}
+
+    // Update is called once per frame
     void Update()
     {
         if (IsDead())
         {
             Move();
         }
-
-    }
-    void Move()
-    {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        Vector2 move = new Vector2(horizontal * speedbase, vertical * speedbase);
-        rb.velocity = (move * speedbase * Time.deltaTime);
-    }
-    bool IsDead() //if player still alive
-    {
-        return (this.health + this.bonushealth > this.dammage);
+        
     }
 }
