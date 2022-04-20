@@ -6,17 +6,19 @@ public class Stay : MonoBehaviour
 {
     private GameObject player;
     public Transform moveSpots;
-   
+    private Transform spot;
+
     private float stayedx, stayedy;
     public float minX, minY, maxX, maxY;
-    Enemy enemy = new Enemy("Spawner",10,0,5,5,5,10,10);
+    Enemy enemy = new Enemy("Spawner", 10, 0, 7, 5, 5, 10, 10);
     // Start is called before the first frame update
     void Start()
     {
-        player= GameObject.FindWithTag("Player");
+        spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity);
+        player = GameObject.FindWithTag("Player");
         stayedx = 5;
         stayedy = 0;
-        moveSpots.position = new Vector2(player.transform.position.x + stayedx, player.transform.position.y + stayedy);
+        spot.position = new Vector2(player.transform.position.x + stayedx, player.transform.position.y + stayedy);
     }
 
     // Update is called once per frame
@@ -26,13 +28,13 @@ public class Stay : MonoBehaviour
         {
             if (OnPoint())
             {
-                if (DistanceToPlayer() <= 5)
+                if (DistanceToPlayer(player.transform, spot) <= 5)
                 {
                     stayedx = Random.Range(-8, 8);
                     stayedy = Random.Range(-8, 8);
 
 
-                    moveSpots.position = new Vector2(player.transform.position.x + stayedx, player.transform.position.y + stayedy);
+                    spot.position = new Vector2(player.transform.position.x + stayedx, player.transform.position.y + stayedy);
 
                 }
             }
@@ -42,23 +44,24 @@ public class Stay : MonoBehaviour
         {
             stayedx = Random.Range(-8, 8);
             stayedy = Random.Range(-8, 8);
-            moveSpots.position = new Vector2(player.transform.position.x + stayedx, player.transform.position.y + stayedy);
+            spot.position = new Vector2(player.transform.position.x + stayedx, player.transform.position.y + stayedy);
         }
 
     }
     private void Move()
     {
-       
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots.position, enemy.Speed*Time.deltaTime );
+
+        transform.position = Vector2.MoveTowards(transform.position, spot.position, enemy.Speed * Time.deltaTime);
     }
 
-    private float DistanceToPlayer()
+    private float DistanceToPlayer(Transform obj, Transform obj2)
     {
-        return Vector2.Distance(player.transform.position, this.transform.position);
+        return Vector2.Distance(obj.position, obj2.position);
+        //return Vector2.Distance(player.transform.position, this.transform.position);
     }
     private bool OnPoint()
     {
-        if (Vector2.Distance(moveSpots.transform.position, this.transform.position) <= 0.2f)
+        if (Vector2.Distance(spot.transform.position, this.transform.position) <= 0.2f)
         {
             return true;
         }
@@ -66,7 +69,8 @@ public class Stay : MonoBehaviour
     }
     private bool GoodCo()
     {
-        if ((moveSpots.position.x > maxX || moveSpots.position.x < minX) || moveSpots.position.y > maxY || moveSpots.position.y < minY)
+        if ((spot.position.x > maxX || spot.position.x < minX) || spot.position.y > maxY || spot.position.y < minY 
+        || DistanceToPlayer(player.transform, spot) <= 7)
         {
             return false;
         }

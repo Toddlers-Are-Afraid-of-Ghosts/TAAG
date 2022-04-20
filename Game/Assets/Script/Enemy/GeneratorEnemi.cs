@@ -9,7 +9,12 @@ public class GeneratorEnemi : MonoBehaviour
     float spawntime;
     GameObject rndEnemi;
     Vector2 spawnPos;
+    public int max;
+    public int current;
+    int spawn = 1;
     float waitspawn;
+    public bool active = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,22 +27,28 @@ public class GeneratorEnemi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(waitspawn);
-        if (spawntime > 0 && alive.Count <= 10)
+        if (active && spawn<max)
         {
-            Debug.Log(waitspawn);
-            if (waitspawn < 1)
+
+            if (spawntime > 0 && alive.Count <= current)
             {
-                rndEnemi = allenemi[Random.Range(1, alive.Count)];
-                alive.Add(Instantiate(rndEnemi, spawnPos, Quaternion.identity));
-                spawntime -= Time.deltaTime;
-                waitspawn = 5;
+                Debug.Log($"Spawn in {waitspawn}");
+                if (waitspawn < 1)
+                {
+                    rndEnemi = allenemi[Random.Range(1, alive.Count)];
+                    alive.Add(Instantiate(rndEnemi, spawnPos, Quaternion.identity));
+                    spawntime -= Time.deltaTime;
+                    spawn++;
+                    waitspawn = 5;
+                }
+                waitspawn -= Time.deltaTime;
             }
-            waitspawn -= Time.deltaTime;
-        }
-        if (alive.Count <= 0)
-        {
-            spawntime = Random.Range(0, 10);
+
+            if (alive.Count <= 0)
+            {
+                spawntime = Random.Range(0, 10);
+            }
         }
     }
+    
 }

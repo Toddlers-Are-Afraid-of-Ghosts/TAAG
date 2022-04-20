@@ -4,36 +4,36 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class Patrol : MonoBehaviour 
+public class Patrol : MonoBehaviour
 {
 
     public Transform moveSpots;
     private GameObject player;
-    
+    private Transform spot;
     private float waitTime;
     private bool wallhit = false;
-   
+
     public float maxX, minX, maxY, minY, chaseRange, startWaitTime;
-    Enemy enemy = new Enemy("Patroler",10,0,3,3,5,10,10);
+    Enemy enemy = new Enemy("Patroler", 10, 0, 3, 3, 5, 10, 10);
 
     public void OnCollisionEnter2D(Collision2D other)
     {
 
         if (other.gameObject.tag == "Wall")
         {
-            moveSpots.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+            spot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
             wallhit = true;
-           
+
         }
 
     }
 
     void Start()
     {
-
-        player= GameObject.FindWithTag("Player");
+        spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity);
+        player = GameObject.FindWithTag("Player");
         waitTime = Random.Range(0, startWaitTime);
-        moveSpots.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+        spot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
     }
 
     // Update is called once per frame
@@ -43,8 +43,8 @@ public class Patrol : MonoBehaviour
 
         if (DistanceToPlayer() <= chaseRange && !wallhit)
         {
-            
-             Chase();
+
+            Chase();
         }
         else
         {
@@ -53,22 +53,22 @@ public class Patrol : MonoBehaviour
 
     }
     private void Move()
-    {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots.position, enemy.Speed * Time.deltaTime);
+    {  
+        transform.position = Vector2.MoveTowards(transform.position, spot.position, enemy.Speed * Time.deltaTime);
 
     }
     private void Patro()
     {
 
         Move();
-        
-        if (Vector2.Distance(transform.position, moveSpots.position) <= 0.2f)
+
+        if (Vector2.Distance(transform.position, spot.position) <= 0.2f)
         {
             wallhit = false;
             if (waitTime <= 0)
             {
-                moveSpots.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
-                
+                spot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+
                 waitTime = Random.Range(0, startWaitTime);
             }
             else
@@ -86,7 +86,7 @@ public class Patrol : MonoBehaviour
         if (DistanceToPlayer() > 1.3) // evite que l'ennemi soit trop
         {
             Move();
-            moveSpots.position = new Vector2(player.transform.position.x, player.transform.position.y);
+            spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
         }
     }
 

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Turn : MonoBehaviour
 {
-    GameObject[] moveSpots;
+    
+    GameObject[] spot;
     private GameObject player;
     public GameObject moveSpawn;
 
@@ -18,7 +19,7 @@ public class Turn : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         amountToSpawn = 64;
 
-        moveSpots = new GameObject[amountToSpawn];
+        spot = new GameObject[amountToSpawn];
 
         playerSpots = player.transform;
 
@@ -59,19 +60,19 @@ public class Turn : MonoBehaviour
             /* Now spawn */
 
             GameObject move = Instantiate(moveSpawn, spawnPos, Quaternion.identity, parent);
-            moveSpots[i] = move;
+            spot[i] = move;
 
 
         }
     }
     private float DistanceToSpot()
     {
-        return Vector2.Distance(moveSpots[pos].transform.position, transform.position);
+        return Vector2.Distance(spot[pos].transform.position, transform.position);
     }
 
     private void TurnCircle()
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots[pos].transform.position, enemy.Speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, spot[pos].transform.position, enemy.Speed * Time.deltaTime);
         if (DistanceToSpot() < 1)
         {
             pos = (pos + 1) % amountToSpawn;
