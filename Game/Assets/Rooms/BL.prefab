@@ -41,7 +41,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5589550630136203139}
-  - component: {fileID: 7703397331998496962}
   m_Layer: 0
   m_Name: BL
   m_TagString: Room
@@ -69,18 +68,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7703397331998496962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6816313144413358533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6e3916f0f8cff9bb81d67ccedf0b7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7341919314463859030
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,13 +365,35 @@ PrefabInstance:
       propertyPath: m_Name
       value: leftSP
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4019267777904089482, guid: a51f02fd860de4e718b5a248c5bfa7df, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a51f02fd860de4e718b5a248c5bfa7df, type: 3}
 --- !u!4 &7102765577007495761 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7428553759159057137, guid: a51f02fd860de4e718b5a248c5bfa7df, type: 3}
   m_PrefabInstance: {fileID: 397884534121955488}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8430954409835338314 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8107980978519644906, guid: a51f02fd860de4e718b5a248c5bfa7df, type: 3}
+  m_PrefabInstance: {fileID: 397884534121955488}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &255550886384709037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430954409835338314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d2da16b4e9e9d45855f5309802d8d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Top: 0
+  Bottom: 1
+  Left: 1
+  Right: 0
 --- !u!1001 &451626266225575883
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4102,7 +4111,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: bottomSP
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4019267777904089482, guid: a51f02fd860de4e718b5a248c5bfa7df, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a51f02fd860de4e718b5a248c5bfa7df, type: 3}
 --- !u!4 &3525831974768616983 stripped
 Transform:

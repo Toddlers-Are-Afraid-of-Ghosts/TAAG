@@ -5,40 +5,46 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RoomTemplates : MonoBehaviour
-{
-    public GameObject[] bottomRooms;
-    public GameObject[] topRooms;
-    public GameObject[] leftRooms;
-    public GameObject[] rightRooms;
-    public GameObject closedRoom;
-    public List<GameObject> rooms;
-    public float waitTime;
-    private bool spawnedBoss;
-    public GameObject boss;
+public class RoomTemplates : MonoBehaviour {
+    public static RoomTemplates main;
 
-    private void Update()
-    {
-        if (waitTime <= 0 && (rooms.Count < 8 || rooms.Count > 32))
-        {
-            SceneManager.LoadScene("World");
-        }
-            
-        // fonction qui apres un certain defini la derniere salles de la liste rooms comme etant la salle de boss
-        if (waitTime <= 0 && spawnedBoss == false)
-        {
-            for (int i = 0; i < rooms.Count; i++)
-            {
-                if (i == rooms.Count - 1)
-                {
-                    Instantiate(boss, rooms[i].transform.position, quaternion.identity);
-                    spawnedBoss = true;
+    void Awake() {
+        main = this;
+    }
+
+    public GameObject[] RoomsArray;
+
+    void Start() {
+        List<List<RoomsProperties>> emptyFloorGrid = ImprovedLevelGeneratoion.GenerateGrid(12);
+        ImprovedLevelGeneratoion.GenerateFloorLayout(emptyFloorGrid);
+        Spawn(emptyFloorGrid);
+    }
+
+    public static GameObject GetRoom(List<List<RoomsProperties>> grid, int x, int y) {
+        GameObject GoodRoom = null;
+        GameObject[] roomsArray = main.RoomsArray;
+        foreach (GameObject room in roomsArray) {
+            if (grid[x][y].Top == Properties.Top) {
+                if (grid[x][y].Bottom == Properties.Bottom) {
+                    if (grid[x][y].Left == Properties.Left) {
+                        if (grid[x][y].Right == Properties.Right) {
+                            GoodRoom = room;
+                        }
+                    }
                 }
             }
         }
-        else
-        {
-            waitTime -= Time.deltaTime;
+
+        return GoodRoom;
+    }
+
+    void Spawn(List<List<RoomsProperties>> grid) {
+        int size = grid.Count;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Vector3 coordinates = new Vector3(grid[i][j].X, grid[i][j].Y, 0);
+                Instantiate(GetRoom(grid, i, j), coordinates, quaternion.identity);
+            }
         }
     }
 }
