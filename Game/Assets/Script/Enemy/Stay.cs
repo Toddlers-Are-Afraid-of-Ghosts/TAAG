@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Stay : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     public Transform moveSpots;
    
     private float stayedx, stayedy;

@@ -49,8 +49,8 @@ public class Boss : MonoBehaviour
                 Chased();
                 chaseTime -= Time.deltaTime;
                 goInTime -= Time.deltaTime;
-                Debug.Log($"ChaseTime: {chaseTime}");
-                Debug.Log("Charge: " + goInTime);
+                // Debug.Log($"ChaseTime: {chaseTime}");
+                // Debug.Log("Charge: " + goInTime);
             }
 
         }
@@ -60,7 +60,7 @@ public class Boss : MonoBehaviour
             {
                 moveSpots.position = new Vector2(this.transform.position.x, this.transform.position.y);
                 waitTime -= Time.deltaTime;
-                Debug.Log($"WaitTime: {waitTime}");
+                // Debug.Log($"WaitTime: {waitTime}");
             }
             else
             {

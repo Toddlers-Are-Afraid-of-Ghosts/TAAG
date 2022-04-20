@@ -3,9 +3,11 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public  bool isPaused = false;
-    public GameObject pauseMenu;
     public  bool isOptions = false;
-    public GameObject settingsMenu;
+    public GameObject settingsMenu,pauseMenu;
+    void Start()
+    {
+    }
 
     // Update is called once per frame
     void Update()

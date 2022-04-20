@@ -8,7 +8,7 @@ public class Patrol : MonoBehaviour
 {
 
     public Transform moveSpots;
-    public GameObject player;
+    private GameObject player;
     
     private float waitTime;
     private bool wallhit = false;

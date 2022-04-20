@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Chase : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     public Transform moveSpots;
     Enemy enemy = new Enemy("Chaser", 10, 0, 5, 5, 5, 10, 10);
     // Start is called before the first frame update
