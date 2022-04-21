@@ -67,25 +67,25 @@ public class ImprovedLevelGeneratoion : MonoBehaviour
     
     public static void NewRooms(List<List<RoomsProperties>> grid, int x, int y, int currX, int currY) {
         //Top
-        if (grid[x][y].Top && Exist(grid, x,y+1) && grid[x][y+1].isClosed()) {
+        if (grid[x][y].Top && Exist(grid, x,y+1) && grid[x][y+1].IsClosed()) {
             bool[] dir = OpeningGenerator((int) Directions.Bottom);
             grid[x][y + 1] = new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX, currY + (int) Offset.Top);
             NewRooms(grid, x, y+1, currX, currY + (int) Offset.Top);
         }
         //Bottom
-        if (grid[x][y].Bottom && Exist(grid, x,y-1) && grid[x][y-1].isClosed()) {
+        if (grid[x][y].Bottom && Exist(grid, x,y-1) && grid[x][y-1].IsClosed()) {
             bool[] dir = OpeningGenerator((int) Directions.Top);
             grid[x][y + 1] = new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX, currY + (int) Offset.Bottom);
             NewRooms(grid, x, y-1, currX, currY + (int) Offset.Bottom);
         }
         // Left
-        if (grid[x][y].Left && Exist(grid, x-1,y) && grid[x-1][y].isClosed()) {
+        if (grid[x][y].Left && Exist(grid, x-1,y) && grid[x-1][y].IsClosed()) {
             bool[] dir = OpeningGenerator((int) Directions.Right);
             grid[x][y + 1] = new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX + (int) Offset.Left, currY);
             NewRooms(grid, x-1, y, currX + (int) Offset.Left, currY);
         }
         //Right
-        if (grid[x][y].Top && Exist(grid, x + 1,y) && grid[x+1][y].isClosed()) {
+        if (grid[x][y].Top && Exist(grid, x + 1,y) && grid[x+1][y].IsClosed()) {
             bool[] dir = OpeningGenerator((int) Directions.Left);
             grid[x][y + 1] = new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX + (int) Offset.Right, currY);
             NewRooms(grid, x+1, y+1, currX + (int) Offset.Right, currY);
