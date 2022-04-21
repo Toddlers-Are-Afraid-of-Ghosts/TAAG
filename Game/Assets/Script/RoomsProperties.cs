@@ -31,10 +31,10 @@ public class RoomsProperties : MonoBehaviour {
     }
     
     public GameObject Room { get; }
-    public int X { get; }
-    public int Y { get; }
+    public int X { get; set; }
+    public int Y { get; set; }
 
-    public RoomsProperties(bool top, bool bottom, bool right, bool left, int x, int y, GameObject room) {
+    public RoomsProperties(bool top, bool bottom, bool left, bool right, int x, int y, GameObject room) {
         Top = top;
         Bottom = bottom;
         Right = right;

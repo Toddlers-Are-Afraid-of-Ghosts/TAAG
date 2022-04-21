@@ -13,7 +13,7 @@ public class ImprovedLevelGeneratoion : MonoBehaviour
         for (int i = 0; i < size; i++) {
             emptyGrid.Add(new List<RoomsProperties>());
             for (int j = 0; j < size; j++) {
-                emptyGrid[i].Add(new RoomsProperties(false, false, false, false, -1,-1));
+                emptyGrid[i].Add(new RoomsProperties(false, false, false, false, -1,-1, RoomTemplates.ClosedRoom.Room));
             }
         }
         return emptyGrid;
@@ -65,50 +65,52 @@ public class ImprovedLevelGeneratoion : MonoBehaviour
         return false;
     }
     
-    public static void NewRooms(List<List<RoomsProperties>> grid, int x, int y, int currX, int currY) {
+    public static void NewRooms(List<List<RoomsProperties>> grid, int x, int y, int currX, int currY, List<RoomsProperties>[] roomArray) {
         //Top
         if (grid[x][y].Top && Exist(grid, x,y+1) && grid[x][y+1].IsClosed()) {
             bool[] dir = OpeningGenerator((int) Directions.Bottom);
-            grid[x][y + 1] = new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX, currY + (int) Offset.Top);
-            NewRooms(grid, x, y+1, currX, currY + (int) Offset.Top);
+            grid[x][y + 1] = RoomTemplates.ChooseRoom(dir[0], dir[1], dir[2], dir[3], roomArray, currX, currY + (int) Offset.Top);
+            NewRooms(grid, x, y+1, currX, currY + (int) Offset.Top, roomArray);
         }
         //Bottom
         if (grid[x][y].Bottom && Exist(grid, x,y-1) && grid[x][y-1].IsClosed()) {
             bool[] dir = OpeningGenerator((int) Directions.Top);
-            grid[x][y + 1] = new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX, currY + (int) Offset.Bottom);
-            NewRooms(grid, x, y-1, currX, currY + (int) Offset.Bottom);
+            grid[x][y - 1] = RoomTemplates.ChooseRoom(dir[0], dir[1], dir[2], dir[3], roomArray, currX, currY + (int) Offset.Bottom);
+            NewRooms(grid, x, y-1, currX, currY + (int) Offset.Bottom, roomArray);
         }
         // Left
         if (grid[x][y].Left && Exist(grid, x-1,y) && grid[x-1][y].IsClosed()) {
             bool[] dir = OpeningGenerator((int) Directions.Right);
-            grid[x][y + 1] = new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX + (int) Offset.Left, currY);
-            NewRooms(grid, x-1, y, currX + (int) Offset.Left, currY);
+            grid[x-1][y] = RoomTemplates.ChooseRoom(dir[0], dir[1], dir[2], dir[3], roomArray, currX, currY + (int) Offset.Left);
+            NewRooms(grid, x-1, y, currX + (int) Offset.Left, currY, roomArray);
         }
         //Right
-        if (grid[x][y].Top && Exist(grid, x + 1,y) && grid[x+1][y].IsClosed()) {
+        if (grid[x][y].Right && Exist(grid, x + 1,y) && grid[x+1][y].IsClosed()) {
             bool[] dir = OpeningGenerator((int) Directions.Left);
-            grid[x][y + 1] = new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX + (int) Offset.Right, currY);
-            NewRooms(grid, x+1, y+1, currX + (int) Offset.Right, currY);
+            grid[x+1][y] = RoomTemplates.ChooseRoom(dir[0], dir[1], dir[2], dir[3], roomArray, currX, currY + (int) Offset.Right);
+            NewRooms(grid, x+1, y+1, currX + (int) Offset.Right, currY, roomArray);
         }
     }
 
 
-    public static void GenerateFloorLayout(List<List<RoomsProperties>> grid) {
+    public static void GenerateFloorLayout(List<List<RoomsProperties>> grid, List<RoomsProperties>[] roomArray) {
         Random rng = new Random();
         int size = grid.Count;
         int spawnX = size / 2;
         int spawnY = size / 2;
-        
-        grid[spawnX][spawnY] = new RoomsProperties(true, true, true, true,0,0);
-        //Top
-        NewRooms(grid, spawnX, spawnY + 1, spawnX, spawnY + (int) Offset.Top);
-        //Bottom
-        NewRooms(grid, spawnX, spawnY - 1, spawnX, spawnY + (int) Offset.Bottom);
-        //Left
-        NewRooms(grid, spawnX - 1, spawnY, spawnX + (int) Offset.Left, spawnY);
-        //Right
-        NewRooms(grid, spawnX + 1, spawnY, spawnX + (int) Offset.Right, spawnY);
 
+        RoomsProperties start = RoomTemplates.StartRoom;
+        start.X = spawnX;
+        start.Y = spawnY;
+        grid[spawnX][spawnY] = start;
+        //Top
+        NewRooms(grid, spawnX, spawnY + 1, spawnX, spawnY + (int) Offset.Top, roomArray);
+        //Bottom
+        NewRooms(grid, spawnX, spawnY - 1, spawnX, spawnY + (int) Offset.Bottom, roomArray);
+        //Left
+        NewRooms(grid, spawnX - 1, spawnY, spawnX + (int) Offset.Left, spawnY, roomArray);
+        //Right
+        NewRooms(grid, spawnX + 1, spawnY, spawnX + (int) Offset.Right, spawnY, roomArray);
     }
     
 }
