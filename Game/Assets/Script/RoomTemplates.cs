@@ -14,7 +14,7 @@ public class RoomTemplates : MonoBehaviour {
         bool right) {
         List<RoomsProperties> roomList = new List<RoomsProperties>();
         for (int i = 0; i <= 4; i++) {
-            GameObject room = Resources.Load<GameObject>($"{path}/{roomCode} {i.ToString()}.prefab");
+            GameObject room = Resources.Load<GameObject>($"{path}/{roomCode}{i.ToString()}.prefab");
             RoomsProperties property = new RoomsProperties(top, bottom, left, right, 0, 0, room);
             roomList.Add(property);
         }
@@ -60,6 +60,9 @@ public class RoomTemplates : MonoBehaviour {
     void Awake() {
         List<RoomsProperties> TopRooms =
             ExtractRooms("Rooms/RoomsTemplate/TopRooms", "T", true, false, false, false);
+        foreach (RoomsProperties bug in TopRooms) {
+            Debug.Log($"{bug}");
+        }
 
         List<RoomsProperties> BottomRooms =
             ExtractRooms("Rooms/RoomsTemplate/BottomRooms", "B", false, true, false, false);

@@ -13,7 +13,8 @@ public class ImprovedLevelGeneratoion : MonoBehaviour
         for (int i = 0; i < size; i++) {
             emptyGrid.Add(new List<RoomsProperties>());
             for (int j = 0; j < size; j++) {
-                emptyGrid[i].Add(new RoomsProperties(false, false, false, false, -1,-1, RoomTemplates.ClosedRoom.Room));
+                //emptyGrid[i].Add(new RoomsProperties(false, false, false, false, -1,-1, RoomTemplates.ClosedRoom.Room));
+                emptyGrid[i].Add(null);
             }
         }
         return emptyGrid;
