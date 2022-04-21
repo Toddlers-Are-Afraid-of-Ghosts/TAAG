@@ -68,62 +68,60 @@ public class Enemy : MonoBehaviour
         int attackrange)
     {
         this.actual = Instantiate(gameObject);
+
         switch (name)
         {
             case "Patrol":
-                actual.GetComponent<Patrol>().speed = speed;
-                actual.GetComponent<Patrol>().name = name;
-                actual.GetComponent<Patrol>().health = health;
-                actual.GetComponent<Patrol>().dammage = dammage;
-                actual.GetComponent<Patrol>().attack = attack;
-                actual.GetComponent<Patrol>().shotspeed = shotspeed;
-                actual.GetComponent<Patrol>().attackspeed = attackspeed;
-                actual.GetComponent<Patrol>().attackrange = attackrange;
+                var compPatrol = actual.GetComponent<Patrol>();
+                compPatrol.speed = speed;
+                compPatrol.name = name;
+                compPatrol.health = health;
+                compPatrol.dammage = dammage;
+                compPatrol.attack = attack;
+                compPatrol.shotspeed = shotspeed;
+                compPatrol.attackspeed = attackspeed;
+                compPatrol.attackrange = attackrange;
                 break;
             case "Turn":
-                actual.GetComponent<Turn>().speed = speed;
-                actual.GetComponent<Turn>().name = name;
-                actual.GetComponent<Turn>().health = health;
-                actual.GetComponent<Turn>().dammage = dammage;
-                actual.GetComponent<Turn>().attack = attack;
-                actual.GetComponent<Turn>().shotspeed = shotspeed;
-                actual.GetComponent<Turn>().attackspeed = attackspeed;
-                actual.GetComponent<Turn>().attackrange = attackrange;
+                var compTurn = actual.GetComponent<Turn>();
+                compTurn.speed = speed;
+                compTurn.name = name;
+                compTurn.health = health;
+                compTurn.dammage = dammage;
+                compTurn.attack = attack;
+                compTurn.shotspeed = shotspeed;
+                compTurn.attackspeed = attackspeed;
+                compTurn.attackrange = attackrange;
                 break;
             case "Chase":
-                actual.GetComponent<Chase>().speed = speed;
-                actual.GetComponent<Chase>().name = name;
-                actual.GetComponent<Chase>().health = health;
-                actual.GetComponent<Chase>().dammage = dammage;
-                actual.GetComponent<Chase>().attack = attack;
-                actual.GetComponent<Chase>().shotspeed = shotspeed;
-                actual.GetComponent<Chase>().attackspeed = attackspeed;
-                actual.GetComponent<Chase>().attackrange = attackrange;
+                var compChase = actual.GetComponent<Chase>();
+                compChase.speed = speed;
+                compChase.name = name;
+                compChase.health = health;
+                compChase.dammage = dammage;
+                compChase.attack = attack;
+                compChase.shotspeed = shotspeed;
+                compChase.attackspeed = attackspeed;
+                compChase.attackrange = attackrange;
                 break;
             case "Stay":
-                actual.GetComponent<Stay>().speed = speed;
-                actual.GetComponent<Stay>().name = name;
-                actual.GetComponent<Stay>().health = health;
-                actual.GetComponent<Stay>().dammage = dammage;
-                actual.GetComponent<Stay>().attack = attack;
-                actual.GetComponent<Stay>().shotspeed = shotspeed;
-                actual.GetComponent<Stay>().attackspeed = attackspeed;
-                actual.GetComponent<Stay>().attackrange = attackrange;
+                var compStay = actual.GetComponent<Stay>();
+               compStay.speed = speed;
+               compStay.name = name;
+               compStay.health = health;
+               compStay.dammage = dammage;
+               compStay.attack = attack;
+               compStay.shotspeed = shotspeed;
+               compStay.attackspeed = attackspeed;
+               compStay.attackrange = attackrange;
                 break;
-                
         }
-
-
     }
 
     public Enemy()
     {
     }
 
-     void Start()
-    {
-        
-    }
 
     public bool IsDead() //if ennemi still alive
     {
