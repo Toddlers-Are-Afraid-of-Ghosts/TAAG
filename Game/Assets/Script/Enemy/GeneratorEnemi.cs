@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GeneratorEnemi : MonoBehaviour
 {
-    public GameObject[] allenemi;
-    private List<GameObject> alive;
+    public GameObject[] ennemi;
+    private List<Enemy> alive;
     float spawntime;
     GameObject rndEnemi;
     Vector2 spawnPos;
@@ -20,27 +20,28 @@ public class GeneratorEnemi : MonoBehaviour
     {
         waitspawn = 2;
         spawnPos = new Vector2(2, 3);
-        alive = new List<GameObject>();
+        alive = new List<Enemy>();
         spawntime = Random.Range(0, 10);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (active && spawn<max)
+        if (active && spawn < max)
         {
-
             if (spawntime > 0 && alive.Count <= current)
             {
                 Debug.Log($"Spawn in {waitspawn}");
                 if (waitspawn < 1)
                 {
-                    rndEnemi = allenemi[Random.Range(1, alive.Count)];
-                    alive.Add(Instantiate(rndEnemi, spawnPos, Quaternion.identity));
+                    var rnd = Random.Range(0, ennemi.Length - 1);
+                    rndEnemi = ennemi[rnd]; 
+                    alive.Add(new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10));
                     spawntime -= Time.deltaTime;
                     spawn++;
                     waitspawn = 5;
                 }
+
                 waitspawn -= Time.deltaTime;
             }
 
@@ -49,6 +50,6 @@ public class GeneratorEnemi : MonoBehaviour
                 spawntime = Random.Range(0, 10);
             }
         }
+        
     }
-    
 }

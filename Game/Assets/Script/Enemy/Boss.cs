@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Boss : MonoBehaviour
+public class Boss : Enemy
 {
     private GameObject player;
     public Transform moveSpots;
-    Enemy enemy = new Enemy("Chaser", 10, 0, 2, 5, 5, 10, 10);
+    // Enemy enemy = new Enemy(gameObject,"Chaser", 10, 0, 2, 5, 5, 10, 10);
     bool stop = false;
     private float goInTime;
     private float chaseTime;
@@ -84,7 +84,7 @@ public class Boss : MonoBehaviour
     {
         if (Distance(player.transform) > 1.3)
         {
-            Move(enemy.Speed);
+            Move(this.Speed);
             moveSpots.position = new Vector2(player.transform.position.x, player.transform.position.y);
         }
 
@@ -93,7 +93,7 @@ public class Boss : MonoBehaviour
     {
         if (Distance(player.transform) > 1.3)
         {
-            Move(enemy.Speed + 10);
+            Move(this.Speed + 10);
             
         }
     }

@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stay : MonoBehaviour
+public class Stay : Enemy
 {
-    private GameObject player;
+    public GameObject player;
     public Transform moveSpots;
     private Transform spot;
 
     private float stayedx, stayedy;
     public float minX, minY, maxX, maxY;
-    Enemy enemy = new Enemy("Spawner", 10, 0, 7, 5, 5, 10, 10);
+    //Enemy enemy = new Enemy("Spawner", 10, 0, 7, 5, 5, 10, 10);
     // Start is called before the first frame update
+    public Stay(GameObject gameObject)
+    {
+        Instantiate(gameObject);
+    }
     void Start()
     {
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity);
@@ -50,10 +54,8 @@ public class Stay : MonoBehaviour
     }
     private void Move()
     {
-
-        transform.position = Vector2.MoveTowards(transform.position, spot.position, enemy.Speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, spot.position, this.speed * Time.deltaTime);
     }
-
     private float DistanceToPlayer(Transform obj, Transform obj2)
     {
         return Vector2.Distance(obj.position, obj2.position);

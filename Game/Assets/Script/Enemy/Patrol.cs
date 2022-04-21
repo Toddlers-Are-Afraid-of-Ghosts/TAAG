@@ -4,32 +4,30 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class Patrol : MonoBehaviour
+public class Patrol : Enemy
 {
-
     public Transform moveSpots;
-    private GameObject player;
+    public GameObject player;
     private Transform spot;
     private float waitTime;
     private bool wallhit = false;
-
+   
+   
     public float maxX, minX, maxY, minY, chaseRange, startWaitTime;
-    Enemy enemy = new Enemy("Patroler", 10, 0, 3, 3, 5, 10, 10);
+    
 
     public void OnCollisionEnter2D(Collision2D other)
     {
-
         if (other.gameObject.tag == "Wall")
         {
             spot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
             wallhit = true;
-
         }
-
     }
-
+    
     void Start()
     {
+        
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity);
         player = GameObject.FindWithTag("Player");
         waitTime = Random.Range(0, startWaitTime);
@@ -39,28 +37,24 @@ public class Patrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         if (DistanceToPlayer() <= chaseRange && !wallhit)
         {
-
-            Chase();
+            this.Chase();
         }
         else
         {
-            Patro();
+            this.Patro();
         }
-
     }
+
     private void Move()
-    {  
-        transform.position = Vector2.MoveTowards(transform.position, spot.position, enemy.Speed * Time.deltaTime);
-
+    {
+        transform.position = Vector2.MoveTowards(transform.position, spot.position, this.speed * Time.deltaTime);
     }
+
     private void Patro()
     {
-
-        Move();
+        this.Move();
 
         if (Vector2.Distance(transform.position, spot.position) <= 0.2f)
         {
@@ -77,18 +71,18 @@ public class Patrol : MonoBehaviour
             }
         }
     }
+
     private float DistanceToPlayer()
     {
         return Vector2.Distance(player.transform.position, this.transform.position);
     }
+
     private void Chase()
     {
         if (DistanceToPlayer() > 1.3) // evite que l'ennemi soit trop
         {
-            Move();
+            this.Move();
             spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
         }
     }
-
-
 }

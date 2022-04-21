@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turn : MonoBehaviour
+public class Turn : Enemy
 {
     
     GameObject[] spot;
-    private GameObject player;
+    public GameObject player;
     public GameObject moveSpawn;
-
-    Enemy enemy = new Enemy("Toupis", 10, 0, 7, 5, 5, 10, 10);
+    
     int amountToSpawn, pos;
 
     Transform playerSpots;
+    public Turn(GameObject gameObject)
+    {
+        Instantiate(gameObject);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -69,10 +72,10 @@ public class Turn : MonoBehaviour
     {
         return Vector2.Distance(spot[pos].transform.position, transform.position);
     }
-
+   
     private void TurnCircle()
     {
-        transform.position = Vector2.MoveTowards(transform.position, spot[pos].transform.position, enemy.Speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, spot[pos].transform.position, this.speed * Time.deltaTime);
         if (DistanceToSpot() < 1)
         {
             pos = (pos + 1) % amountToSpawn;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,18 +6,21 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // Start is called before the first frame update
- protected string name;//name of the perso
+    protected string name; //name of the perso
     protected int health; //nombre de health
-    protected int dammage;//nombre de dommages
-    protected int speed; //stat de vitesse
-    protected int attack;//stat d'attaque
-    protected int shotspeed; //vitesse des projeciles
-    protected int attackspeed;//cadence de l'attaque
-    protected int attackrange;//distance d'attaque
-    
 
-    public string Name=>this.name;
-    
+    protected int dammage; //nombre de dommages
+
+    protected int speed; //stat de vitesse
+    protected int attack; //stat d'attaque
+    protected int shotspeed; //vitesse des projeciles
+    protected int attackspeed; //cadence de l'attaque
+    protected int attackrange; //distance d'attaque
+    private GameObject actual;
+    public GameObject Actual => actual;
+
+    public string Name => this.name;
+
     public int Health
     {
         get => this.health;
@@ -59,20 +63,70 @@ public class Enemy : MonoBehaviour
         set { this.attackrange = value; }
     }
 
-    public Enemy(string name, int health, int dammage, int speed, int attack, int shotspeed, int attackspeed, int attackrange)
+    public Enemy(GameObject gameObject, string name, int health, int dammage, int speed, int attack, int shotspeed,
+        int attackspeed,
+        int attackrange)
     {
-        this.name = name;
-        this.health = health;
-        this.dammage = dammage;
-        this.speed = speed;
-        this.attack = attack;
-        this.shotspeed = shotspeed;
-        this.attackspeed = attackspeed;
-        this.attackrange = attackrange;
+        this.actual = Instantiate(gameObject);
+        switch (name)
+        {
+            case "Patrol":
+                actual.GetComponent<Patrol>().speed = speed;
+                actual.GetComponent<Patrol>().name = name;
+                actual.GetComponent<Patrol>().health = health;
+                actual.GetComponent<Patrol>().dammage = dammage;
+                actual.GetComponent<Patrol>().attack = attack;
+                actual.GetComponent<Patrol>().shotspeed = shotspeed;
+                actual.GetComponent<Patrol>().attackspeed = attackspeed;
+                actual.GetComponent<Patrol>().attackrange = attackrange;
+                break;
+            case "Turn":
+                actual.GetComponent<Turn>().speed = speed;
+                actual.GetComponent<Turn>().name = name;
+                actual.GetComponent<Turn>().health = health;
+                actual.GetComponent<Turn>().dammage = dammage;
+                actual.GetComponent<Turn>().attack = attack;
+                actual.GetComponent<Turn>().shotspeed = shotspeed;
+                actual.GetComponent<Turn>().attackspeed = attackspeed;
+                actual.GetComponent<Turn>().attackrange = attackrange;
+                break;
+            case "Chase":
+                actual.GetComponent<Chase>().speed = speed;
+                actual.GetComponent<Chase>().name = name;
+                actual.GetComponent<Chase>().health = health;
+                actual.GetComponent<Chase>().dammage = dammage;
+                actual.GetComponent<Chase>().attack = attack;
+                actual.GetComponent<Chase>().shotspeed = shotspeed;
+                actual.GetComponent<Chase>().attackspeed = attackspeed;
+                actual.GetComponent<Chase>().attackrange = attackrange;
+                break;
+            case "Stay":
+                actual.GetComponent<Stay>().speed = speed;
+                actual.GetComponent<Stay>().name = name;
+                actual.GetComponent<Stay>().health = health;
+                actual.GetComponent<Stay>().dammage = dammage;
+                actual.GetComponent<Stay>().attack = attack;
+                actual.GetComponent<Stay>().shotspeed = shotspeed;
+                actual.GetComponent<Stay>().attackspeed = attackspeed;
+                actual.GetComponent<Stay>().attackrange = attackrange;
+                break;
+                
+        }
+
+
+    }
+
+    public Enemy()
+    {
+    }
+
+     void Start()
+    {
+        
     }
 
     public bool IsDead() //if ennemi still alive
-    { 
+    {
         return (this.health > this.dammage);
     }
 
@@ -85,5 +139,4 @@ public class Enemy : MonoBehaviour
     //}
 
     // Update is called once per frame
- 
 }
