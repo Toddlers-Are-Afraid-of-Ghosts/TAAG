@@ -35,6 +35,7 @@ public class GeneratorEnemi : MonoBehaviour
                 if (waitspawn < 1)
                 {
                     var rnd = Random.Range(0, ennemi.Length - 1);
+                    Debug.Log(rnd);
                     rndEnemi = ennemi[rnd]; 
                     alive.Add(new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10));
                     spawntime -= Time.deltaTime;
@@ -50,6 +51,12 @@ public class GeneratorEnemi : MonoBehaviour
                 spawntime = Random.Range(0, 10);
             }
         }
+        foreach (var enemy in alive)
+        {
+            if (enemy.Health > 0) continue;
+            alive.Remove(enemy);
+            Destroy(enemy);
+        }
         
-    }
+    }//fonction qui renvoie le bon ennemi
 }
