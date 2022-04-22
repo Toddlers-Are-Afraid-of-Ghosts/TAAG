@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Player : MonoBehaviour
+using Mirror;
+public class Player : NetworkBehaviour
 {
     // Start is called before the first frame update protected string name; //name of the perso
-     int health; //nombre de health
+    int health; //nombre de health
     public int maxHealth; //Santé Max
     public int bonusHealth; //nombre de health bonus
     public int speed; //stat de vitesse
@@ -16,19 +17,19 @@ public class Player : MonoBehaviour
 
     public GameObject player;
     Rigidbody2D rb;
-   
     void Start()
     {
-        health=maxHealth;
-         rb=GetComponent<Rigidbody2D>();
+        health = maxHealth;
+        rb = GetComponent<Rigidbody2D>();
     }
-    void Update()
+    void FixedUpdate()
     {
+        if (!this.isLocalPlayer) return;
         if (IsAlive())
         {
             Moveto();
         }
-        else 
+        else
         {
             Destroy(player);
         }
@@ -40,9 +41,8 @@ public class Player : MonoBehaviour
         Vector2 move = new Vector2(horizontal * speed, vertical * speed);
         rb.velocity = (move * speed * Time.deltaTime);
     }
-     bool IsAlive() //if player still alive
+    bool IsAlive() //if player still alive
     {
         return (this.health + this.bonusHealth > 0);
     }
-    
 }
