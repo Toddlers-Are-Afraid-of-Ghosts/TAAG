@@ -11,7 +11,8 @@ public class Patrol : Enemy
     private Transform spot;
     private float waitTime;
     private bool wallhit = false;
-   
+    private Transform cam;
+
    
     public float maxX, minX, maxY, minY, chaseRange, startWaitTime;
     
@@ -20,18 +21,18 @@ public class Patrol : Enemy
     {
         if (other.gameObject.tag == "Wall")
         {
-            spot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+            spot.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY))+cam.position;
             wallhit = true;
         }
     }
     
     void Start()
     {
-        
-        spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity);
+        cam = GameObject.FindWithTag("MainCamera").transform;
+        spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity,cam);
         player = GameObject.FindWithTag("Player");
         waitTime = Random.Range(0, startWaitTime);
-        spot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+        spot.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY))+cam.position;
     }
 
     // Update is called once per frame
@@ -61,7 +62,7 @@ public class Patrol : Enemy
             wallhit = false;
             if (waitTime <= 0)
             {
-                spot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+                spot.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY))+cam.position;
 
                 waitTime = Random.Range(0, startWaitTime);
             }

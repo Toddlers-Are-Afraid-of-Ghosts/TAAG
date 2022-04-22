@@ -5,6 +5,7 @@ using UnityEngine;
 public class Chase : Enemy
 {
     public GameObject player;
+    private Transform cam;
     public Transform moveSpots;
 
     private Transform spot;
@@ -19,7 +20,8 @@ public class Chase : Enemy
 
     void Start()
     {
-        spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity);
+        cam = GameObject.FindWithTag("MainCamera").transform;
+        spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity,cam);
         player = GameObject.FindWithTag("Player");
         spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
     }

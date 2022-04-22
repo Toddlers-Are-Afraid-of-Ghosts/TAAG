@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+  
     // Start is called before the first frame update
     protected string name; //name of the perso
     protected int health; //nombre de health
@@ -63,11 +64,12 @@ public class Enemy : MonoBehaviour
         set { this.attackrange = value; }
     }
 
+   
     public Enemy(GameObject gameObject, string name, int health, int dammage, int speed, int attack, int shotspeed,
         int attackspeed,
-        int attackrange)
+        int attackrange,Transform cam)
     {
-        this.actual = Instantiate(gameObject);
+        this.actual = Instantiate(gameObject,cam);
 
         switch (name)
         {
@@ -117,6 +119,7 @@ public class Enemy : MonoBehaviour
                 break;
         }
     }
+    
 
     public Enemy()
     {

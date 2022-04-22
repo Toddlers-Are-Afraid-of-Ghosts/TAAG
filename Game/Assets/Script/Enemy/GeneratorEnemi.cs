@@ -5,6 +5,7 @@ using UnityEngine;
 public class GeneratorEnemi : MonoBehaviour
 {
     public GameObject[] ennemi;
+    private Transform cam;
     private List<Enemy> alive;
     float spawntime;
     GameObject rndEnemi;
@@ -22,6 +23,7 @@ public class GeneratorEnemi : MonoBehaviour
         spawnPos = new Vector2(2, 3);
         alive = new List<Enemy>();
         spawntime = Random.Range(0, 10);
+        cam = GameObject.FindWithTag("MainCamera").transform;
     }
 
     // Update is called once per frame
@@ -29,15 +31,16 @@ public class GeneratorEnemi : MonoBehaviour
     {
         if (active && spawn < max)
         {
-            if (spawntime > 0 && alive.Count <= current)
+        
+            if (spawntime > 0 && spawn <= current)
             {
                 Debug.Log($"Spawn in {waitspawn}");
                 if (waitspawn < 1)
                 {
                     var rnd = Random.Range(0, ennemi.Length - 1);
-                    Debug.Log(rnd);
-                    rndEnemi = ennemi[rnd]; 
-                    alive.Add(new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10));
+                    rndEnemi = ennemi[rnd];
+                    var en = new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10, cam);
+                    alive.Add(en);
                     spawntime -= Time.deltaTime;
                     spawn++;
                     waitspawn = 5;
@@ -51,12 +54,12 @@ public class GeneratorEnemi : MonoBehaviour
                 spawntime = Random.Range(0, 10);
             }
         }
+
         foreach (var enemy in alive)
         {
             if (enemy.Health > 0) continue;
             alive.Remove(enemy);
             Destroy(enemy);
         }
-        
-    }//fonction qui renvoie le bon ennemi
+    } //fonction qui renvoie le bon ennemi
 }
