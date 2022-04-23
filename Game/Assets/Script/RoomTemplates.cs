@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 using Random = System.Random;
 
 public class RoomTemplates : MonoBehaviour {
@@ -14,7 +16,13 @@ public class RoomTemplates : MonoBehaviour {
         bool right) {
         List<RoomsProperties> roomList = new List<RoomsProperties>();
         for (int i = 0; i <= 4; i++) {
-            GameObject room = Resources.Load<GameObject>($"{path}/{roomCode}{i.ToString()}.prefab");
+            string mypath = $"{path}/{roomCode}{i}";
+            GameObject prefab = Resources.Load<GameObject>(mypath);
+            //GameObject prefab = Resources.Load($"Rooms/RoomsTemplate/{path}/{roomCode}{i}") as GameObject;
+            GameObject room = Instantiate(prefab);
+            GameObject.Destroy(room);
+            
+            //GameObject room = Instantiate(Resources.Load<GameObject>($"{path}/{roomCode}{i.ToString()}.prefab"));
             RoomsProperties property = new RoomsProperties(top, bottom, left, right, 0, 0, room);
             roomList.Add(property);
         }
@@ -49,20 +57,18 @@ public class RoomTemplates : MonoBehaviour {
     public static List<RoomsProperties> TopRightRooms;
     public static List<RoomsProperties> BottomLeftRooms;
     public static List<RoomsProperties> BottomRightRooms;
-    public static RoomsProperties StartRoom;
-    public static RoomsProperties ClosedRoom;
+    public static List<RoomsProperties> StartRoom;
+    public static List<RoomsProperties> ClosedRoom;
     public static List<RoomsProperties>[] RoomArray = {
         TopRooms, BottomRooms, LeftRooms, RightRooms,
         TopBottomRooms, LeftRightRooms, TopLeftRooms,
-        TopRightRooms, BottomLeftRooms, BottomRightRooms
+        TopRightRooms, BottomLeftRooms, BottomRightRooms,
+        StartRoom, ClosedRoom
     };
-    
+
     void Awake() {
         List<RoomsProperties> TopRooms =
             ExtractRooms("Rooms/RoomsTemplate/TopRooms", "T", true, false, false, false);
-        foreach (RoomsProperties bug in TopRooms) {
-            Debug.Log($"{bug}");
-        }
 
         List<RoomsProperties> BottomRooms =
             ExtractRooms("Rooms/RoomsTemplate/BottomRooms", "B", false, true, false, false);
@@ -91,12 +97,38 @@ public class RoomTemplates : MonoBehaviour {
         List<RoomsProperties> BottomRightRooms =
             ExtractRooms("Rooms/RoomsTemplate/BottomRightRooms", "BR", false, true, false, true);
 
-        RoomsProperties StartRoom = new RoomsProperties(true, true, true, true, 0, 0,
-            Resources.Load<GameObject>("Rooms/RoomsTemplate/TBLR.prefab"));
+        List<RoomsProperties> StartRoom = new List<RoomsProperties>();
+        List<RoomsProperties> ClosedRoom = new List<RoomsProperties>();
 
-        RoomsProperties ClosedRoom = new RoomsProperties(true, true, true, true, 0, 0,
-            Resources.Load<GameObject>("Rooms/RoomsTemplate/C.prefab"));
+        StartRoom.Add(new RoomsProperties(true, true, true, true, 0, 0,
+            Resources.Load<GameObject>("Rooms/RoomsTemplate/TBLR")));
+
+        ClosedRoom.Add(new RoomsProperties(true, true, true, true, 0, 0,
+            Resources.Load<GameObject>("Rooms/RoomsTemplate/C")));
+        
+        List<RoomsProperties>[] RoomArray = {
+            TopRooms, BottomRooms, LeftRooms, RightRooms,
+            TopBottomRooms, LeftRightRooms, TopLeftRooms,
+            TopRightRooms, BottomLeftRooms, BottomRightRooms,
+            StartRoom, ClosedRoom
+        };
+
+        List<List<RoomsProperties>> floorGrid = ImprovedLevelGeneratoion.GenerateGrid(12);
+        Debug.Log(RoomArray[0][0].X);
+        ImprovedLevelGeneratoion.GenerateFloorLayout(floorGrid, RoomArray);
+        Spawn(floorGrid);
     }
+    
+    void Spawn(List<List<RoomsProperties>> grid) {
+        int size = grid.Count;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Vector3 coordinates = new Vector3(grid[i][j].X, grid[i][j].Y, 0);
+                Instantiate(grid[i][j].Room, coordinates, quaternion.identity);
+            }
+        }
+    }
+    
 }
 
 

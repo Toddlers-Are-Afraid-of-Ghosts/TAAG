@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class RoomsProperties : MonoBehaviour {
 
-    private bool _top;
-    private bool _bottom;
-    private bool _left;
-    private bool _right;
-    private int _x;
-    private int _y;
-    private GameObject _room;
+    private bool top;
+    private bool bottom;
+    private bool left;
+    private bool right;
+    private int x;
+    private int y;
+    private GameObject room;
     
     public bool Top {
-        get => this._top;
-        set {this._top = value;}
+        get => this.top;
+        set {this.top = value;}
     }
 
     public bool Bottom {
-        get => this._bottom;
-        set { this._bottom = value; }
+        get => this.bottom;
+        set { this.bottom = value; }
     }
     public bool Left {
-        get => this._left;
-        set { this._left = value; }
+        get => this.left;
+        set { this.left = value; }
     }
     public bool Right {
-        get => this._right;
-        set { this._right = value; }
+        get => this.right;
+        set { this.right = value; }
     }
     
     public GameObject Room { get; }

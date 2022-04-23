@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using Random = System.Random;
@@ -99,11 +100,13 @@ public class ImprovedLevelGeneratoion : MonoBehaviour
         int size = grid.Count;
         int spawnX = size / 2;
         int spawnY = size / 2;
-
-        RoomsProperties start = RoomTemplates.StartRoom;
+        
+        /*
+        RoomsProperties start = roomArray[10][0];
         start.X = spawnX;
         start.Y = spawnY;
         grid[spawnX][spawnY] = start;
+        Instantiate(start, Transform );
         //Top
         NewRooms(grid, spawnX, spawnY + 1, spawnX, spawnY + (int) Offset.Top, roomArray);
         //Bottom
@@ -112,6 +115,8 @@ public class ImprovedLevelGeneratoion : MonoBehaviour
         NewRooms(grid, spawnX - 1, spawnY, spawnX + (int) Offset.Left, spawnY, roomArray);
         //Right
         NewRooms(grid, spawnX + 1, spawnY, spawnX + (int) Offset.Right, spawnY, roomArray);
+        */
+        NewRooms(grid, spawnX, spawnY, 0, 0, roomArray);
     }
     
 }
