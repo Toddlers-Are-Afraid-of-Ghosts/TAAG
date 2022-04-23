@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7390433593208594155}
   - component: {fileID: -5300683738383250224}
   - component: {fileID: -5539609790638068056}
+  - component: {fileID: -7991885849769202618}
   m_Layer: 0
   m_Name: Chase_Enemy
   m_TagString: Ennemy
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95871a031b68c746a50b25f91178872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 8249988126736134428, guid: 83c028f4e81c5b944a964807e8b521f3, type: 3}
+  player: {fileID: 0}
   moveSpots: {fileID: 4717780823727102863, guid: 5cd4808556676594cb1c6023ff930208, type: 3}
 --- !u!61 &-5300683738383250224
 BoxCollider2D:
@@ -148,3 +149,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-7991885849769202618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7390433593208594132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: f186af874fd544b449e52f9f96bdb85b
+  hasSpawned: 0
