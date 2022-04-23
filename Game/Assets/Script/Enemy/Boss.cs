@@ -102,4 +102,8 @@ public class Boss : Enemy
             Move(this.Speed + 10);
         }
     }
+    bool Dead()
+    {
+        return this.health <= 0;
+    }
 }

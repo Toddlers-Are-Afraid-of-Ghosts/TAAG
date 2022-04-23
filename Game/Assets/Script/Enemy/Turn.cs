@@ -82,6 +82,10 @@ public class Turn : Enemy
             pos = (pos + 1) % amountToSpawn;
         }
     }
+    bool Dead()
+    {
+        return this.health <= 0;
+    }
 }
 
 

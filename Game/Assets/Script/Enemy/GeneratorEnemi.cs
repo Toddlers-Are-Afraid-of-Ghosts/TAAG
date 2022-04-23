@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GeneratorEnemi : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class GeneratorEnemi : MonoBehaviour
     Vector2 spawnPos;
     public int max;
     public int current;
-    int spawn = 1;
+    private int spawn = 0;
     float waitspawn;
     public bool active = false;
 
@@ -31,7 +33,6 @@ public class GeneratorEnemi : MonoBehaviour
     {
         if (active && spawn < max)
         {
-        
             if (spawntime > 0 && spawn <= current)
             {
                 Debug.Log($"Spawn in {waitspawn}");
@@ -39,7 +40,7 @@ public class GeneratorEnemi : MonoBehaviour
                 {
                     var rnd = Random.Range(0, ennemi.Length - 1);
                     rndEnemi = ennemi[rnd];
-                    var en = new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10, cam);
+                    var en = Enemy(rndEnemi.name);
                     alive.Add(en);
                     spawntime -= Time.deltaTime;
                     spawn++;
@@ -61,5 +62,19 @@ public class GeneratorEnemi : MonoBehaviour
             alive.Remove(enemy);
             Destroy(enemy);
         }
-    } //fonction qui renvoie le bon ennemi
+    }
+
+    private Enemy Enemy(string name)
+    {
+        var result = name switch
+        {
+            "Patrol" => new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10, cam),
+            "Turn" => new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10, cam),
+            "Chase" => new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10, cam),
+            "Stay" => new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10, cam),
+            _ => throw new ArgumentException("invalid name of enemy")
+        };
+
+        return result;
+    }
 }

@@ -50,4 +50,8 @@ public class Chase : Enemy
             spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
         }
     }
+    bool Dead()
+    {
+        return this.health <= 0;
+    }
 }

@@ -82,4 +82,8 @@ public class Stay : Enemy
                !(spot.position.y > maxY + cam.position.y) && !(spot.position.y < minY + cam.position.y) &&
                !(DistanceToPlayer(player.transform, spot) <= 7);
     }
+    bool Dead()
+    {
+        return this.health <= 0;
+    }
 }
