@@ -8,7 +8,7 @@ public class Stay : Enemy
     public Transform moveSpots;
     private Transform spot;
     private Transform cam;
-
+    public GameObject bullet;
     private float stayedx, stayedy;
 
     public float minX, minY, maxX, maxY;
@@ -66,39 +66,57 @@ public class Stay : Enemy
             spot.position = new Vector3(player.transform.position.x + stayedx,
                 player.transform.position.y + stayedy);
         }
+
+        if (actualcooldown <= 0)
+        {
+            Attack();
+        }
+        else
+        {
+            actualcooldown -= Time.deltaTime;
+        }
     }
 
 
-private void Move()
-{
-    transform.position = Vector2.MoveTowards(transform.position, spot.position, this.speed * Time.deltaTime);
-}
-
-private float DistanceToPlayer(Transform obj, Transform obj2)
-{
-    return Vector2.Distance(obj.position, obj2.position);
-    //return Vector2.Distance(player.transform.position, this.transform.position);
-}
-
-private bool OnPoint()
-{
-    if (Vector2.Distance(spot.transform.position, this.transform.position) <= 0.2f)
+    private void Move()
     {
-        return true;
+        transform.position = Vector2.MoveTowards(transform.position, spot.position, this.speed * Time.deltaTime);
     }
 
-    return false;
-}
+    private float DistanceToPlayer(Transform obj, Transform obj2)
+    {
+        return Vector2.Distance(obj.position, obj2.position);
+        //return Vector2.Distance(player.transform.position, this.transform.position);
+    }
 
-private bool GoodCo()
-{
-    return (!(spot.position.x > maxX + cam.position.x) && !(spot.position.x < minX + cam.position.x)) &&
-           !(spot.position.y > maxY + cam.position.y) && !(spot.position.y < minY + cam.position.y) &&
-           !(DistanceToPlayer(player.transform, spot) <= 7);
-}
+    private bool OnPoint()
+    {
+        if (Vector2.Distance(spot.transform.position, this.transform.position) <= 0.2f)
+        {
+            return true;
+        }
 
-bool Dead()
-{
-    return this.health <= 0;
-}
+        return false;
+    }
+
+    private bool GoodCo()
+    {
+        return (!(spot.position.x > maxX + cam.position.x) && !(spot.position.x < minX + cam.position.x)) &&
+               !(spot.position.y > maxY + cam.position.y) && !(spot.position.y < minY + cam.position.y) &&
+               !(DistanceToPlayer(player.transform, spot) <= 7);
+    }
+
+    bool Dead()
+    {
+        return this.health <= 0;
+    }
+
+    void Attack()
+    {
+        actualcooldown = cooldown;
+        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.left);
+        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.right);
+        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.up);
+        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.down);
+    }
 }

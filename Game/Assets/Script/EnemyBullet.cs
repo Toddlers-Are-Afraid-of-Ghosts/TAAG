@@ -52,8 +52,8 @@ public class EnemyBullet : MonoBehaviour
 
     void MoveProjectile()
     {
-        // transform.position= Vector2.MoveTowards(transform.position,direction ,(shotspeed * Time.deltaTime));
         fire.velocity = (direction * shotspeed * Time.deltaTime);
+        // this.transform.position = Vector2.MoveTowards(transform.position,this.direction,shotspeed * Time.deltaTime);
         this.attackrange -= Time.deltaTime;
     }
 

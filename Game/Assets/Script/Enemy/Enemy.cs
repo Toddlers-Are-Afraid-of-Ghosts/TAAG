@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-  
     // Start is called before the first frame update
     protected string name; //name of the perso
     protected int health; //nombre de health
@@ -15,12 +14,13 @@ public class Enemy : MonoBehaviour
     protected int speed; //stat de vitesse
     protected int attack; //stat d'attaque
     protected int shotspeed; //vitesse des projeciles
-    protected int attackspeed; //cadence de l'attaque
+    protected int cooldown; //cadence de l'attaque
     protected int attackrange; //distance d'attaque
     private GameObject actual;
     public GameObject Actual => actual;
 
-    public string Name => this.name;
+    protected float actualcooldown;
+        public string Name => this.name;
 
     public int Health
     {
@@ -52,10 +52,10 @@ public class Enemy : MonoBehaviour
         set { this.shotspeed = value; }
     }
 
-    public int Attackspeed
+    public int Cooldown
     {
-        get => this.attackspeed;
-        set { this.attackspeed = value; }
+        get => this.cooldown;
+        set { this.cooldown = value; }
     }
 
     public int Attackrange
@@ -63,9 +63,9 @@ public class Enemy : MonoBehaviour
         get => this.attackrange;
         set { this.attackrange = value; }
     }
-    
-    public int Create( string name, int health, int dammage, int speed, int attack, int shotspeed,
-        int attackspeed,
+
+    public int Create(string name, int health, int dammage, int speed, int attack, int shotspeed,
+        int cooldown,
         int attackrange)
     {
         this.health = health;
@@ -75,13 +75,11 @@ public class Enemy : MonoBehaviour
         this.dammage = dammage;
         this.attack = attack;
         this.shotspeed = shotspeed;
-        this.attackspeed = attackspeed;
+        this.cooldown = cooldown;
         this.attackrange = attackrange;
+        actualcooldown = cooldown;
         return 1;
     }
-    
-   
-
 
 
     public bool IsDead() //if ennemi still alive
@@ -93,7 +91,7 @@ public class Enemy : MonoBehaviour
     //void Degats()
     //{
     //    this.attack-=this.dammage*100/this.health;
-    //    this.attackspeed-=this.dammage*100/this.health;
+    //    this.cooldown-=this.dammage*100/this.health;
     //    this.shotspeed-=this.dammage*100/this.health;
     //}
 

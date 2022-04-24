@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag is "EnemyBullet")
         {
-            var compt = other.gameObject.GetComponent<Enemy>();
+            var compt = other.gameObject.GetComponent<EnemyBullet>();
             health -= compt.Attack;
         }
         
@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            Debug.Log("tu es mort");
             Destroy(player);
         }
     }

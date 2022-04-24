@@ -102,7 +102,7 @@ public class Patrol : Enemy
 
     void Attack()
     {
-        new AllyBullet(bullet, attack, shotspeed, attackrange, transform.position,
+        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position,
             Vector2.left);
     }
 }
