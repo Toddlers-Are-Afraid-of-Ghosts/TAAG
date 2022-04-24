@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     protected int speed; //stat de vitesse
     protected int attack; //stat d'attaque
     protected int shotspeed; //vitesse des projeciles
-    protected int cooldown; //cadence de l'attaque
+    protected float cooldown; //cadence de l'attaque
     protected int attackrange; //distance d'attaque
     private GameObject actual;
     public GameObject Actual => actual;
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
         set { this.shotspeed = value; }
     }
 
-    public int Cooldown
+    public float Cooldown
     {
         get => this.cooldown;
         set { this.cooldown = value; }
@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
     }
 
     public int Create(string name, int health, int attack, int speed, int shotspeed,
-        int cooldown,
+        float cooldown,
         int attackrange)
     {
         this.health = health;

@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class GeneratorEnemi : MonoBehaviour
 {
     public GameObject[] ennemi;
+    private List<GameObject> allenemi;
     private Transform cam;
     public List<Enemy> alive;
     float spawntime;
@@ -24,9 +25,17 @@ public class GeneratorEnemi : MonoBehaviour
     {
         waitspawn = 2;
         spawnPos = new Vector2(2, 3);
+        allenemi = new List<GameObject>();
         alive = new List<Enemy>();
         spawntime = Random.Range(0, 10);
         cam = GameObject.FindWithTag("MainCamera").transform;
+        for (int i = 0; i < 10; i++)
+        {
+            foreach (var objet in ennemi)
+            {
+                allenemi.Add(objet);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -73,13 +82,14 @@ public class GeneratorEnemi : MonoBehaviour
     {
         var en = Instantiate(rndEnemi, cam);
         var coucou = en.GetComponent<Enemy>();
+        
 
         var result = name switch
         {
-            "Patrol" => coucou.Create(name, 10, 2, 5,  500, 1, 2),
-            "Turn" => coucou.Create(name, 10, 2, 5,  500, 10, 2),
-            "Chase" => coucou.Create(name, 10, 2, 5,  500, 10, 2),
-            "Stay" => coucou.Create(name, 10, 2, 5,  500, 1, 2),
+            "Patrol" => coucou.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.3), 2),
+            "Turn" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Chase" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Stay" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
             _ => throw new ArgumentException("invalid name of enemy")
         };
 

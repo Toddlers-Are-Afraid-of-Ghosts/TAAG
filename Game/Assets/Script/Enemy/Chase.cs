@@ -64,10 +64,7 @@ public class Chase : Enemy
         }
     }
 
-    bool Dead()
-    {
-        return this.health <= 0;
-    }
+  
 
     void Attack()
     {
