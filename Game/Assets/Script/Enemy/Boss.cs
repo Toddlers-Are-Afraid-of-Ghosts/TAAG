@@ -18,7 +18,18 @@ public class Boss : Enemy
     private float waitTime;
 
     bool charge = false;
-
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        switch (other.gameObject.tag)
+        {
+            case "AllyBullet":
+            {
+                var compt = other.gameObject.GetComponent<AllyBullet>();
+                this.health -= compt.Attack;
+                break;
+            }
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +43,7 @@ public class Boss : Enemy
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (charge)
         {

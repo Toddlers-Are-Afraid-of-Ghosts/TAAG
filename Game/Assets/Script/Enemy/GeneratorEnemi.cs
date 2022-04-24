@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,7 +9,7 @@ public class GeneratorEnemi : MonoBehaviour
 {
     public GameObject[] ennemi;
     private Transform cam;
-    private List<Enemy> alive;
+    public List<Enemy> alive;
     float spawntime;
     GameObject rndEnemi;
     Vector2 spawnPos;
@@ -36,7 +37,7 @@ public class GeneratorEnemi : MonoBehaviour
             if (spawntime > 0 && spawn <= current)
             {
                 Debug.Log($"Spawn in {waitspawn}");
-                if (waitspawn < 1)
+                if (waitspawn <= 0)
                 {
                     var rnd = Random.Range(0, ennemi.Length - 1);
                     rndEnemi = ennemi[rnd];
@@ -56,25 +57,31 @@ public class GeneratorEnemi : MonoBehaviour
             }
         }
 
-        foreach (var enemy in alive)
+        int i = 0;
+        while (i < alive.Count)
         {
+            var enemy = alive[i];
+            i++;
             if (enemy.Health > 0) continue;
             alive.Remove(enemy);
-            Destroy(enemy);
+            Destroy(enemy.gameObject);
         }
     }
 
     private Enemy Enemy(string name)
     {
+        var en = Instantiate(rndEnemi, cam);
+        var coucou = en.GetComponent<Enemy>();
+
         var result = name switch
         {
-            "Patrol" => new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10, cam),
-            "Turn" => new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10, cam),
-            "Chase" => new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10, cam),
-            "Stay" => new Enemy(rndEnemi, rndEnemi.name, 10, 10, 5, 10, 10, 10, 10, cam),
+            "Patrol" => coucou.Create(name, 10, 10, 5, 10, 10, 10, 10),
+            "Turn" => coucou.Create(name, 10, 10, 5, 10, 10, 10, 10),
+            "Chase" => coucou.Create(name, 10, 10, 5, 10, 10, 10, 10),
+            "Stay" => coucou.Create(name, 10, 10, 5, 10, 10, 10, 10),
             _ => throw new ArgumentException("invalid name of enemy")
         };
 
-        return result;
+        return coucou;
     }
 }

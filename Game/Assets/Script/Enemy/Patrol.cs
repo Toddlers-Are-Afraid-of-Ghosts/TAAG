@@ -13,39 +13,50 @@ public class Patrol : Enemy
     private bool wallhit = false;
     private Transform cam;
 
-   
+
     public float maxX, minX, maxY, minY, chaseRange, startWaitTime;
-    
+
 
     public void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Wall")
+        switch (other.gameObject.tag)
         {
-            spot.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY))+cam.position;
-            wallhit = true;
+            case "Wall":
+                spot.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY)) + cam.position;
+                wallhit = true;
+                break;
+            case "AllyBullet":
+            {
+                var compt = other.gameObject.GetComponent<AllyBullet>();
+                this.health -= compt.Attack;
+                break;
+            }
         }
     }
-    
+
     void Start()
     {
         cam = GameObject.FindWithTag("MainCamera").transform;
-        spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity,cam);
+        spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
         player = GameObject.FindWithTag("Player");
         waitTime = Random.Range(0, startWaitTime);
-        spot.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY))+cam.position;
+        spot.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY)) + cam.position;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (DistanceToPlayer() <= chaseRange && !wallhit)
-        {
-            this.Chase();
-        }
-        else
-        {
-            this.Patro();
-        }
+       
+            if (DistanceToPlayer() <= chaseRange && !wallhit)
+            {
+                this.Chase();
+            }
+            else
+            {
+                this.Patro();
+            }
+        
+      
     }
 
     private void Move()
@@ -62,7 +73,7 @@ public class Patrol : Enemy
             wallhit = false;
             if (waitTime <= 0)
             {
-                spot.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY))+cam.position;
+                spot.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY)) + cam.position;
 
                 waitTime = Random.Range(0, startWaitTime);
             }

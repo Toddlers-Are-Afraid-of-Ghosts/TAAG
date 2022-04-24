@@ -12,9 +12,17 @@ public class Turn : Enemy
     int amountToSpawn, pos;
 
     Transform playerSpots;
-    public Turn(GameObject gameObject)
+    public void OnCollisionEnter2D(Collision2D other)
     {
-        Instantiate(gameObject);
+        switch (other.gameObject.tag)
+        {
+            case "AllyBullet":
+            {
+                var compt = other.gameObject.GetComponent<AllyBullet>();
+                this.health -= compt.Attack;
+                break;
+            }
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -38,9 +46,11 @@ public class Turn : Enemy
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        TurnCircle();
+        
+            TurnCircle();
+       
 
     }
     public void CreateMoveAroundPoint(int AmountToSpawn, Vector3 point, float radius, Transform parent)

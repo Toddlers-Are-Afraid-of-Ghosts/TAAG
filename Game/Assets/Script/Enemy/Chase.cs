@@ -12,22 +12,29 @@ public class Chase : Enemy
 
     // Enemy enemy = new Enemy("Chaser", 10, 0, 5, 5, 5, 10, 10);
     // Start is called before the first frame update
-    public Chase(GameObject gameObject)
+    public void OnCollisionEnter2D(Collision2D other)
     {
-        var obj = Instantiate(gameObject);
-        
+        switch (other.gameObject.tag)
+        {
+            case "AllyBullet":
+            {
+                var compt = other.gameObject.GetComponent<AllyBullet>();
+                this.health -= compt.Attack;
+                break;
+            }
+        }
     }
 
     void Start()
     {
         cam = GameObject.FindWithTag("MainCamera").transform;
-        spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity,cam);
+        spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
         player = GameObject.FindWithTag("Player");
         spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Chased();
     }
@@ -50,6 +57,7 @@ public class Chase : Enemy
             spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
         }
     }
+
     bool Dead()
     {
         return this.health <= 0;
