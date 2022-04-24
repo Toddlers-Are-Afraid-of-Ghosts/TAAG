@@ -44,8 +44,8 @@ public class RoomsProperties : MonoBehaviour {
         Room = room;
     }
 
-    public bool IsClosed() {
-        if (this.Top == false && this.Bottom == false && this.Left == false && this.Right == false) {
+    public static bool IsClosed(RoomsProperties room) {
+        if (room.Top == false && room.Bottom == false && room.Left == false && room.Right == false) {
             return true;
         }
 

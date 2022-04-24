@@ -19,31 +19,27 @@ public class RoomTemplates : MonoBehaviour {
             string mypath = $"{path}/{roomCode}{i}";
             GameObject prefab = Resources.Load<GameObject>(mypath);
             //GameObject prefab = Resources.Load($"Rooms/RoomsTemplate/{path}/{roomCode}{i}") as GameObject;
-            GameObject room = Instantiate(prefab);
-            GameObject.Destroy(room);
+            //GameObject room = Instantiate(prefab);
+            //GameObject.Destroy(prefab);
             
             //GameObject room = Instantiate(Resources.Load<GameObject>($"{path}/{roomCode}{i.ToString()}.prefab"));
-            RoomsProperties property = new RoomsProperties(top, bottom, left, right, 0, 0, room);
+            RoomsProperties property = new RoomsProperties(top, bottom, left, right, 10000, 10000, prefab);
             roomList.Add(property);
         }
 
         return roomList;
     }
 
-    public static RoomsProperties ChooseRoom(bool top, bool bottom, bool left, bool right,
-        List<RoomsProperties>[] roomArray, int x, int y) {
-        RoomsProperties returnedRoom = null;
+    public static GameObject ChooseRoom(bool top, bool bottom, bool left, bool right, List<RoomsProperties>[] roomArray) {
+        GameObject returnedRoom = null;
         Random rng = new Random();
         foreach (List<RoomsProperties> folder in roomArray) {
             RoomsProperties f = folder[0];
             if (f.Top == top && f.Bottom == bottom && f.Left == left && f.Right == right) {
-                returnedRoom = folder[rng.Next(0, 5)];
-                returnedRoom.X = x;
-                returnedRoom.Y = y;
+                returnedRoom = folder[rng.Next(0, 5)].Room;
                 break;
             }
         }
-
         return returnedRoom;
     }
 
@@ -97,26 +93,22 @@ public class RoomTemplates : MonoBehaviour {
         List<RoomsProperties> BottomRightRooms =
             ExtractRooms("Rooms/RoomsTemplate/BottomRightRooms", "BR", false, true, false, true);
 
-        List<RoomsProperties> StartRoom = new List<RoomsProperties>();
-        List<RoomsProperties> ClosedRoom = new List<RoomsProperties>();
+        List<RoomsProperties> SpecialRooms = 
+            ExtractRooms("Rooms/RoomsTemplate/SpecialRooms", "S", true, true, true, true);
 
-        StartRoom.Add(new RoomsProperties(true, true, true, true, 0, 0,
-            Resources.Load<GameObject>("Rooms/RoomsTemplate/TBLR")));
-
-        ClosedRoom.Add(new RoomsProperties(true, true, true, true, 0, 0,
-            Resources.Load<GameObject>("Rooms/RoomsTemplate/C")));
-        
         List<RoomsProperties>[] RoomArray = {
             TopRooms, BottomRooms, LeftRooms, RightRooms,
             TopBottomRooms, LeftRightRooms, TopLeftRooms,
             TopRightRooms, BottomLeftRooms, BottomRightRooms,
-            StartRoom, ClosedRoom
+            SpecialRooms
         };
 
-        List<List<RoomsProperties>> floorGrid = ImprovedLevelGeneratoion.GenerateGrid(12);
-        Debug.Log(RoomArray[0][0].X);
+        List<List<RoomsProperties>> floorGrid = ImprovedLevelGeneratoion.GenerateGrid(24, RoomArray);
         ImprovedLevelGeneratoion.GenerateFloorLayout(floorGrid, RoomArray);
         Spawn(floorGrid);
+        //Instantiate(RoomArray[10][0].Room, Vector3.zero, quaternion.identity);
+        //Vector3 pos = new Vector3(0, 13, 0);
+        //Instantiate(RoomArray[1][1].Room, pos, Quaternion.identity);
     }
     
     void Spawn(List<List<RoomsProperties>> grid) {
@@ -124,7 +116,11 @@ public class RoomTemplates : MonoBehaviour {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 Vector3 coordinates = new Vector3(grid[i][j].X, grid[i][j].Y, 0);
-                Instantiate(grid[i][j].Room, coordinates, quaternion.identity);
+                if (grid[i][j].Room != null) {
+                    Instantiate(grid[i][j].Room, coordinates, quaternion.identity);
+                    Debug.Log($"Spawned Room at {grid[i][j].X} {grid[i][j].Y}");
+                }
+                
             }
         }
     }
