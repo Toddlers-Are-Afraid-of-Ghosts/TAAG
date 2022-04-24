@@ -18,11 +18,6 @@ public class RoomTemplates : MonoBehaviour {
         for (int i = 0; i <= 4; i++) {
             string mypath = $"{path}/{roomCode}{i}";
             GameObject prefab = Resources.Load<GameObject>(mypath);
-            //GameObject prefab = Resources.Load($"Rooms/RoomsTemplate/{path}/{roomCode}{i}") as GameObject;
-            //GameObject room = Instantiate(prefab);
-            //GameObject.Destroy(prefab);
-            
-            //GameObject room = Instantiate(Resources.Load<GameObject>($"{path}/{roomCode}{i.ToString()}.prefab"));
             RoomsProperties property = new RoomsProperties(top, bottom, left, right, 10000, 10000, prefab);
             roomList.Add(property);
         }
@@ -55,12 +50,6 @@ public class RoomTemplates : MonoBehaviour {
     public static List<RoomsProperties> BottomRightRooms;
     public static List<RoomsProperties> StartRoom;
     public static List<RoomsProperties> ClosedRoom;
-    public static List<RoomsProperties>[] RoomArray = {
-        TopRooms, BottomRooms, LeftRooms, RightRooms,
-        TopBottomRooms, LeftRightRooms, TopLeftRooms,
-        TopRightRooms, BottomLeftRooms, BottomRightRooms,
-        StartRoom, ClosedRoom
-    };
 
     void Awake() {
         List<RoomsProperties> TopRooms =
@@ -95,38 +84,25 @@ public class RoomTemplates : MonoBehaviour {
 
         List<RoomsProperties> SpecialRooms = 
             ExtractRooms("Rooms/RoomsTemplate/SpecialRooms", "S", true, true, true, true);
+        List<RoomsProperties> TopLeftRightRooms = 
+            ExtractRooms("Rooms/RoomsTemplate/TopLeftRightRooms", "TLR", true, false, true, true);
+        List<RoomsProperties> TopBottomLeftRooms = 
+            ExtractRooms("Rooms/RoomsTemplate/TopBottomLeftRooms", "TBL", true, true, true, false);
+        List<RoomsProperties> TopBottomRigthRooms = 
+            ExtractRooms("Rooms/RoomsTemplate/TopBottomRightRooms", "TBR", true, true, false, true);
+        List<RoomsProperties> BottomLeftRightRooms = 
+            ExtractRooms("Rooms/RoomsTemplate/BottomLeftRightRooms", "BLR", false, true, true, true);
+        
 
         List<RoomsProperties>[] RoomArray = {
             TopRooms, BottomRooms, LeftRooms, RightRooms,
             TopBottomRooms, LeftRightRooms, TopLeftRooms,
             TopRightRooms, BottomLeftRooms, BottomRightRooms,
-            SpecialRooms
+            SpecialRooms, TopLeftRightRooms, TopBottomLeftRooms,
+            TopBottomRigthRooms, BottomLeftRightRooms
         };
-
-        List<List<RoomsProperties>> floorGrid = ImprovedLevelGeneration.GenerateGrid(24, RoomArray);
-        ImprovedLevelGeneration.GenerateFloorLayout(floorGrid, RoomArray);
-        ImprovedLevelGeneration.FillGaps(floorGrid);
-        ImprovedLevelGeneration.CheckForErrors(floorGrid);
-        Spawn(floorGrid);
-        //Instantiate(RoomArray[10][0].Room, Vector3.zero, quaternion.identity);
-        //Vector3 pos = new Vector3(0, 13, 0);
-        //Instantiate(RoomArray[1][1].Room, pos, Quaternion.identity);
+        AdvancedGeneration.GenerateLayout(3, RoomArray);
     }
-    
-    void Spawn(List<List<RoomsProperties>> grid) {
-        int size = grid.Count;
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                Vector3 coordinates = new Vector3(grid[i][j].X, grid[i][j].Y, 0);
-                if (grid[i][j].Room != null) {
-                    Instantiate(grid[i][j].Room, coordinates, quaternion.identity);
-                    Debug.Log($"Spawned Room at {grid[i][j].X} {grid[i][j].Y}");
-                }
-                
-            }
-        }
-    }
-    
 }
 
 
