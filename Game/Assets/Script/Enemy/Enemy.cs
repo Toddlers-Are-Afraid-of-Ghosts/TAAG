@@ -63,17 +63,7 @@ public class Enemy : MonoBehaviour
         get => this.attackrange;
         set { this.attackrange = value; }
     }
-
-    // public void OnCollisionEnter2D(Collision2D other)
-    // {
-    //     if (other.gameObject.tag =="AllyBullet")
-    //     {
-    //         var compt = other.gameObject.GetComponent<AllyBullet>();
-    //         this.health -= compt.Attack;
-    //         Debug.Log("vie du health "+this.health);
-    //     }
-    //     
-    // }
+    
     public int Create( string name, int health, int dammage, int speed, int attack, int shotspeed,
         int attackspeed,
         int attackrange)
@@ -88,53 +78,6 @@ public class Enemy : MonoBehaviour
         this.attackspeed = attackspeed;
         this.attackrange = attackrange;
         return 1;
-        // switch (name)
-        // {
-        //     case "Patrol":
-        //         var compPatrol = actual.GetComponent<Patrol>();
-        //         compPatrol.speed = speed;
-        //         compPatrol.name = name;
-        //         compPatrol.health = health;
-        //         compPatrol.dammage = dammage;
-        //         compPatrol.attack = attack;
-        //         compPatrol.shotspeed = shotspeed;
-        //         compPatrol.attackspeed = attackspeed;
-        //         compPatrol.attackrange = attackrange;
-        //         break;
-        //     case "Turn":
-        //         var compTurn = actual.GetComponent<Turn>();
-        //         compTurn.speed = speed;
-        //         compTurn.name = name;
-        //         compTurn.health = health;
-        //         compTurn.dammage = dammage;
-        //         compTurn.attack = attack;
-        //         compTurn.shotspeed = shotspeed;
-        //         compTurn.attackspeed = attackspeed;
-        //         compTurn.attackrange = attackrange;
-        //         break;
-        //     case "Chase":
-        //         var compChase = actual.GetComponent<Chase>();
-        //         compChase.speed = speed;
-        //         compChase.name = name;
-        //         compChase.health = health;
-        //         compChase.dammage = dammage;
-        //         compChase.attack = attack;
-        //         compChase.shotspeed = shotspeed;
-        //         compChase.attackspeed = attackspeed;
-        //         compChase.attackrange = attackrange;
-        //         break;
-        //     case "Stay":
-        //         var compStay = actual.GetComponent<Stay>();
-        //        compStay.speed = speed;
-        //        compStay.name = name;
-        //        compStay.health = health;
-        //        compStay.dammage = dammage;
-        //        compStay.attack = attack;
-        //        compStay.shotspeed = shotspeed;
-        //        compStay.attackspeed = attackspeed;
-        //        compStay.attackrange = attackrange;
-        //         break;
-        // }
     }
     
    

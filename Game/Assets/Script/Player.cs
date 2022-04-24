@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     private float actualcooldown;
     public void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag is "EnnemyBullet")
+        if (other.gameObject.tag is "EnemyBullet")
         {
             var compt = other.gameObject.GetComponent<Enemy>();
             health -= compt.Attack;

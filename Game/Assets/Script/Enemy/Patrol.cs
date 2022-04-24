@@ -12,8 +12,7 @@ public class Patrol : Enemy
     private float waitTime;
     private bool wallhit = false;
     private Transform cam;
-
-
+    public GameObject bullet;
     public float maxX, minX, maxY, minY, chaseRange, startWaitTime;
 
 
@@ -46,17 +45,14 @@ public class Patrol : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
-       
-            if (DistanceToPlayer() <= chaseRange && !wallhit)
-            {
-                this.Chase();
-            }
-            else
-            {
-                this.Patro();
-            }
-        
-      
+        if (DistanceToPlayer() <= chaseRange && !wallhit)
+        {
+            this.Chase();
+        }
+        else
+        {
+            this.Patro();
+        }
     }
 
     private void Move()
@@ -95,11 +91,18 @@ public class Patrol : Enemy
         {
             this.Move();
             spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
+            Attack();
         }
     }
 
     bool Dead()
     {
         return this.health <= 0;
+    }
+
+    void Attack()
+    {
+        new AllyBullet(bullet, attack, shotspeed, attackrange, transform.position,
+            Vector2.left);
     }
 }
