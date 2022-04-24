@@ -24,7 +24,7 @@ public class AllyBullet : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag is not ("Wall" or "Ennemy")) return;
+        if (other.gameObject.tag is not ("Wall" or "Ennemy" or "EnemyBullet")) return;
         Destroy(this.gameObject);
     }
 

@@ -76,10 +76,10 @@ public class GeneratorEnemi : MonoBehaviour
 
         var result = name switch
         {
-            "Patrol" => coucou.Create(name, 10, 2, 5, 10, 500, 10, 2),
-            "Turn" => coucou.Create(name, 10, 2, 5, 10, 500, 10, 2),
-            "Chase" => coucou.Create(name, 10, 2, 5, 10, 500, 10, 2),
-            "Stay" => coucou.Create(name, 10, 2, 5, 10, 500, 1, 2),
+            "Patrol" => coucou.Create(name, 10, 2, 5,  500, 1, 2),
+            "Turn" => coucou.Create(name, 10, 2, 5,  500, 10, 2),
+            "Chase" => coucou.Create(name, 10, 2, 5,  500, 10, 2),
+            "Stay" => coucou.Create(name, 10, 2, 5,  500, 1, 2),
             _ => throw new ArgumentException("invalid name of enemy")
         };
 

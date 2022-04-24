@@ -7,7 +7,7 @@ public class Chase : Enemy
     public GameObject player;
     private Transform cam;
     public Transform moveSpots;
-
+    public GameObject bullet;
     private Transform spot;
 
     // Enemy enemy = new Enemy("Chaser", 10, 0, 5, 5, 5, 10, 10);
@@ -37,6 +37,12 @@ public class Chase : Enemy
     void FixedUpdate()
     {
         Chased();
+        if (actualcooldown <= 0)
+            Attack();
+        else
+        {
+            actualcooldown -= Time.deltaTime;
+        }
     }
 
     private float DistanceToPlayer()
@@ -61,5 +67,34 @@ public class Chase : Enemy
     bool Dead()
     {
         return this.health <= 0;
+    }
+
+    void Attack()
+    {
+        actualcooldown = cooldown;
+        Vector2 d = new Vector2(player.transform.position.x - this.transform.position.x,
+            player.transform.position.y - this.transform.position.y);
+        if (d.x * d.x > d.y * d.y)
+        {
+            if (d.x >= 0)
+            {
+                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position, Vector2.right);
+            }
+            else
+            {
+                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position, Vector2.left);
+            }
+        }
+        else
+        {
+            if (d.y >= 0)
+            {
+                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position, Vector2.up);
+            }
+            else
+            {
+                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position, Vector2.down);
+            }
+        }
     }
 }

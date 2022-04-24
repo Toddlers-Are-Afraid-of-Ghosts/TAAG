@@ -91,7 +91,12 @@ public class Patrol : Enemy
         {
             this.Move();
             spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
-            Attack();
+            if (actualcooldown<=0)
+                Attack();
+            else
+            {
+                actualcooldown -= Time.deltaTime;
+            }
         }
     }
 
@@ -102,7 +107,30 @@ public class Patrol : Enemy
 
     void Attack()
     {
-        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position,
-            Vector2.left);
+        actualcooldown = cooldown;
+        Vector2 d = new Vector2(player.transform.position.x - this.transform.position.x,
+            player.transform.position.y - this.transform.position.y);
+        if(d.x*d.x >d.y*d.y)
+        {
+            if(d.x>=0)
+            {
+                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position,Vector2.right);
+            }
+            else
+            {
+                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position,Vector2.left);
+            }
+        }
+        else
+        {
+            if(d.y>=0)
+            {
+                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position,Vector2.up);
+            }
+            else
+            {
+                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position,Vector2.down);
+            }
+        }
     }
 }

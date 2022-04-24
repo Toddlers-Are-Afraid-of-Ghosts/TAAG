@@ -9,8 +9,6 @@ public class Enemy : MonoBehaviour
     protected string name; //name of the perso
     protected int health; //nombre de health
 
-    protected int dammage; //nombre de dommages
-
     protected int speed; //stat de vitesse
     protected int attack; //stat d'attaque
     protected int shotspeed; //vitesse des projeciles
@@ -26,12 +24,6 @@ public class Enemy : MonoBehaviour
     {
         get => this.health;
         set { this.health = value; }
-    }
-
-    public int Dammage
-    {
-        get => this.dammage;
-        set { this.dammage = value; }
     }
 
     public int Speed
@@ -64,7 +56,7 @@ public class Enemy : MonoBehaviour
         set { this.attackrange = value; }
     }
 
-    public int Create(string name, int health, int dammage, int speed, int attack, int shotspeed,
+    public int Create(string name, int health, int attack, int speed, int shotspeed,
         int cooldown,
         int attackrange)
     {
@@ -72,7 +64,6 @@ public class Enemy : MonoBehaviour
         this.speed = speed;
         this.name = name;
         this.health = health;
-        this.dammage = dammage;
         this.attack = attack;
         this.shotspeed = shotspeed;
         this.cooldown = cooldown;
