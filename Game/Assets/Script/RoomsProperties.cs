@@ -30,7 +30,7 @@ public class RoomsProperties : MonoBehaviour {
         set { this.right = value; }
     }
     
-    public GameObject Room { get; }
+    public GameObject Room { get; set; }
     public int X { get; set; }
     public int Y { get; set; }
 

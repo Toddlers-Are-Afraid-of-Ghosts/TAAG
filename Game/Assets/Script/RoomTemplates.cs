@@ -103,8 +103,10 @@ public class RoomTemplates : MonoBehaviour {
             SpecialRooms
         };
 
-        List<List<RoomsProperties>> floorGrid = ImprovedLevelGeneratoion.GenerateGrid(24, RoomArray);
-        ImprovedLevelGeneratoion.GenerateFloorLayout(floorGrid, RoomArray);
+        List<List<RoomsProperties>> floorGrid = ImprovedLevelGeneration.GenerateGrid(24, RoomArray);
+        ImprovedLevelGeneration.GenerateFloorLayout(floorGrid, RoomArray);
+        ImprovedLevelGeneration.FillGaps(floorGrid);
+        ImprovedLevelGeneration.CheckForErrors(floorGrid);
         Spawn(floorGrid);
         //Instantiate(RoomArray[10][0].Room, Vector3.zero, quaternion.identity);
         //Vector3 pos = new Vector3(0, 13, 0);
