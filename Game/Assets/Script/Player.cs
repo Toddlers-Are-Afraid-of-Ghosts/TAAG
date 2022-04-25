@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private float actualcooldown;
     public void OnCollisionEnter2D(Collision2D other)
     {
+        float collect = Input.GetAxis("Collect");
         if (other.gameObject.tag is "EnemyBullet")
         {
             var compt = other.gameObject.GetComponent<EnemyBullet>();
@@ -38,8 +39,9 @@ public class Player : MonoBehaviour
             speed += compt.Speed;
             attack += compt.Attack;
             shotSpeed += compt.ShotSpeed;
-            fireRate += compt.FireRate;
+            cooldown += compt.FireRate;
             attackRange += compt.FireRate;
+        }
         
     }
     void Start()
