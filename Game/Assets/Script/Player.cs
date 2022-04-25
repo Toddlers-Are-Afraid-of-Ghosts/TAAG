@@ -14,13 +14,15 @@ public class Player : MonoBehaviour
     public int fireRate; //cadence de l'attaque
     public int attackRange; //distance d'attaque
 
+    public Animator animator; //objet animation
     public GameObject player;
     Rigidbody2D rb;
-   
+
     void Start()
     {
         health=maxHealth;
-         rb=GetComponent<Rigidbody2D>();
+        rb=GetComponent<Rigidbody2D>();
+        animator=GetComponent<Animator>();
     }
     void Update()
     {
@@ -39,6 +41,11 @@ public class Player : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         Vector2 move = new Vector2(horizontal * speed, vertical * speed);
         rb.velocity = (move * speed * Time.deltaTime);
+
+        //animation
+        animator.SetFloat("Horizontal",horizontal);
+        animator.SetFloat("Vertical",vertical);
+        animator.SetFloat("Speed",move.magnitude);
     }
      bool IsAlive() //if player still alive
     {
