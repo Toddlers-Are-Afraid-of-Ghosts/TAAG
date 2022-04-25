@@ -11,6 +11,8 @@ public class Boss : Enemy
 
     public Transform moveSpots;
     
+    public Animator animator; //objet animation
+
     bool stop = false;
     private Transform spot;
     private float goInTime;
@@ -33,6 +35,7 @@ public class Boss : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        animator=GetComponent<Animator>();
         cam = GameObject.FindWithTag("MainCamera").transform;
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
         chaseTime = Random.Range(0, 20);
@@ -95,6 +98,10 @@ public class Boss : Enemy
     private void Move(int vitesse)
     {
         transform.position = Vector2.MoveTowards(transform.position, spot.position, vitesse * Time.deltaTime);
+        
+        //animation
+        animator.SetFloat("Horizontal", transform.position.x);
+        animator.SetFloat("Speed",vitesse);
     }
 
     private void Chased()
