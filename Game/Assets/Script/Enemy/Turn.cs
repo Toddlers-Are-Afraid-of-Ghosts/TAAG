@@ -2,23 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turn : MonoBehaviour
+public class Turn : Enemy
 {
-     GameObject[] moveSpots;
+    GameObject[] spot;
     public GameObject player;
     public GameObject moveSpawn;
-   
-Enemy enemy = new Enemy("Toupis",10,0,7,5,5,10,10);
-    int amountToSpawn,pos;
-   
+    public GameObject bullet;
+    int amountToSpawn, pos;
+
     Transform playerSpots;
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        switch (other.gameObject.tag)
+        {
+            case "AllyBullet":
+            {
+                var compt = other.gameObject.GetComponent<AllyBullet>();
+                this.health -= compt.Attack;
+                break;
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        player= GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player");
         amountToSpawn = 64;
 
-        moveSpots = new GameObject[amountToSpawn];
+        spot = new GameObject[amountToSpawn];
 
         playerSpots = player.transform;
 
@@ -26,24 +39,25 @@ Enemy enemy = new Enemy("Toupis",10,0,7,5,5,10,10);
 
         CreateMoveAroundPoint(amountToSpawn, playerSpots.position, 3, playerSpots);
 
-        pos = Random.Range(0,amountToSpawn-1);
-
-
-
+        pos = Random.Range(0, amountToSpawn - 1);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         TurnCircle();
-
+        if (actualcooldown <= 0)
+            Attack();
+        else
+        {
+            actualcooldown -= Time.deltaTime;
+        }
     }
+
     public void CreateMoveAroundPoint(int AmountToSpawn, Vector3 point, float radius, Transform parent)
     {
-
         for (int i = 0; i < AmountToSpawn; i++)
         {
-
             /* Distance circle */
             var rad = 2 * Mathf.PI / AmountToSpawn * i;
 
@@ -59,26 +73,36 @@ Enemy enemy = new Enemy("Toupis",10,0,7,5,5,10,10);
             /* Now spawn */
 
             GameObject move = Instantiate(moveSpawn, spawnPos, Quaternion.identity, parent);
-            moveSpots[i] = move;
-
-
+            spot[i] = move;
         }
     }
+
     private float DistanceToSpot()
     {
-        return Vector2.Distance(moveSpots[pos].transform.position, transform.position);
+        return Vector2.Distance(spot[pos].transform.position, transform.position);
     }
 
     private void TurnCircle()
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots[pos].transform.position, enemy.Speed * Time.deltaTime);
+        transform.position =
+            Vector2.MoveTowards(transform.position, spot[pos].transform.position, this.speed * Time.deltaTime);
         if (DistanceToSpot() < 1)
         {
-           pos=(pos+1)%amountToSpawn;
+            pos = (pos + 1) % amountToSpawn;
         }
     }
+
+    bool Dead()
+    {
+        return this.health <= 0;
+    }
+
+    void Attack()
+    {
+        actualcooldown = cooldown;
+        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.left);
+        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.right);
+        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.up);
+        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.down);
+    }
 }
-
-
-
-

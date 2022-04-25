@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,28 +6,24 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // Start is called before the first frame update
- protected string name;//name of the perso
+    protected string name; //name of the perso
     protected int health; //nombre de health
-    protected int dammage;//nombre de dommages
-    protected int speed; //stat de vitesse
-    protected int attack;//stat d'attaque
-    protected int shotspeed; //vitesse des projeciles
-    protected int attackspeed;//cadence de l'attaque
-    protected int attackrange;//distance d'attaque
-    
 
-    public string Name=>this.name;
-    
+    protected int speed; //stat de vitesse
+    protected int attack; //stat d'attaque
+    protected int shotspeed; //vitesse des projeciles
+    protected float cooldown; //cadence de l'attaque
+    protected int attackrange; //distance d'attaque
+    private GameObject actual;
+    public GameObject Actual => actual;
+
+    protected float actualcooldown;
+        public string Name => this.name;
+
     public int Health
     {
         get => this.health;
         set { this.health = value; }
-    }
-
-    public int Dammage
-    {
-        get => this.dammage;
-        set { this.dammage = value; }
     }
 
     public int Speed
@@ -47,10 +44,10 @@ public class Enemy : MonoBehaviour
         set { this.shotspeed = value; }
     }
 
-    public int Attackspeed
+    public float Cooldown
     {
-        get => this.attackspeed;
-        set { this.attackspeed = value; }
+        get => this.cooldown;
+        set { this.cooldown = value; }
     }
 
     public int Attackrange
@@ -59,31 +56,35 @@ public class Enemy : MonoBehaviour
         set { this.attackrange = value; }
     }
 
-    public Enemy(string name, int health, int dammage, int speed, int attack, int shotspeed, int attackspeed, int attackrange)
+    public int Create(string name, int health, int attack, int speed, int shotspeed,
+        float cooldown,
+        int attackrange)
     {
+        this.health = health;
+        this.speed = speed;
         this.name = name;
         this.health = health;
-        this.dammage = dammage;
-        this.speed = speed;
         this.attack = attack;
         this.shotspeed = shotspeed;
-        this.attackspeed = attackspeed;
+        this.cooldown = cooldown;
         this.attackrange = attackrange;
+        actualcooldown = cooldown;
+        return 1;
     }
 
+
     public bool IsDead() //if ennemi still alive
-    { 
-        return (this.health > this.dammage);
+    {
+        return (this.health <= 0);
     }
 
     //si les dégats doivent affaiblir l'ennmi, il est impacté à un certain pourcentage
     //void Degats()
     //{
     //    this.attack-=this.dammage*100/this.health;
-    //    this.attackspeed-=this.dammage*100/this.health;
+    //    this.cooldown-=this.dammage*100/this.health;
     //    this.shotspeed-=this.dammage*100/this.health;
     //}
 
     // Update is called once per frame
- 
 }

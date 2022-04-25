@@ -3,29 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Boss : MonoBehaviour
+public class Boss : Enemy
 {
+    private Transform cam;
+
     private GameObject player;
+
     public Transform moveSpots;
-    Enemy enemy = new Enemy("Chaser", 10, 0, 2, 5, 5, 10, 10);
+    
     bool stop = false;
+    private Transform spot;
     private float goInTime;
     private float chaseTime;
     private float waitTime;
+
     bool charge = false;
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        switch (other.gameObject.tag)
+        {
+            case "AllyBullet":
+            {
+                var compt = other.gameObject.GetComponent<AllyBullet>();
+                this.health -= compt.Attack;
+                break;
+            }
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-
+        cam = GameObject.FindWithTag("MainCamera").transform;
+        spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
         chaseTime = Random.Range(0, 20);
         waitTime = Random.Range(0, 5);
         goInTime = Random.Range(0, 30);
         player = GameObject.FindWithTag("Player");
-        moveSpots.position = new Vector2(player.transform.position.x, player.transform.position.y);
+        spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (charge)
         {
@@ -41,7 +59,7 @@ public class Boss : MonoBehaviour
             if (goInTime < 0)
             {
                 charge = true;
-                moveSpots.position = new Vector2(player.transform.position.x, player.transform.position.y);
+                spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
                 goInTime = Random.Range(0, 30);
             }
             else
@@ -49,52 +67,54 @@ public class Boss : MonoBehaviour
                 Chased();
                 chaseTime -= Time.deltaTime;
                 goInTime -= Time.deltaTime;
-                Debug.Log($"ChaseTime: {chaseTime}");
-                Debug.Log("Charge: " + goInTime);
+                // Debug.Log($"ChaseTime: {chaseTime}");
+                // Debug.Log("Charge: " + goInTime);
             }
-
         }
         else
         {
             if (waitTime > 0)
             {
-                moveSpots.position = new Vector2(this.transform.position.x, this.transform.position.y);
+                spot.position = new Vector2(this.transform.position.x, this.transform.position.y);
                 waitTime -= Time.deltaTime;
-                Debug.Log($"WaitTime: {waitTime}");
+                // Debug.Log($"WaitTime: {waitTime}");
             }
             else
             {
                 waitTime = Random.Range(0, 5);
                 chaseTime = Random.Range(0, 20);
             }
-
         }
-
-
     }
+
     private float Distance(Transform obj)
     {
         return Vector2.Distance(obj.position, this.transform.position);
     }
+
     private void Move(int vitesse)
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots.position, vitesse * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, spot.position, vitesse * Time.deltaTime);
     }
+
     private void Chased()
     {
         if (Distance(player.transform) > 1.3)
         {
-            Move(enemy.Speed);
-            moveSpots.position = new Vector2(player.transform.position.x, player.transform.position.y);
+            Move(this.Speed);
+            spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
         }
-
     }
+
     private void Charge()
     {
         if (Distance(player.transform) > 1.3)
         {
-            Move(enemy.Speed + 10);
-            
+            Move(this.Speed + 10);
         }
+    }
+    bool Dead()
+    {
+        return this.health <= 0;
     }
 }

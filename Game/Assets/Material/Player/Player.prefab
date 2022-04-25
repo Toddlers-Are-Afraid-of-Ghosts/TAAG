@@ -146,13 +146,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4e22bff0a56ac40a996c1a0ae0ebf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 20
   bonusHealth: 0
   speed: 40
   attack: 5
-  shotSpeed: 10
-  fireRate: 10
+  shotSpeed: 1000
+  cooldown: 0.5
   attackRange: 5
+  bullet: {fileID: 8762579411195906640, guid: 9fad013c742d734418688a3318a6557c, type: 3}
   player: {fileID: 8249988126736134428}
 --- !u!114 &4487662079799331877
 MonoBehaviour:
@@ -171,6 +172,7 @@ MonoBehaviour:
   speed: 0
   attack: 0
   shotSpeed: 0
-  fireRate: 0
+  cooldown: 0
   attackRange: 0
+  bullet: {fileID: 0}
   player: {fileID: 0}
