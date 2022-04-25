@@ -87,6 +87,12 @@ public class GeneratorEnemi : MonoBehaviour
         var result = name switch
         {
             "Patrol" => coucou.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.3), 2),
+            "Fantom_bleu" => coucou.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.3), 2),
+            "Mickey_bleu" => coucou.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.3), 2),
+            "Boo_argent" => coucou.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.3), 2),
+            "Bones_bleu" => coucou.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.3), 2),
+            "Skull_gris" => coucou.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.3), 2),
+
             "Turn" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
             "Chase" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
             "Stay" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
