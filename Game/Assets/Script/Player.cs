@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     public Animator animator;
     private float actualcooldown;
+
     public void OnCollisionEnter2D(Collision2D other)
     {
         float collect = Input.GetAxis("Collect");
@@ -27,14 +29,16 @@ public class Player : MonoBehaviour
             var compt = other.gameObject.GetComponent<EnemyBullet>();
             health -= compt.Attack;
         }
-          if (other.gameObject.tag is "Item" && collect != 0)
+
+        if (other.gameObject.tag is "Item" && collect != 0)
         {
             var compt = other.gameObject.GetComponent<Item>();
             health += compt.Health;
-            if(health > maxHealth)
+            if (health > maxHealth)
             {
-                health=maxHealth;
+                health = maxHealth;
             }
+
             bonusHealth += compt.BonusHealth;
             speed += compt.Speed;
             attack += compt.Attack;
@@ -42,14 +46,14 @@ public class Player : MonoBehaviour
             cooldown += compt.Cooldown;
             attackRange += compt.AttackRange;
         }
-        
     }
+
     void Start()
     {
         health = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         actualcooldown = cooldown;
-        animator=GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -68,7 +72,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Destroy(player);
+            Destroy(this.gameObject);
         }
     }
 
@@ -81,9 +85,9 @@ public class Player : MonoBehaviour
         rb.velocity = (move * speed * Time.deltaTime);
 
         //animation
-        animator.SetFloat("Horizontal",horizontal);
-        animator.SetFloat("Vertical",vertical);
-        animator.SetFloat("Speed",move.magnitude);
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);
+        animator.SetFloat("Speed", move.magnitude);
     }
 
     bool IsAlive() //if player still alive
@@ -100,15 +104,19 @@ public class Player : MonoBehaviour
         {
             case 1:
             {
-                new AllyBullet(bullet, attack, shotSpeed, attackRange, transform.position,
-                    Vector2.up);
+                Vector3 direction=Vector2.up;
+                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                var tir = bul.GetComponent<AllyBullet>();
+                tir.Setup(attack, shotSpeed, attackRange,direction);
                 actualcooldown = cooldown;
                 break;
             }
             case -1:
             {
-                new AllyBullet(bullet, attack, shotSpeed, attackRange, transform.position,
-                    Vector2.down);
+                Vector3 direction=Vector2.down;
+                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                var tir = bul.GetComponent<AllyBullet>();
+                tir.Setup(attack, shotSpeed, attackRange,direction);
                 actualcooldown = cooldown;
                 break;
             }
@@ -118,15 +126,19 @@ public class Player : MonoBehaviour
                 {
                     case 1:
                     {
-                        new AllyBullet(bullet, attack, shotSpeed, attackRange, transform.position,
-                            Vector2.right);
+                        Vector3 direction=Vector2.right;
+                        var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                        var tir = bul.GetComponent<AllyBullet>();
+                        tir.Setup(attack, shotSpeed, attackRange,direction);
                         actualcooldown = cooldown;
                         break;
                     }
                     case -1:
                     {
-                        new AllyBullet(bullet, attack, shotSpeed, attackRange, transform.position,
-                            Vector2.left);
+                        Vector3 direction=Vector2.left;
+                        var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                        var tir = bul.GetComponent<AllyBullet>();
+                        tir.Setup(attack, shotSpeed, attackRange,direction);
                         actualcooldown = cooldown;
                         break;
                     }

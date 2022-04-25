@@ -75,22 +75,36 @@ public class Chase : Enemy
         {
             if (d.x >= 0)
             {
-                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position, Vector2.right);
+                Vector3 direction = Vector2.right;
+                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                var tir = bul.GetComponent<EnemyBullet>();
+                tir.Setup(attack, shotspeed, attackrange, direction);
+                
+               
             }
             else
             {
-                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position, Vector2.left);
+                Vector3 direction = Vector2.left;
+                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                var tir = bul.GetComponent<EnemyBullet>();
+                tir.Setup(attack, shotspeed, attackrange, direction);
             }
         }
         else
         {
             if (d.y >= 0)
             {
-                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position, Vector2.up);
+                Vector3 direction = Vector2.up;
+                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                var tir = bul.GetComponent<EnemyBullet>();
+                tir.Setup(attack, shotspeed, attackrange, direction);
             }
             else
             {
-                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position, Vector2.down);
+                Vector3 direction = Vector2.down;
+                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                var tir = bul.GetComponent<EnemyBullet>();
+                tir.Setup(attack, shotspeed, attackrange, direction);;
             }
         }
     }

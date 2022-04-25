@@ -24,19 +24,16 @@ public class AllyBullet : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag is not ("Wall" or "Ennemy" or "EnemyBullet")) return;
+        if (other.gameObject.tag is not ("Wall" or "Player" or "AllyBullet" or "EnemyBullet" or "Ennemy")) return;
         Destroy(this.gameObject);
     }
 
-    public AllyBullet(GameObject bullet, int attack, int shotspeed, float attackrange, Vector2 position,
-        Vector2 direction)
+    public void Setup(int attack, int shotspeed, float attackrange, Vector2 direction)
     {
-        allyBullet = Instantiate(bullet, position + direction, quaternion.identity);
-        var comp = allyBullet.GetComponent<AllyBullet>();
-        comp.attack = attack;
-        comp.shotspeed = shotspeed;
-        comp.attackrange = attackrange;
-        comp.direction = direction;
+        this.attack = attack;
+        this.shotspeed = shotspeed;
+        this.attackrange = attackrange;
+        this.direction = direction;
     }
 
     // Start is called before the first frame update

@@ -70,8 +70,8 @@ public class Boss : Enemy
                 Chased();
                 chaseTime -= Time.deltaTime;
                 goInTime -= Time.deltaTime;
-                // Debug.Log($"ChaseTime: {chaseTime}");
-                // Debug.Log("Charge: " + goInTime);
+                Debug.Log($"ChaseTime: {chaseTime}");
+                Debug.Log("Charge: " + goInTime);
             }
         }
         else

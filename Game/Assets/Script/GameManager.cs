@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private int numberOfPlayer;
+    public GameObject gameOverPanel;
 
     void Start()
     {
@@ -21,7 +23,20 @@ public class GameManager : MonoBehaviour
         {
             var componentGenerator = this.GetComponent<GeneratorEnemi>();
             componentGenerator.CleanEnemy();
-            Debug.Log("FINIIIIIIIIII");
+            Time.timeScale = 0;
+            gameOverPanel.SetActive(true);
         }
+    }
+
+    public void TryAgain()
+    {
+        gameOverPanel.SetActive(false);
+        Time.timeScale = 1;
+        SceneManager.LoadScene("World");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

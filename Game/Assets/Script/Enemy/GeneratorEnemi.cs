@@ -45,7 +45,7 @@ public class GeneratorEnemi : MonoBehaviour
         {
             if (spawntime > 0 && spawn <= current)
             {
-                Debug.Log($"Spawn in {waitspawn}");
+                // Debug.Log($"Spawn in {waitspawn}");
                 if (waitspawn <= 0)
                 {
                     var rnd = Random.Range(0, ennemi.Length - 1);
