@@ -94,6 +94,11 @@ public class GeneratorEnemi : MonoBehaviour
             "Skull_gris" => coucou.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.3), 2),
 
             "Turn" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Mickey_noir" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Fantome_orange" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Boo_gold" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Bones_orange" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Skull_noir" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
 
             "Chase" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
             "Skull_vert" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
