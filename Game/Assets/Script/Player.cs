@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public GameObject bullet;
     public GameObject player;
     Rigidbody2D rb;
+    public Animator animator;
     private float actualcooldown;
     public void OnCollisionEnter2D(Collision2D other)
     {
@@ -25,6 +26,20 @@ public class Player : MonoBehaviour
             var compt = other.gameObject.GetComponent<EnemyBullet>();
             health -= compt.Attack;
         }
+          if (other.gameObject.tag is "Item" && collect != 0)
+        {
+            var compt = other.gameObject.GetComponent<Item>();
+            health += compt.Health;
+            if(health > maxHealth)
+            {
+                health=maxHealth;
+            }
+            bonusHealth += compt.BonusHealth;
+            speed += compt.Speed;
+            attack += compt.Attack;
+            shotSpeed += compt.ShotSpeed;
+            fireRate += compt.FireRate;
+            attackRange += compt.FireRate;
         
     }
     void Start()
@@ -32,6 +47,7 @@ public class Player : MonoBehaviour
         health = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         actualcooldown = cooldown;
+        animator=GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -55,12 +71,18 @@ public class Player : MonoBehaviour
         }
     }
 
+
     void Moveto()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector2 move = new Vector2(horizontal * speed, vertical * speed);
         rb.velocity = (move * speed * Time.deltaTime);
+
+        //animation
+        animator.SetFloat("Horizontal",horizontal);
+        animator.SetFloat("Vertical",vertical);
+        animator.SetFloat("Speed",move.magnitude);
     }
 
     bool IsAlive() //if player still alive
