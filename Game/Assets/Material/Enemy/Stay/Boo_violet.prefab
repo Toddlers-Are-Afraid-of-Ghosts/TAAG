@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4085975372821092302}
   - component: {fileID: 6318365151390464359}
   - component: {fileID: 7628480395479986318}
+  - component: {fileID: 3216931251941529906}
   m_Layer: 0
   m_Name: Boo_violet
   m_TagString: Ennemy
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8652642676092952775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6451076, y: 0.4037171, z: 0}
+  m_LocalPosition: {x: 0.04, y: 0.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102,6 +103,7 @@ MonoBehaviour:
   player: {fileID: 8249988126736134428, guid: 83c028f4e81c5b944a964807e8b521f3, type: 3}
   moveSpots: {fileID: 1845712989278218627, guid: a1a770de4ad66bf45a4161396d20178b, type: 3}
   bullet: {fileID: 8762579411195906640, guid: e82e700d319808b43b90a011b2512c38, type: 3}
+  animator: {fileID: 0}
   minX: -11.5
   minY: -6
   maxX: 11
@@ -153,3 +155,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &3216931251941529906
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8652642676092952775}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a78963a563805b64d906e2f64c07348a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
