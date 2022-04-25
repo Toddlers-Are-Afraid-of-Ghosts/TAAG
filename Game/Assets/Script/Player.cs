@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public int attack; //stat d'attaque
     public int shotSpeed; //vitesse des projeciles
     public float cooldown; //cadence de l'attaque
-    public int attackRange; //distance d'attaque
+    public float attackRange; //distance d'attaque
     public GameObject bullet;
     public GameObject player;
     Rigidbody2D rb;
@@ -39,8 +39,8 @@ public class Player : MonoBehaviour
             speed += compt.Speed;
             attack += compt.Attack;
             shotSpeed += compt.ShotSpeed;
-            cooldown += compt.FireRate;
-            attackRange += compt.FireRate;
+            cooldown += compt.Cooldown;
+            attackRange += compt.AttackRange;
         }
         
     }
@@ -68,7 +68,6 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Debug.Log("tu es mort");
             Destroy(player);
         }
     }

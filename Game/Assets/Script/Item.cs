@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
     protected int speed;
     protected int attack;
     protected int shotSpeed;
-    protected int fireRate;
+    protected int cooldown;
     protected float attackRange;
 
     public GameObject item;
@@ -39,10 +39,10 @@ public class Item : MonoBehaviour
         get => this.shotSpeed;
         set { this.shotSpeed = value; }
     }
-    public int FireRate
+    public int Cooldown
     {
-        get => this.fireRate;
-        set { this.fireRate = value; }
+        get => this.cooldown;
+        set { this.cooldown = value; }
     }
     public float AttackRange
     {
@@ -50,14 +50,14 @@ public class Item : MonoBehaviour
         set { this.attackRange = value; }
     }
 
-    public Item(int health = 0, int bonusHealth = 0, int speed = 0, int attack = 0, int shotSpeed = 0, int fireRate = 0, float attackRange = 0)
+    public Item(int health = 0, int bonusHealth = 0, int speed = 0, int attack = 0, int shotSpeed = 0, int cooldown = 0, float attackRange = 0)
     {
         this.health = health;
         this.bonusHealth = bonusHealth;
         this.speed = speed;
         this.attack = attack;
         this.shotSpeed = shotSpeed;
-        this.fireRate = fireRate;
+        this.cooldown = cooldown;
         this.attackRange = attackRange;
     }
 
