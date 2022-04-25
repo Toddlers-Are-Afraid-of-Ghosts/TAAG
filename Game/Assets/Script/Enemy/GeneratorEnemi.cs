@@ -107,9 +107,15 @@ public class GeneratorEnemi : MonoBehaviour
             "Mickey_vert" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
             "Bones_vert" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
 
-
             "Stay" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Skull_pourpre" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Bones_violet" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Mickey_marron" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Fantome_rouge" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+            "Boo_violet" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
+
             "Pacman"=> coucou.Create(name,10,2,5,500,1,2),
+            
             _ => throw new ArgumentException("invalid name of enemy")
         };
 
