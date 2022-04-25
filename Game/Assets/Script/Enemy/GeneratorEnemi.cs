@@ -95,4 +95,12 @@ public class GeneratorEnemi : MonoBehaviour
 
         return coucou;
     }
+
+    public void CleanEnemy()
+    {
+        foreach (var enemy in alive)
+        {
+            Destroy(enemy.gameObject);
+        }
+    }
 }
