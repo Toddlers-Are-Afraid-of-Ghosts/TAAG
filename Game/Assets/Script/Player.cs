@@ -35,6 +35,28 @@ public class Player : MonoBehaviour
             Destroy(player);
         }
     }
+
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag is "Item" && collect != 0)
+        {
+            var compt = other.gameObject.GetComponent<Item>();
+            health += compt.Health;
+            if(health > maxHealth)
+            {
+                health=maxHealth;
+            }
+            bonusHealth += compt.BonusHealth;
+            speed += compt.Speed;
+            attack += compt.Attack;
+            shotSpeed += compt.ShotSpeed;
+            fireRate += compt.FireRate;
+            attackRange += compt.FireRate;
+        }
+        
+    }
+
     void Moveto()
     {
         float horizontal = Input.GetAxis("Horizontal");
