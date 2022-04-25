@@ -22,13 +22,18 @@ public class AdvancedGeneration : MonoBehaviour {
         return grid;
     }
 
-    public static bool RandomBool() {
+    public static bool[] RandomBool(int from) {
+        bool[] oppenings = {false, false, false, false};
+        oppenings[from] = true;
         Random rng = new Random();
-        if (rng.Next(0, 3) == 1) {
-            return true;
+        int nbOfOp = rng.Next(1, 4);
+        while (NbTrue(oppenings) <= nbOfOp) {
+            if (rng.Next(0, 2) == 1) {
+                oppenings[rng.Next(0, 4)] = true;
+            }
         }
 
-        return false;
+        return oppenings;
     }
 
     public static bool NotOOB(List<List<RoomsProperties>> grid, int x, int y) {
@@ -40,52 +45,29 @@ public class AdvancedGeneration : MonoBehaviour {
         return false;
     }
 
-    public static void PlaceEntrance(List<List<RoomsProperties>> grid) {
-        static void Entrances(List<List<RoomsProperties>> grid, int x, int y, int from) {
-            Random rng = new Random();
-            bool[] directions = {false, false, false, false};
-            directions[from] = true;
-            directions[rng.Next(0, 4)] = true;
-            directions[rng.Next(0, 4)] = true;
-            
-            if (grid[x][y] == null) {
-                grid[x][y] = new RoomsProperties(directions[0], directions[1], directions[2], directions[3] , 0, 0, null);
-                //Debug.Log($"{directions[0]}, {directions[1]}, {directions[2]}, {directions[3]} entrance placed");
-                if (directions[0] && NotOOB(grid, x, y + 1)) {
-                    if (grid[x][y + 1] == null) {
-                        Entrances(grid, x, y + 1, 1);
-                    }
-                    
-                }
-
-                if (directions[1] && NotOOB(grid, x, y - 1)) {
-                    if (grid[x][y - 1] == null) {
-                        Entrances(grid, x, y - 1, 0);
-                    }
-                }
-
-                if (directions[2] && NotOOB(grid, x - 1, y)) {
-                    if (grid[x-1][y] == null) {
-                        Entrances(grid, x - 1, y, 3);
-                    }
-                }
-
-                if (directions[3] && NotOOB(grid, x + 1, y)) {
-                    if (grid[x+1][y] == null) {
-                        Entrances(grid, x + 1, y, 2);
-                    }
-                }
+    public static int NbTrue(bool[] directions) {
+        int count = 0;
+        foreach (bool b in directions) {
+            if (b) {
+                count++;
             }
         }
 
+        return count;
+    }
+
+    public static void Entrance(List<List<RoomsProperties>> grid, int x, int y) {
+        
+    }
+
+    public static void PlaceEntrance(List<List<RoomsProperties>> grid) {
+        Random rng = new Random();
         int size = grid.Count;
         int mid = size / 2;
-        Random rng = new Random();
-        //grid[mid][mid] = new RoomsProperties(true, true, true, true, 0, 0, null);
-        Entrances(grid, mid, mid, rng.Next(0,4));
-        //Entrances(grid, mid, mid - 1,0);
-        //Entrances(grid, mid - 1, mid,3);
-        //Entrances(grid, mid + 1, mid,2);
+        grid[mid][mid] = new RoomsProperties(true, true, true, true);
+        if (NotOOB(grid, mid, mid)) {
+            Entrance(grid, mid, mid);
+        }
     }
 
     public static void PlaceCoordinates(List<List<RoomsProperties>> grid) {

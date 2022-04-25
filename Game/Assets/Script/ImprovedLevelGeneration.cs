@@ -17,7 +17,7 @@ public class ImprovedLevelGeneration : MonoBehaviour {
         for (int i = 0; i < size; i++) {
             emptyGrid.Add(new List<RoomsProperties>());
             for (int j = 0; j < size; j++) {
-                emptyGrid[i].Add(new RoomsProperties(false, false, false, false, 0,0, null));
+                emptyGrid[i].Add(new RoomsProperties(false, false, false, false));
             }
         }
         return emptyGrid;
@@ -80,7 +80,7 @@ public class ImprovedLevelGeneration : MonoBehaviour {
                     bool[] dir = OpeningGenerator((int) Directions.Bottom);
                     GameObject room = RoomTemplates.ChooseRoom(dir[0], dir[1], dir[2], dir[3], roomArray);
                     grid[tempX][tempY] = 
-                        new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX, currY + (int) Offset.Top, room);
+                        new RoomsProperties(dir[0], dir[1], dir[2], dir[3]);
                     if (NumberOfTrue(dir) > 1) {
                         NewRooms(grid, tempX, tempY, currX, currY + 13, roomArray);
                     }
@@ -95,7 +95,7 @@ public class ImprovedLevelGeneration : MonoBehaviour {
                     bool[] dir = OpeningGenerator((int) Directions.Top);
                     GameObject room = RoomTemplates.ChooseRoom(dir[0], dir[1], dir[2], dir[3], roomArray);
                     grid[tempX][tempY] = 
-                        new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX, currY + (int) Offset.Bottom, room);
+                        new RoomsProperties(dir[0], dir[1], dir[2], dir[3]);
                     if (NumberOfTrue(dir) > 1) {
                         NewRooms(grid, tempX, tempY, currX, currY - 13, roomArray);
                     }
@@ -110,7 +110,7 @@ public class ImprovedLevelGeneration : MonoBehaviour {
                     bool[] dir = OpeningGenerator((int) Directions.Right);
                     GameObject room = RoomTemplates.ChooseRoom(dir[0], dir[1], dir[2], dir[3], roomArray);
                     grid[tempX][tempY] = 
-                        new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX, currY + (int) Offset.Left, room);
+                        new RoomsProperties(dir[0], dir[1], dir[2], dir[3]);
                     if (NumberOfTrue(dir) > 1) {
                         NewRooms(grid, tempX, tempY, currX + (int) Offset.Left, currY, roomArray);
                     }
@@ -125,7 +125,7 @@ public class ImprovedLevelGeneration : MonoBehaviour {
                     bool[] dir = OpeningGenerator((int) Directions.Left);
                     GameObject room = RoomTemplates.ChooseRoom(dir[0], dir[1], dir[2], dir[3], roomArray);
                     grid[tempX][tempY] = 
-                        new RoomsProperties(dir[0], dir[1], dir[2], dir[3], currX, currY + (int) Offset.Right, room);
+                        new RoomsProperties(dir[0], dir[1], dir[2], dir[3]);
                     if (NumberOfTrue(dir) > 1) {
                         NewRooms(grid, tempX, tempY, currX  + (int) Offset.Right, currY, roomArray);
                     }
@@ -141,7 +141,7 @@ public class ImprovedLevelGeneration : MonoBehaviour {
         int size = grid.Count;
         int spawnX = size / 2+1;
         int spawnY = size / 2+1;
-        grid[spawnX][spawnY] = new RoomsProperties(true, true, true, true, 0, 0, roomArray[10][0].Room);
+        grid[spawnX][spawnY] = new RoomsProperties(true, true, true, true);
         //Instantiate(grid[spawnX][spawnY].Room, Vector3.zero, Quaternion.identity);
         if (Exist(grid, spawnX, spawnY)) {
             NewRooms(grid, spawnX, spawnY, 0, 0, roomArray);

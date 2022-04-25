@@ -34,14 +34,14 @@ public class RoomsProperties : MonoBehaviour {
     public int X { get; set; }
     public int Y { get; set; }
 
-    public RoomsProperties(bool top, bool bottom, bool left, bool right, int x, int y, GameObject room) {
+    public RoomsProperties(bool top, bool bottom, bool left, bool right) {
         Top = top;
         Bottom = bottom;
         Right = right;
         Left = left;
-        X = x;
-        Y = y;
-        Room = room;
+        X = 0;
+        Y = 0;
+        Room = null;
     }
 
     public static bool IsClosed(RoomsProperties room) {

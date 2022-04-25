@@ -18,7 +18,8 @@ public class RoomTemplates : MonoBehaviour {
         for (int i = 0; i <= 4; i++) {
             string mypath = $"{path}/{roomCode}{i}";
             GameObject prefab = Resources.Load<GameObject>(mypath);
-            RoomsProperties property = new RoomsProperties(top, bottom, left, right, 10000, 10000, prefab);
+            RoomsProperties property = new RoomsProperties(top, bottom, left, right);
+            property.Room = prefab;
             roomList.Add(property);
         }
 
@@ -101,7 +102,7 @@ public class RoomTemplates : MonoBehaviour {
             SpecialRooms, TopLeftRightRooms, TopBottomLeftRooms,
             TopBottomRigthRooms, BottomLeftRightRooms
         };
-        AdvancedGeneration.GenerateLayout(3, RoomArray);
+        AdvancedGeneration.GenerateLayout(6, RoomArray);
     }
 }
 
