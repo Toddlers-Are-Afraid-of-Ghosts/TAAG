@@ -42,9 +42,9 @@ public class Vdoor : MonoBehaviour
             mc.transform.position += new Vector3(0, (float) -13, 0);
             
             player.transform.position += Vector3.up;
-            player.transform.position += Vector3.right*2;
-            player.transform.position += Vector3.down*3;
-            player.transform.position += Vector3.left*2;
+            player.transform.position += Vector3.right*3;
+            player.transform.position += Vector3.down*4;
+            player.transform.position += Vector3.left*3;
             isLerp = false;
         }
         else if (movementDirection == 2)
@@ -53,9 +53,9 @@ public class Vdoor : MonoBehaviour
             mc.transform.position += new Vector3(0, (float) 13, 0);
             
             player.transform.position += Vector3.down;
-            player.transform.position += Vector3.right*2;
-            player.transform.position += Vector3.up*3;
-            player.transform.position += Vector3.left*2;
+            player.transform.position += Vector3.right*3;
+            player.transform.position += Vector3.up*4;
+            player.transform.position += Vector3.left*3;
             isLerp = false;
         }
         else if (movementDirection == 3)
@@ -64,9 +64,9 @@ public class Vdoor : MonoBehaviour
             mc.transform.position += new Vector3((float) -27, 0, 0);
 
             player.transform.position += Vector3.right;
-            player.transform.position += Vector3.up*2;
-            player.transform.position += Vector3.left*3;
-            player.transform.position += Vector3.down*2;
+            player.transform.position += Vector3.up*3;
+            player.transform.position += Vector3.left*4;
+            player.transform.position += Vector3.down*3;
             isLerp = false;
         }
         else if (movementDirection == 4)
@@ -74,10 +74,10 @@ public class Vdoor : MonoBehaviour
             //right
             mc.transform.position += new Vector3((float) 27, 0, 0);
             player.transform.position += Vector3.left;
-            player.transform.position += Vector3.up*2;
-            player.transform.position += Vector3.right*3;
-            player.transform.position += Vector3.down*2;
-            isLerp = false;
+            player.transform.position += Vector3.up*3;
+            player.transform.position += Vector3.right*4;
+            player.transform.position += Vector3.down*3;
+            isLerp = false; 
         }
     }
 
