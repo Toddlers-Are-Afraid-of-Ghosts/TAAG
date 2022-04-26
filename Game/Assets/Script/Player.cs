@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update protected string name; //name of the perso
-    private float health; //nombre de health
+    public float health; //nombre de health
     public float maxHealth; //Santé Max
     public int bonusHealth; //nombre de health bonus
     public int speed; //stat de vitesse
@@ -24,30 +24,28 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D other)
     {
-        float collect = Input.GetAxis("Collect");
         if (other.gameObject.tag is "EnemyBullet")
         {
             var compt = other.gameObject.GetComponent<EnemyBullet>();
             health -= compt.Attack;
         }
-
-        if (other.gameObject.tag is "Item" && collect != 0)
-        {
-            var compt = other.gameObject.GetComponent<Item>();
-            health += compt.Health;
-            if (health > maxHealth)
-            {
-                health = maxHealth;
-            }
-
-            bonusHealth += compt.BonusHealth;
-            speed += compt.Speed;
-            attack += compt.Attack;
-            shotSpeed += compt.ShotSpeed;
-            cooldown += compt.Cooldown;
-            attackRange += compt.AttackRange;
-        }
     }
+
+    public void addstat(float he, int boHe, int sp, int at, int shSp, int co, float atRa)
+    {
+        this.health += he;
+        if (this.health > this.maxHealth)
+        {
+            this.health = this.maxHealth;
+        }
+        this.bonusHealth += boHe;
+        this.speed += sp;
+        this.attack += at;
+        this.shotSpeed += shSp;
+        this.cooldown -= co;
+        this.attackRange += atRa;
+    }
+
 
     void Start()
     {
