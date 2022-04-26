@@ -218,7 +218,6 @@ public class GenerationV3 : MonoBehaviour
         list.RemoveAt(index);
         index = rng.Next(0, list.Count);
         grid[list[index][0], list[index][1]].IsDeadEnd = true;
-        grid[list[index][0], list[index][1]].IsSpecial = false;
         list.RemoveAt(index);
     }
 
