@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -91,7 +92,7 @@ public class Patrol : Enemy
         {
             this.Move();
             spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
-            if (actualcooldown<=0)
+            if (actualcooldown <= 0)
                 Attack();
             else
             {
@@ -105,31 +106,45 @@ public class Patrol : Enemy
         return this.health <= 0;
     }
 
-    void Attack()
+    new void Attack()
     {
         actualcooldown = cooldown;
         Vector2 d = new Vector2(player.transform.position.x - this.transform.position.x,
             player.transform.position.y - this.transform.position.y);
-        if(d.x*d.x >d.y*d.y)
+        if (d.x * d.x > d.y * d.y)
         {
-            if(d.x>=0)
+            if (d.x >= 0)
             {
-                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position,Vector2.right);
+                Vector3 direction = Vector2.right;
+                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                var tir = bul.GetComponent<EnemyBullet>();
+                tir.Setup(attack, shotspeed, attackrange, direction);
+                
+               
             }
             else
             {
-                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position,Vector2.left);
+                Vector3 direction = Vector2.left;
+                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                var tir = bul.GetComponent<EnemyBullet>();
+                tir.Setup(attack, shotspeed, attackrange, direction);
             }
         }
         else
         {
-            if(d.y>=0)
+            if (d.y >= 0)
             {
-                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position,Vector2.up);
+                Vector3 direction = Vector2.up;
+                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                var tir = bul.GetComponent<EnemyBullet>();
+                tir.Setup(attack, shotspeed, attackrange, direction);
             }
             else
             {
-                new EnemyBullet(bullet, attack, shotspeed, attackrange, transform.position,Vector2.down);
+                Vector3 direction = Vector2.down;
+                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                var tir = bul.GetComponent<EnemyBullet>();
+                tir.Setup(attack, shotspeed, attackrange, direction);;
             }
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Stay : Enemy
@@ -10,7 +11,10 @@ public class Stay : Enemy
     private Transform cam;
     public GameObject bullet;
     private float stayedx, stayedy;
-
+    public GameObject[] ennemi;
+    private List<GameObject> allenemi;
+    private GeneratorEnemi generatorEnemi;
+    private float spawntime;
     public float minX, minY, maxX, maxY;
 
     //Enemy enemy = new Enemy("Spawner", 10, 0, 7, 5, 5, 10, 10);
@@ -31,12 +35,16 @@ public class Stay : Enemy
 
     void Start()
     {
+        spawntime = 7;
         cam = GameObject.FindWithTag("MainCamera").transform;
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
         player = GameObject.FindWithTag("Player");
         stayedx = 5;
         stayedy = 0;
         spot.position = new Vector3(player.transform.position.x + stayedx, player.transform.position.y + stayedy);
+
+        DuplicateList();
+        generatorEnemi = GameObject.FindWithTag("GameController").GetComponent<GeneratorEnemi>();
     }
 
     // Update is called once per frame
@@ -55,6 +63,13 @@ public class Stay : Enemy
                     spot.position = new Vector3(player.transform.position.x + stayedx,
                         player.transform.position.y + stayedy);
                 }
+
+                if (spawntime <= 0)
+                {
+                    Spawn();
+                }
+                else
+                    spawntime -= Time.deltaTime;
             }
 
             Move();
@@ -86,7 +101,6 @@ public class Stay : Enemy
     private float DistanceToPlayer(Transform obj, Transform obj2)
     {
         return Vector2.Distance(obj.position, obj2.position);
-        //return Vector2.Distance(player.transform.position, this.transform.position);
     }
 
     private bool OnPoint()
@@ -106,17 +120,42 @@ public class Stay : Enemy
                !(DistanceToPlayer(player.transform, spot) <= 7);
     }
 
+    void DuplicateList()
+    {
+        allenemi = new List<GameObject>();
+        for (int i = 0; i < 10; i++)
+        {
+            foreach (var objet in ennemi)
+            {
+                allenemi.Add(objet);
+            }
+        }
+    }
+
+    void Spawn()
+    {
+        spawntime = 7;
+        var rnd = Random.Range(0, allenemi.Count - 1);
+        var rndEnemi = allenemi[rnd];
+        var en = generatorEnemi.CreateEnemy(rndEnemi.name);
+        generatorEnemi.alive.Add(en);
+    }
+
     bool Dead()
     {
         return this.health <= 0;
     }
 
-    void Attack()
+    private new void Attack()
     {
         actualcooldown = cooldown;
-        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.left);
-        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.right);
-        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.up);
-        new EnemyBullet(this.bullet, this.attack, shotspeed, attackrange, transform.position, Vector2.down);
+        var bullet1 = Instantiate(bullet, transform.position + Vector3.up, Quaternion.identity);
+        var bullet2 = Instantiate(bullet, transform.position + Vector3.down, Quaternion.identity);
+        var bullet3 = Instantiate(bullet, transform.position + Vector3.left, Quaternion.identity);
+        var bullet4 = Instantiate(bullet, transform.position + Vector3.right, Quaternion.identity);
+        bullet1.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.up);
+        bullet2.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.down);
+        bullet3.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.left);
+        bullet4.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.right);
     }
 }

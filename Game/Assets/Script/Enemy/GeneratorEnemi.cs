@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
+
 
 public class GeneratorEnemi : MonoBehaviour
 {
+    public GameObject winPanel;
     public GameObject[] ennemi;
     private List<GameObject> allenemi;
     private Transform cam;
@@ -15,10 +19,10 @@ public class GeneratorEnemi : MonoBehaviour
     GameObject rndEnemi;
     Vector2 spawnPos;
     public int max;
-    public int current;
     private int spawn = 0;
     float waitspawn;
     public bool active = false;
+    public bool win = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +33,11 @@ public class GeneratorEnemi : MonoBehaviour
         alive = new List<Enemy>();
         spawntime = Random.Range(0, 10);
         cam = GameObject.FindWithTag("MainCamera").transform;
+        DuplicateList();
+    }
+
+    void DuplicateList()
+    {
         for (int i = 0; i < 10; i++)
         {
             foreach (var objet in ennemi)
@@ -41,16 +50,17 @@ public class GeneratorEnemi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var alld = GameObject.FindGameObjectsWithTag("Ennemy");
         if (active && spawn < max)
         {
-            if (spawntime > 0 && spawn <= current)
+            if (spawntime > 0)
             {
-                Debug.Log($"Spawn in {waitspawn}");
+                // Debug.Log($"Spawn in {waitspawn}");
                 if (waitspawn <= 0)
                 {
-                    var rnd = Random.Range(0, ennemi.Length - 1);
-                    rndEnemi = ennemi[rnd];
-                    var en = Enemy(rndEnemi.name);
+                    var rnd = Random.Range(0, allenemi.Count - 1);
+                    rndEnemi = allenemi[rnd];
+                    var en = CreateEnemy(rndEnemi.name);
                     alive.Add(en);
                     spawntime -= Time.deltaTime;
                     spawn++;
@@ -66,6 +76,11 @@ public class GeneratorEnemi : MonoBehaviour
             }
         }
 
+        if (spawn == max && alive.Count <= 0)
+        {
+            CleanSpot();
+        }
+
         int i = 0;
         while (i < alive.Count)
         {
@@ -74,27 +89,40 @@ public class GeneratorEnemi : MonoBehaviour
             if (enemy.Health > 0) continue;
             alive.Remove(enemy);
             Destroy(enemy.gameObject);
-            spawn--;
+            if (enemy.name is "Pacman")
+            {
+                win = true;
+            }
+
+        }
+
+        foreach (var fGameObject in alld)
+        {
+            var sc = fGameObject.GetComponents<Enemy>()[0];
+            if (sc.name is "Pacman(Clone)" && sc.Health<0)
+            {
+                win = true;
+            }
         }
     }
 
-    private Enemy Enemy(string name)
+    public Enemy CreateEnemy(string name)
     {
         var en = Instantiate(rndEnemi, cam);
-        var coucou = en.GetComponent<Enemy>();
-        
+        var ComptEn = en.GetComponent<Enemy>();
+
 
         var result = name switch
         {
-            "Patrol" => coucou.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.3), 2),
-            "Turn" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
-            "Chase" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
-            "Stay" => coucou.Create(name, 10, 2, 5, 500, 1, 2),
-            "Pacman"=> coucou.Create(name,10,2,5,500,1,2),
+            "Patrol" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
+            "Turn" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
+            "Chase" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
+            "Stay" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
+            "Pacman" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
             _ => throw new ArgumentException("invalid name of enemy")
         };
 
-        return coucou;
+        return ComptEn;
     }
 
     public void CleanEnemy()
@@ -102,6 +130,15 @@ public class GeneratorEnemi : MonoBehaviour
         foreach (var enemy in alive)
         {
             Destroy(enemy.gameObject);
+        }
+    }
+
+    void CleanSpot()
+    {
+        var allSpot = GameObject.FindGameObjectsWithTag("MoveSpot");
+        foreach (var spot in allSpot)
+        {
+            Destroy(spot.gameObject);
         }
     }
 }

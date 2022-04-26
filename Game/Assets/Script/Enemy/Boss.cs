@@ -10,7 +10,7 @@ public class Boss : Enemy
     private GameObject player;
 
     public Transform moveSpots;
-    
+
     public Animator animator; //objet animation
 
     bool stop = false;
@@ -19,7 +19,9 @@ public class Boss : Enemy
     private float chaseTime;
     private float waitTime;
 
+
     bool charge = false;
+
     public void OnCollisionEnter2D(Collision2D other)
     {
         switch (other.gameObject.tag)
@@ -32,10 +34,11 @@ public class Boss : Enemy
             }
         }
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        animator=GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         cam = GameObject.FindWithTag("MainCamera").transform;
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
         chaseTime = Random.Range(0, 20);
@@ -50,12 +53,16 @@ public class Boss : Enemy
     {
         if (charge)
         {
-            if (Distance(moveSpots) <= 1.3)
+            if (Distance(spot) <= 1.3)
             {
                 charge = false;
+                goInTime = Random.Range(0, 30);
+                spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
             }
-
-            Charge();
+            else
+            {
+                Charge();
+            }
         }
         else if (chaseTime > 0)
         {
@@ -63,7 +70,6 @@ public class Boss : Enemy
             {
                 charge = true;
                 spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
-                goInTime = Random.Range(0, 30);
             }
             else
             {
@@ -98,28 +104,29 @@ public class Boss : Enemy
     private void Move(int vitesse)
     {
         transform.position = Vector2.MoveTowards(transform.position, spot.position, vitesse * Time.deltaTime);
-        
+
         //animation
         animator.SetFloat("Horizontal", transform.position.x);
-        animator.SetFloat("Speed",vitesse);
+        animator.SetFloat("Speed", vitesse);
     }
 
     private void Chased()
     {
         if (Distance(player.transform) > 1.3)
         {
-            Move(this.Speed);
             spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
+            Move(this.Speed);
         }
     }
 
     private void Charge()
     {
-        if (Distance(player.transform) > 1.3)
+        if (Distance(spot.transform) > 1.3)
         {
             Move(this.Speed + 10);
         }
     }
+
     bool Dead()
     {
         return this.health <= 0;
