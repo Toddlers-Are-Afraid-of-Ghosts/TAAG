@@ -27,6 +27,7 @@ public class Boss : Enemy
         {
             case "AllyBullet":
             {
+            
                 var compt = other.gameObject.GetComponent<AllyBullet>();
                 this.health -= compt.Attack;
                 break;

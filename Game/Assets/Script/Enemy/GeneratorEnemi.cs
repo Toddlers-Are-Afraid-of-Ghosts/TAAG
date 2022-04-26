@@ -10,10 +10,10 @@ using UnityEngine.SceneManagement;
 
 public class GeneratorEnemi : MonoBehaviour
 {
-    public GameObject winPanel;
     public GameObject[] ennemi;
 
     public GameObject[] boss;
+
     // private List<GameObject> allenemi;
     private Transform cam;
     public List<Enemy> alive;
@@ -52,7 +52,7 @@ public class GeneratorEnemi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var alld = GameObject.FindGameObjectsWithTag("Ennemy");
+        var alld = GameObject.FindGameObjectsWithTag("Boss"); 
         if (active && spawn < max)
         {
             if (spawntime > 0)
@@ -83,6 +83,7 @@ public class GeneratorEnemi : MonoBehaviour
             var rnd = Random.Range(0, boss.Length - 1);
             rndEnemi = boss[rnd];
             var en = CreateEnemy(rndEnemi.name);
+            
             alive.Add(en);
             CleanSpot();
         }
@@ -99,13 +100,12 @@ public class GeneratorEnemi : MonoBehaviour
             {
                 win = true;
             }
-
         }
 
         foreach (var fGameObject in alld)
         {
             var sc = fGameObject.GetComponents<Enemy>()[0];
-            if (sc.tag is "Boss" && sc.Health<0)
+            if (sc.tag is "Boss" && sc.Health <= 0)
             {
                 win = true;
             }
@@ -120,7 +120,6 @@ public class GeneratorEnemi : MonoBehaviour
 
         var result = name switch
         {
-
             "Patrol" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
             "Fantom_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
             "Mickey_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
@@ -149,8 +148,8 @@ public class GeneratorEnemi : MonoBehaviour
             "Fantome_rouge" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
             "Boo_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
 
-            "Pacman"=> ComptEn.Create(name,10,2,5,500,1,2),
-            "Boss_Thomas"=> ComptEn.Create(name,10,2,5,500,1,2),
+            "Pacman" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
+            "Boss_Thomas" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
 
 
             _ => throw new ArgumentException("invalid name of enemy")
