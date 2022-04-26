@@ -9,6 +9,7 @@ public class Turn : Enemy
     public GameObject moveSpawn;
     public GameObject bullet;
     int amountToSpawn, pos;
+    public Animator animator; //objet animation
 
     Transform playerSpots;
 
@@ -28,6 +29,8 @@ public class Turn : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        animator=GetComponent<Animator>();
+
         player = GameObject.FindWithTag("Player");
         amountToSpawn = 64;
 
@@ -86,6 +89,12 @@ public class Turn : Enemy
     {
         transform.position =
             Vector2.MoveTowards(transform.position, spot[pos].transform.position, this.speed * Time.deltaTime);
+        
+        //animation
+        animator.SetFloat("Vertical", transform.position.y);
+        animator.SetFloat("Horizontal", transform.position.x);
+        animator.SetFloat("Speed", transform.position.magnitude);
+        
         if (DistanceToSpot() < 1)
         {
             pos = (pos + 1) % amountToSpawn;
