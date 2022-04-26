@@ -15,9 +15,8 @@ public class Boss : Enemy
 
     bool stop = false;
     private Transform spot;
-    private float goInTime;
     private float chaseTime;
-    private float waitTime;
+    private double waitTime;
 
 
     bool charge = false;
@@ -41,9 +40,8 @@ public class Boss : Enemy
         animator = GetComponent<Animator>();
         cam = GameObject.FindWithTag("MainCamera").transform;
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
-        chaseTime = Random.Range(0, 20);
-        waitTime = Random.Range(0, 5);
-        goInTime = Random.Range(0, 30);
+        chaseTime = Random.Range(5, 10);
+        waitTime = 0.25;
         player = GameObject.FindWithTag("Player");
         spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
     }
@@ -56,7 +54,7 @@ public class Boss : Enemy
             if (Distance(spot) <= 1.3)
             {
                 charge = false;
-                goInTime = Random.Range(0, 30);
+
                 spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
             }
             else
@@ -66,19 +64,10 @@ public class Boss : Enemy
         }
         else if (chaseTime > 0)
         {
-            if (goInTime < 0)
-            {
-                charge = true;
-                spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
-            }
-            else
-            {
-                Chased();
-                chaseTime -= Time.deltaTime;
-                goInTime -= Time.deltaTime;
-                // Debug.Log($"ChaseTime: {chaseTime}");
-                // Debug.Log("Charge: " + goInTime);
-            }
+            Chased();
+            chaseTime -= Time.deltaTime;
+            // Debug.Log($"ChaseTime: {chaseTime}");
+            // Debug.Log("Charge: " + goInTime);
         }
         else
         {
@@ -90,8 +79,10 @@ public class Boss : Enemy
             }
             else
             {
-                waitTime = Random.Range(0, 5);
-                chaseTime = Random.Range(0, 20);
+                charge = true;
+                spot.position = new Vector2(player.transform.position.x, player.transform.position.y);
+                waitTime = 0.25;
+                chaseTime = Random.Range(5, 10);
             }
         }
     }
@@ -109,7 +100,6 @@ public class Boss : Enemy
         animator.SetFloat("Horizontal", transform.position.x);
 
         animator.SetFloat("Speed", transform.position.magnitude);
-
     }
 
     private void Chased()

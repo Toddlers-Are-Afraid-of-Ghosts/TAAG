@@ -12,7 +12,9 @@ public class GeneratorEnemi : MonoBehaviour
 {
     public GameObject winPanel;
     public GameObject[] ennemi;
-    private List<GameObject> allenemi;
+
+    public GameObject[] boss;
+    // private List<GameObject> allenemi;
     private Transform cam;
     public List<Enemy> alive;
     float spawntime;
@@ -29,7 +31,7 @@ public class GeneratorEnemi : MonoBehaviour
     {
         waitspawn = 2;
         spawnPos = new Vector2(2, 3);
-        allenemi = new List<GameObject>();
+        // allenemi = new List<GameObject>();
         alive = new List<Enemy>();
         spawntime = Random.Range(0, 10);
         cam = GameObject.FindWithTag("MainCamera").transform;
@@ -42,7 +44,7 @@ public class GeneratorEnemi : MonoBehaviour
         {
             foreach (var objet in ennemi)
             {
-                allenemi.Add(objet);
+                // allenemi.Add(objet);
             }
         }
     }
@@ -58,8 +60,8 @@ public class GeneratorEnemi : MonoBehaviour
                 // Debug.Log($"Spawn in {waitspawn}");
                 if (waitspawn <= 0)
                 {
-                    var rnd = Random.Range(0, allenemi.Count - 1);
-                    rndEnemi = allenemi[rnd];
+                    var rnd = Random.Range(0, ennemi.Length - 1);
+                    rndEnemi = ennemi[rnd];
                     var en = CreateEnemy(rndEnemi.name);
                     alive.Add(en);
                     spawntime -= Time.deltaTime;
@@ -78,6 +80,10 @@ public class GeneratorEnemi : MonoBehaviour
 
         if (spawn == max && alive.Count <= 0)
         {
+            var rnd = Random.Range(0, boss.Length - 1);
+            rndEnemi = boss[rnd];
+            var en = CreateEnemy(rndEnemi.name);
+            alive.Add(en);
             CleanSpot();
         }
 
@@ -99,7 +105,7 @@ public class GeneratorEnemi : MonoBehaviour
         foreach (var fGameObject in alld)
         {
             var sc = fGameObject.GetComponents<Enemy>()[0];
-            if (sc.name is "Pacman(Clone)" && sc.Health<0)
+            if (sc.tag is "Boss" && sc.Health<0)
             {
                 win = true;
             }
