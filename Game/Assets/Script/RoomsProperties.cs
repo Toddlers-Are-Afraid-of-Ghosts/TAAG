@@ -18,7 +18,7 @@ public class RoomsProperties : MonoBehaviour {
     private bool isItems;
     private bool isDeadEnd;
     private bool isStart;
-    
+    private bool hasBeenEntered;
     public bool Top {
         get => this.top;
         set {this.top = value;}
@@ -54,6 +54,7 @@ public class RoomsProperties : MonoBehaviour {
     public bool IsDeadEnd;
 
     public bool IsStart;
+    public bool HasBeenEntered;
 
     public RoomsProperties(bool top, bool bottom, bool left, bool right) {
         Top = top;
@@ -70,5 +71,6 @@ public class RoomsProperties : MonoBehaviour {
         IsItems = false;
         IsDeadEnd = false;
         IsStart = false;
+        HasBeenEntered = false;
     }
 }
