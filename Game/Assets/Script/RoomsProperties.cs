@@ -11,6 +11,13 @@ public class RoomsProperties : MonoBehaviour {
     private int x;
     private int y;
     private GameObject room;
+    private bool isSpecial;
+    private bool isPath;
+    private bool isBoss;
+    private bool isShop;
+    private bool isItems;
+    private bool isDeadEnd;
+    private bool isStart;
     
     public bool Top {
         get => this.top;
@@ -29,10 +36,24 @@ public class RoomsProperties : MonoBehaviour {
         get => this.right;
         set { this.right = value; }
     }
+
+    public GameObject Room;
+    public int X;
+    public int Y;
     
-    public GameObject Room { get; set; }
-    public int X { get; set; }
-    public int Y { get; set; }
+    public bool IsSpecial;
+
+    public bool IsPath;
+
+    public bool IsBoss;
+
+    public bool IsShop;
+
+    public bool IsItems;
+
+    public bool IsDeadEnd;
+
+    public bool IsStart;
 
     public RoomsProperties(bool top, bool bottom, bool left, bool right) {
         Top = top;
@@ -42,13 +63,12 @@ public class RoomsProperties : MonoBehaviour {
         X = 0;
         Y = 0;
         Room = null;
-    }
-
-    public static bool IsClosed(RoomsProperties room) {
-        if (room.Top == false && room.Bottom == false && room.Left == false && room.Right == false) {
-            return true;
-        }
-
-        return false;
+        IsSpecial = false;
+        IsPath = false;
+        IsBoss = false;
+        IsShop = false;
+        IsItems = false;
+        IsDeadEnd = false;
+        IsStart = false;
     }
 }

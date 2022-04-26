@@ -39,19 +39,6 @@ public class RoomTemplates : MonoBehaviour {
         return returnedRoom;
     }
 
-    public static List<RoomsProperties> TopRooms;
-    public static List<RoomsProperties> BottomRooms;
-    public static List<RoomsProperties> LeftRooms;
-    public static List<RoomsProperties> RightRooms;
-    public static List<RoomsProperties> TopBottomRooms;
-    public static List<RoomsProperties> LeftRightRooms;
-    public static List<RoomsProperties> TopLeftRooms;
-    public static List<RoomsProperties> TopRightRooms;
-    public static List<RoomsProperties> BottomLeftRooms;
-    public static List<RoomsProperties> BottomRightRooms;
-    public static List<RoomsProperties> StartRoom;
-    public static List<RoomsProperties> ClosedRoom;
-
     void Awake() {
         List<RoomsProperties> TopRooms =
             ExtractRooms("Rooms/RoomsTemplate/TopRooms", "T", true, false, false, false);
@@ -83,26 +70,66 @@ public class RoomTemplates : MonoBehaviour {
         List<RoomsProperties> BottomRightRooms =
             ExtractRooms("Rooms/RoomsTemplate/BottomRightRooms", "BR", false, true, false, true);
 
-        List<RoomsProperties> SpecialRooms = 
-            ExtractRooms("Rooms/RoomsTemplate/SpecialRooms", "S", true, true, true, true);
+        List<RoomsProperties> StartRooms = 
+            ExtractRooms("Rooms/RoomsTemplate/StartRooms", "S", true, true, true, true);
+        
         List<RoomsProperties> TopLeftRightRooms = 
             ExtractRooms("Rooms/RoomsTemplate/TopLeftRightRooms", "TLR", true, false, true, true);
+        
         List<RoomsProperties> TopBottomLeftRooms = 
             ExtractRooms("Rooms/RoomsTemplate/TopBottomLeftRooms", "TBL", true, true, true, false);
+        
         List<RoomsProperties> TopBottomRigthRooms = 
             ExtractRooms("Rooms/RoomsTemplate/TopBottomRightRooms", "TBR", true, true, false, true);
+        
         List<RoomsProperties> BottomLeftRightRooms = 
             ExtractRooms("Rooms/RoomsTemplate/BottomLeftRightRooms", "BLR", false, true, true, true);
         
+        List<RoomsProperties> TopSpecialRooms =
+            ExtractRooms("Rooms/RoomsTemplate/TopSpecialRooms", "TS", true, false, false, false);
+        TopSpecialRooms[0].IsItems = true;
+        TopSpecialRooms[1].IsShop = true;
+        TopSpecialRooms[2].IsBoss = true;
+        TopSpecialRooms[3].IsDeadEnd = true;
+        
+        List<RoomsProperties> BottomSpecialRooms =
+            ExtractRooms("Rooms/RoomsTemplate/BottomSpecialRooms", "BS", false, true, false, false);
+        BottomSpecialRooms[0].IsItems = true;
+        BottomSpecialRooms[1].IsShop = true;
+        BottomSpecialRooms[2].IsBoss = true;
+        BottomSpecialRooms[3].IsDeadEnd = true;
+        
+        List<RoomsProperties> LeftSpecialRooms =
+            ExtractRooms("Rooms/RoomsTemplate/LeftSpecialRooms", "LS", false, false, true, false);
+        LeftSpecialRooms[0].IsItems = true;
+        LeftSpecialRooms[1].IsShop = true;
+        LeftSpecialRooms[2].IsBoss = true;
+        LeftSpecialRooms[3].IsDeadEnd = true;
+        
+        List<RoomsProperties> RightSpecialRooms =
+            ExtractRooms("Rooms/RoomsTemplate/RightSpecialRooms", "RS", false, false, false, true);
+        RightSpecialRooms[0].IsItems = true;
+        RightSpecialRooms[1].IsShop = true;
+        RightSpecialRooms[2].IsBoss = true;
+        RightSpecialRooms[3].IsDeadEnd = true;
+        
+        List<RoomsProperties> AllRooms =
+            ExtractRooms("Rooms/RoomsTemplate/AllRooms", "A", true, true, true, true);
 
         List<RoomsProperties>[] RoomArray = {
             TopRooms, BottomRooms, LeftRooms, RightRooms,
             TopBottomRooms, LeftRightRooms, TopLeftRooms,
             TopRightRooms, BottomLeftRooms, BottomRightRooms,
-            SpecialRooms, TopLeftRightRooms, TopBottomLeftRooms,
-            TopBottomRigthRooms, BottomLeftRightRooms
+            TopLeftRightRooms, TopBottomLeftRooms, TopBottomRigthRooms,
+            BottomLeftRightRooms, StartRooms, TopSpecialRooms,
+            BottomSpecialRooms, LeftSpecialRooms, RightSpecialRooms,
+            AllRooms
         };
-        AdvancedGeneration.GenerateLayout(6, RoomArray);
+        
+        // min size = 8, sinon ca nique tout
+        int size = 10;
+        RoomsProperties[,] grid = GenerationV3.Spawn(size);
+        GenerationV3.PlaceRooms(grid, size, RoomArray);
     }
 }
 
