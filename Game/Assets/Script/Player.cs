@@ -7,8 +7,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update protected string name; //name of the perso
-    int health; //nombre de health
-    public int maxHealth; //Santé Max
+    private float health; //nombre de health
+    public float maxHealth; //Santé Max
     public int bonusHealth; //nombre de health bonus
     public int speed; //stat de vitesse
     public int attack; //stat d'attaque
@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     public Animator animator;
     private float actualcooldown;
+    public float Health => health;
 
     public void OnCollisionEnter2D(Collision2D other)
     {
