@@ -10,6 +10,7 @@ public class Chase : Enemy
     public Transform moveSpots;
     public GameObject bullet;
     private Transform spot;
+    public Animator animator; //objet animation
 
     // Enemy enemy = new Enemy("Chaser", 10, 0, 5, 5, 5, 10, 10);
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class Chase : Enemy
 
     void Start()
     {
+        animator=GetComponent<Animator>();
         cam = GameObject.FindWithTag("MainCamera").transform;
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
         player = GameObject.FindWithTag("Player");
@@ -54,6 +56,11 @@ public class Chase : Enemy
     private void Move()
     {
         transform.position = Vector2.MoveTowards(transform.position, spot.position, this.speed * Time.deltaTime);
+       
+        //animation
+        animator.SetFloat("Vertical", transform.position.y);
+        animator.SetFloat("Horizontal", transform.position.x);
+        animator.SetFloat("Speed", transform.position.magnitude);
     }
 
     private void Chased()

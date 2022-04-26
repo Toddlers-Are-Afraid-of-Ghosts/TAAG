@@ -15,6 +15,7 @@ public class Stay : Enemy
     private List<GameObject> allenemi;
     private GeneratorEnemi generatorEnemi;
     private float spawntime;
+    public Animator animator; //objet animation
     public float minX, minY, maxX, maxY;
 
     //Enemy enemy = new Enemy("Spawner", 10, 0, 7, 5, 5, 10, 10);
@@ -36,6 +37,7 @@ public class Stay : Enemy
     void Start()
     {
         spawntime = 7;
+        animator=GetComponent<Animator>();
         cam = GameObject.FindWithTag("MainCamera").transform;
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
         player = GameObject.FindWithTag("Player");
@@ -96,6 +98,11 @@ public class Stay : Enemy
     private void Move()
     {
         transform.position = Vector2.MoveTowards(transform.position, spot.position, this.speed * Time.deltaTime);
+    
+        //animation
+        animator.SetFloat("Vertical", transform.position.y);
+        animator.SetFloat("Horizontal", transform.position.x);
+        animator.SetFloat("Speed", transform.position.magnitude);
     }
 
     private float DistanceToPlayer(Transform obj, Transform obj2)

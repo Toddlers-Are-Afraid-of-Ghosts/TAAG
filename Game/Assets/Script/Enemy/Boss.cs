@@ -107,7 +107,9 @@ public class Boss : Enemy
 
         //animation
         animator.SetFloat("Horizontal", transform.position.x);
-        animator.SetFloat("Speed", vitesse);
+
+        animator.SetFloat("Speed", transform.position.magnitude);
+
     }
 
     private void Chased()

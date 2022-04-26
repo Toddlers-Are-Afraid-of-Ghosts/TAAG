@@ -114,11 +114,39 @@ public class GeneratorEnemi : MonoBehaviour
 
         var result = name switch
         {
+
             "Patrol" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Turn" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
-            "Chase" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
-            "Stay" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
-            "Pacman" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
+            "Fantom_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
+            "Mickey_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
+            "Boo_argent" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
+            "Bones_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
+            "Skull_gris" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
+
+            "Turn" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Mickey_noir" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Fantome_orange" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Boo_gold" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Bones_orange" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Skull_noir" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+
+            "Chase" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Skull_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Fantome_rose" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Boo_jaune" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Mickey_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Bones_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+
+            "Stay" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Skull_pourpre" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Bones_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Mickey_marron" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Fantome_rouge" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Boo_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+
+            "Pacman"=> ComptEn.Create(name,10,2,5,500,1,2),
+            "Boss_Thomas"=> ComptEn.Create(name,10,2,5,500,1,2),
+
+
             _ => throw new ArgumentException("invalid name of enemy")
         };
 

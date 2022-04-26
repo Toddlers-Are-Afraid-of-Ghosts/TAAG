@@ -15,7 +15,7 @@ public class Patrol : Enemy
     private Transform cam;
     public GameObject bullet;
     public float maxX, minX, maxY, minY, chaseRange, startWaitTime;
-
+    public Animator animator; //objet animation
 
     public void OnCollisionEnter2D(Collision2D other)
     {
@@ -36,6 +36,7 @@ public class Patrol : Enemy
 
     void Start()
     {
+        animator=GetComponent<Animator>();
         cam = GameObject.FindWithTag("MainCamera").transform;
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
         player = GameObject.FindWithTag("Player");
@@ -59,6 +60,11 @@ public class Patrol : Enemy
     private void Move()
     {
         transform.position = Vector2.MoveTowards(transform.position, spot.position, this.speed * Time.deltaTime);
+
+        //animation
+        animator.SetFloat("Vertical", transform.position.y);
+        animator.SetFloat("Horizontal", transform.position.x);
+        animator.SetFloat("Speed", transform.position.magnitude);
     }
 
     private void Patro()
