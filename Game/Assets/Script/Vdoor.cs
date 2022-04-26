@@ -8,8 +8,8 @@ using UnityEngine.UIElements;
 
 public class Vdoor : MonoBehaviour
 {
-    public RoomsProperties[,] grid = RoomTemplates.grid;
-    public int size = RoomTemplates.size;
+    public RoomsProperties[,] grid;
+    public int size;
     private Vector3 dest;
     private Vector3 playerTP;
     public int movementDirection;
@@ -21,10 +21,12 @@ public class Vdoor : MonoBehaviour
     private Vector3 _cam;
     public static int[] pos;
 
-    private void Start()
+    private void Awake()
     {
         mc = GameObject.FindGameObjectWithTag("MainCamera").transform;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        grid= RoomTemplates.grid;
+        size = RoomTemplates.size;
         pos = new[] {size / 2, size / 2};
     }
 

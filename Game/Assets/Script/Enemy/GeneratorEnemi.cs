@@ -26,8 +26,8 @@ public class GeneratorEnemi : MonoBehaviour
     public bool active = false;
     public bool win = false;
     private Transform spawnPoint;
-    private RoomsProperties[,] grid = RoomTemplates.grid;
-    private int[] pos = Vdoor.pos;
+    private RoomsProperties[,] grid;
+    private int[] pos;
 
     // Start is called before the first frame update
     void Start()
@@ -38,12 +38,15 @@ public class GeneratorEnemi : MonoBehaviour
         spawntime = Random.Range(0, 10);
         cam = GameObject.FindWithTag("MainCamera").transform;
         spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint").transform;
+        grid = RoomTemplates.grid;
+        pos = Vdoor.pos;
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        pos = Vdoor.pos;
         if (grid[pos[0], pos[1]].HasBeenEntered)
             return;
         if (active && spawn < max)
