@@ -506,8 +506,14 @@ public class GenerationV3 : MonoBehaviour
                 ChooseRoom(grid, x, y, roomArray);
                 if (grid[x, y].Room != null)
                 {
+                    
                     Vector3 coordinates = new Vector3(grid[x, y].X, grid[x, y].Y, 0);
                     Instantiate(grid[x, y].Room, coordinates, quaternion.identity);
+                    foreach (var spawnpoint in grid[x,y].spawnPoint)
+                    {
+                        var script = spawnpoint.GetComponent<SpawnSpointProperties>();
+                        script.Setup(x,y);
+                    }
                 }
             }
         }
