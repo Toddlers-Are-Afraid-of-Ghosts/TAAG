@@ -99,7 +99,7 @@ public class Boss : Enemy
 
         //animation
         animator.SetFloat("Horizontal", transform.position.x);
-
+        animator.SetFloat("Vertical",transform.position.y);
         animator.SetFloat("Speed", transform.position.magnitude);
     }
 
