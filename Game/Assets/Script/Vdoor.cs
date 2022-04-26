@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Vdoor : MonoBehaviour
 {
@@ -15,11 +16,11 @@ public class Vdoor : MonoBehaviour
     private bool isLerp = false;
     private float Speed = 3f;
     public float Delay = 10f;
+    private Vector3 _cam;
     
 
     
-    private void Start()
-    {
+    private void Start() {
         mc = GameObject.FindGameObjectWithTag("MainCamera").transform;
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -37,8 +38,9 @@ public class Vdoor : MonoBehaviour
         if (movementDirection == 1)
         {
             //bottom
+            
             mc.transform.position += new Vector3(0, (float) -13, 0);
-
+            
             player.transform.position += Vector3.up;
             player.transform.position += Vector3.right*2;
             player.transform.position += Vector3.down*3;
