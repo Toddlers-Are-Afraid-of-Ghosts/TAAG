@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    protected int health;
-    protected int bonusHealth;
-    protected int speed;
-    protected int attack;
-    protected int shotSpeed;
-    protected int cooldown;
-    protected float attackRange;
+    public int health;
+    public int bonusHealth;
+    public int speed;
+    public int attack;
+    public int shotSpeed;
+    public int cooldown;
+    public float attackRange;
 
     public GameObject item;
 
@@ -70,9 +70,11 @@ public class Item : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D other)
     {
         float collect = Input.GetAxis("Collect");
-        if (other.gameObject.tag == "Player" && collect != 0)
+        if (other.gameObject.tag is "Player")
         {
-            Destroy(item);
+            var compt = other.gameObject.GetComponent<Player>();
+            compt.addstat(this.health, this.bonusHealth, this.speed, this.attack, this.shotSpeed, this.cooldown, this.attackRange);
+            Destroy(this.gameObject);
         }
     }
 
