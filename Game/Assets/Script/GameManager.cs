@@ -9,10 +9,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     private int numberOfPlayer;
     public GameObject gameOverPanel;
+    public GameObject winPanel;
+    private GeneratorEnemi generator;
 
     void Start()
     {
         numberOfPlayer = GameObject.FindGameObjectsWithTag("Player").Length;
+        generator = this.GetComponent<GeneratorEnemi>();
+        
     }
 
     // Update is called once per frame
@@ -21,19 +25,28 @@ public class GameManager : MonoBehaviour
         numberOfPlayer = GameObject.FindGameObjectsWithTag("Player").Length;
         if (numberOfPlayer <= 0)
         {
-            var componentGenerator = this.GetComponent<GeneratorEnemi>();
-            componentGenerator.CleanEnemy();
+            generator.CleanEnemy();
             Time.timeScale = 0;
             gameOverPanel.SetActive(true);
+        }
+
+        if (generator.win)
+        {
+            generator.CleanEnemy();
+            Time.timeScale = 0;
+            winPanel.SetActive(true);
         }
     }
 
     public void TryAgain()
     {
         gameOverPanel.SetActive(false);
+        winPanel.SetActive(false);
         Time.timeScale = 1;
-        SceneManager.LoadScene("World");
+        SceneManager.LoadScene(1);
     }
+
+
 
     public void QuitGame()
     {

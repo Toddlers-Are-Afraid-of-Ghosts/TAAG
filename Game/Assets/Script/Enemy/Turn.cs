@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Turn : Enemy
@@ -97,7 +98,7 @@ public class Turn : Enemy
         return this.health <= 0;
     }
 
-    void Attack()
+    new void Attack()
     {
         actualcooldown = cooldown;
         var bullet1 = Instantiate(bullet, transform.position + Vector3.up, Quaternion.identity);

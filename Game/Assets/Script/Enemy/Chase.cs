@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Chase : Enemy
@@ -64,9 +65,8 @@ public class Chase : Enemy
         }
     }
 
-  
 
-    void Attack()
+    new void Attack()
     {
         actualcooldown = cooldown;
         Vector2 d = new Vector2(player.transform.position.x - this.transform.position.x,

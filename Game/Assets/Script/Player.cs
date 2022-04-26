@@ -104,19 +104,19 @@ public class Player : MonoBehaviour
         {
             case 1:
             {
-                Vector3 direction=Vector2.up;
-                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                Vector3 direction = Vector2.up;
+                var bul = Instantiate(bullet, transform.position + direction * 2, Quaternion.identity);
                 var tir = bul.GetComponent<AllyBullet>();
-                tir.Setup(attack, shotSpeed, attackRange,direction);
+                tir.Setup(attack, shotSpeed, attackRange, direction);
                 actualcooldown = cooldown;
                 break;
             }
             case -1:
             {
-                Vector3 direction=Vector2.down;
-                var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                Vector3 direction = Vector2.down;
+                var bul = Instantiate(bullet, transform.position + direction * 2, Quaternion.identity);
                 var tir = bul.GetComponent<AllyBullet>();
-                tir.Setup(attack, shotSpeed, attackRange,direction);
+                tir.Setup(attack, shotSpeed, attackRange, direction);
                 actualcooldown = cooldown;
                 break;
             }
@@ -126,19 +126,19 @@ public class Player : MonoBehaviour
                 {
                     case 1:
                     {
-                        Vector3 direction=Vector2.right;
-                        var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                        Vector3 direction = Vector2.right;
+                        var bul = Instantiate(bullet, transform.position + direction * 2, Quaternion.identity);
                         var tir = bul.GetComponent<AllyBullet>();
-                        tir.Setup(attack, shotSpeed, attackRange,direction);
+                        tir.Setup(attack, shotSpeed, attackRange, direction);
                         actualcooldown = cooldown;
                         break;
                     }
                     case -1:
                     {
-                        Vector3 direction=Vector2.left;
-                        var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
+                        Vector3 direction = Vector2.left;
+                        var bul = Instantiate(bullet, transform.position + direction * 2, Quaternion.identity);
                         var tir = bul.GetComponent<AllyBullet>();
-                        tir.Setup(attack, shotSpeed, attackRange,direction);
+                        tir.Setup(attack, shotSpeed, attackRange, direction);
                         actualcooldown = cooldown;
                         break;
                     }
