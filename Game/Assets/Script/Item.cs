@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    protected int health;
-    protected int bonusHealth;
-    protected int speed;
-    protected int attack;
-    protected int shotSpeed;
-    protected int cooldown;
-    protected float attackRange;
+    public int health;
+    public int bonusHealth;
+    public int speed;
+    public int attack;
+    public int shotSpeed;
+    public int cooldown;
+    public float attackRange;
 
     public GameObject item;
 
