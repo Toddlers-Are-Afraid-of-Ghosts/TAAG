@@ -87,8 +87,7 @@ public class Vdoor : MonoBehaviour
                 x++;
                 break;
         }
-
-        grid[x, y].HasBeenEntered = true;
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)

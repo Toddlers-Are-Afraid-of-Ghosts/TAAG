@@ -72,10 +72,8 @@ public class GeneratorEnemi : MonoBehaviour
 
         if (spawn == max && alive.Count <= 0)
         {
-            // var rnd = Random.Range(0, boss.Length - 1);
-            // rndEnemi = boss[rnd];
-            // var en = CreateEnemy(rndEnemi.name);
-            // alive.Add(en);
+            grid[pos[0], pos[1]].HasBeenEntered = true;
+            spawn = 0;
             CleanSpot();
         }
 
