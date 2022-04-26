@@ -123,38 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &194809550 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1554361627507928672, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
-  m_PrefabInstance: {fileID: 1155843993}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &194809551 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 149239474329431984, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
   m_PrefabInstance: {fileID: 1155843993}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194809550}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbfec9dbf3695e0429720b2121946650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &194809555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194809550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0614a92d0d117fd4eb78d83962a9727c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPaused: 0
-  isOptions: 0
-  settingsMenu: {fileID: 4154386705893125830}
-  pauseMenu: {fileID: 4154386705022899016}
 --- !u!1001 &341029718
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -230,17 +209,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 104745497301668037, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
-      propertyPath: winPanel
-      value: 
-      objectReference: {fileID: 560553677}
-    - target: {fileID: 104745497301668037, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
-      propertyPath: boss.Array.size
+      propertyPath: max
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 104745497301668037, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
-      propertyPath: boss.Array.data[0]
+      propertyPath: winPanel
       value: 
-      objectReference: {fileID: 4174921996534414740, guid: 990ab41ca9dc5934e820e8018f294697, type: 3}
+      objectReference: {fileID: 560553677}
     - target: {fileID: 104745497301668037, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
       propertyPath: ennemi.Array.data[20]
       value: 
@@ -297,14 +272,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1554361627507928671, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
-      propertyPath: pauseMenu
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554361627507928671, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
-      propertyPath: settingsMenu
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1554361627507928672, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -313,6 +280,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: GameController
       objectReference: {fileID: 0}
+    - target: {fileID: 7704700421963845499, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 4154386705022899016}
+    - target: {fileID: 7704700421963845499, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
+      propertyPath: settingsMenu
+      value: 
+      objectReference: {fileID: 4154386705893125830}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d3e3d8c7ba006c4185672ed14f695a9, type: 3}
 --- !u!1001 &1368175449
