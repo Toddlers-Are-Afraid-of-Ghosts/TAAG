@@ -34,13 +34,13 @@ public class Vdoor : MonoBehaviour
     {
         if (isLerp)
         {
-            PositionChanging(grid, size, ref pos[0], ref pos[1]);
-            
+            PositionChanging(grid, ref pos[0], ref pos[1]);
         }
     }
 
-    void PositionChanging(RoomsProperties[,] grid, int size, ref int x, ref int y)
-    {
+    void PositionChanging(RoomsProperties[,] grid, ref int x, ref int y) {
+        int currX = x;
+        int currY = y;
         switch (movementDirection)
         {
             case 1:
@@ -53,7 +53,7 @@ public class Vdoor : MonoBehaviour
                 player.transform.position += Vector3.down * 4;
                 player.transform.position += Vector3.left * 3;
                 isLerp = false;
-
+                
                 y--;
                 break;
             case 2:
@@ -89,7 +89,9 @@ public class Vdoor : MonoBehaviour
                 x++;
                 break;
         }
-        
+
+        grid[currX, currY].IsPLayerIn = false;
+        grid[x,y].IsPLayerIn = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

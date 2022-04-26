@@ -156,6 +156,7 @@ public class GenerationV3 : MonoBehaviour
         int mid = size / 2;
         grid[mid, mid].IsStart = true;
         grid[mid, mid].HasBeenEntered = true;
+        grid[mid, mid].IsPLayerIn = true;
         for (int x = 0; x < size; x++)
         {
             for (int y = 0; y < size; y++)

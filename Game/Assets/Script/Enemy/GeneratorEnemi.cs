@@ -28,6 +28,7 @@ public class GeneratorEnemi : MonoBehaviour
     private Transform spawnPoint;
     private RoomsProperties[,] grid;
     private int[] pos;
+    private int size;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,7 @@ public class GeneratorEnemi : MonoBehaviour
         spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint").transform;
         grid = RoomTemplates.grid;
         pos = Vdoor.pos;
+        size = RoomTemplates.size;
     }
 
 
@@ -47,7 +49,7 @@ public class GeneratorEnemi : MonoBehaviour
     void Update()
     {
         pos = Vdoor.pos;
-        if (grid[pos[0], pos[1]].HasBeenEntered)
+        if (grid[pos[0], pos[1]].HasBeenEntered && grid[pos[0],pos[1]].IsPLayerIn)
             return;
         if (active && spawn < max)
         {
