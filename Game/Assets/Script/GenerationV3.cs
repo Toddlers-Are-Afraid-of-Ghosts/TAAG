@@ -506,14 +506,21 @@ public class GenerationV3 : MonoBehaviour
                 ChooseRoom(grid, x, y, roomArray);
                 if (grid[x, y].Room != null)
                 {
-                    
+                    var here = grid[x, y];
+                    var hare = grid[x, y].Room.name;
                     Vector3 coordinates = new Vector3(grid[x, y].X, grid[x, y].Y, 0);
-                    Instantiate(grid[x, y].Room, coordinates, quaternion.identity);
-                    foreach (var spawnpoint in grid[x,y].spawnPoint)
+                    var gameObject = Instantiate(grid[x, y].Room, coordinates, quaternion.identity);
+                    foreach (Transform t in gameObject.transform)
                     {
-                        var script = spawnpoint.GetComponent<SpawnSpointProperties>();
-                        script.Setup(x,y);
+                        if (t.gameObject.CompareTag("SpawnPoint"))
+                        {
+                            t.GetComponent<SpawnSpointProperties>().Setup(x,y);
+                            gameObject.GetComponent<RoomsProperties>().spawnPoint.Add(t.gameObject);
+                            
+                        }
+                        
                     }
+                    Debug.Log($"nombre de spawnpoint:{gameObject.GetComponent<RoomsProperties>().spawnPoint.Count}");
                 }
             }
         }

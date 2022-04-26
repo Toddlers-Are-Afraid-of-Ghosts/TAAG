@@ -30,7 +30,7 @@ public class GeneratorEnemi : MonoBehaviour
     private int[] pos;
     private int size;
 
-    private List<Transform> allspawnpoint;
+    private List<GameObject> allspawnpoint;
 
     // Start is called before the first frame update
     void Start()
@@ -60,9 +60,12 @@ public class GeneratorEnemi : MonoBehaviour
             {
                 if (waitspawn <= 0)
                 {
+                    var listPoint = CollectWhoIame();
+                    if (listPoint.Count <=0)
+                        return;
                     var rnd = Random.Range(0, ennemi.Length - 1);
                     rndEnemi = ennemi[rnd];
-                    var en = CreateEnemy(rndEnemi.name);
+                    var en = CreateEnemy(rndEnemi.name,listPoint);
                     alive.Add(en);
                     spawntime -= Time.deltaTime;
                     spawn++;
@@ -100,9 +103,9 @@ public class GeneratorEnemi : MonoBehaviour
         }
     }
 
-    private List<Transform> CollectSpawnPoint()
+    private List<GameObject> CollectSpawnPoint()
     {
-        List<Transform> allspawn = new List<Transform>();
+        List<GameObject> allspawn = new List<GameObject>();
 
         foreach (var Rooms in grid)
         {
@@ -116,9 +119,9 @@ public class GeneratorEnemi : MonoBehaviour
         return allspawn;
     }
 
-    public Enemy CreateEnemy(string name)
+    public List<GameObject> CollectWhoIame()
     {
-        var listPoint = new List<Transform>();
+        var listPoint = new List<GameObject>();
         foreach (var spawnpoint in allspawnpoint)
         {
             var script = spawnpoint.GetComponent<SpawnSpointProperties>();
@@ -129,6 +132,12 @@ public class GeneratorEnemi : MonoBehaviour
             }
         }
 
+        return listPoint;
+    }
+        public Enemy CreateEnemy(string name,List<GameObject> listPoint)
+    {
+       
+        
         spawnPoint = listPoint[Random.Range(0, listPoint.Count - 1)].transform;
         var en = Instantiate(rndEnemi, spawnPoint.position, Quaternion.identity, cam);
         var ComptEn = en.GetComponent<Enemy>();

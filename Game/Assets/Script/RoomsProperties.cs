@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomsProperties : MonoBehaviour
@@ -22,7 +23,6 @@ public class RoomsProperties : MonoBehaviour
     private bool isStart;
     private bool hasBeenEntered;
     private bool isPlayerIn;
-    public List<Transform> spawnPoint=new List<Transform>();
 
     public bool Top
     {
@@ -48,7 +48,7 @@ public class RoomsProperties : MonoBehaviour
         set { this.right = value; }
     }
 
- 
+
     public GameObject Room;
     public int X;
     public int Y;
@@ -69,7 +69,9 @@ public class RoomsProperties : MonoBehaviour
     public bool HasBeenEntered;
     public bool IsPLayerIn;
 
-  
+    public List<GameObject> spawnPoint = new List<GameObject>();
+
+   
 
     public RoomsProperties(bool top, bool bottom, bool left, bool right)
     {
@@ -89,5 +91,6 @@ public class RoomsProperties : MonoBehaviour
         IsStart = false;
         HasBeenEntered = false;
         IsPLayerIn = false;
+        spawnPoint = new List<GameObject>();
     }
 }
