@@ -110,7 +110,7 @@ public class GeneratorEnemi : MonoBehaviour
         foreach (var Rooms in grid)
         {
             if (Rooms == null) continue;
-            foreach (var point in Rooms.spawnPoint)
+            foreach (var point in Rooms.spawnPoin)
             {
                 allspawn.Add(point);
             }

@@ -69,7 +69,7 @@ public class RoomsProperties : MonoBehaviour
     public bool HasBeenEntered;
     public bool IsPLayerIn;
 
-    public List<GameObject> spawnPoint = new List<GameObject>();
+    public List<GameObject> spawnPoin = new List<GameObject>();
 
    
 
@@ -91,6 +91,6 @@ public class RoomsProperties : MonoBehaviour
         IsStart = false;
         HasBeenEntered = false;
         IsPLayerIn = false;
-        spawnPoint = new List<GameObject>();
+        spawnPoin = new List<GameObject>();
     }
 }

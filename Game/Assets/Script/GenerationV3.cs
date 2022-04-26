@@ -515,12 +515,11 @@ public class GenerationV3 : MonoBehaviour
                         if (t.gameObject.CompareTag("SpawnPoint"))
                         {
                             t.GetComponent<SpawnSpointProperties>().Setup(x,y);
-                            gameObject.GetComponent<RoomsProperties>().spawnPoint.Add(t.gameObject);
+                            gameObject.GetComponent<RoomsProperties>().spawnPoin.Add(t.gameObject);
                             
                         }
                         
                     }
-                    Debug.Log($"nombre de spawnpoint:{gameObject.GetComponent<RoomsProperties>().spawnPoint.Count}");
                 }
             }
         }
