@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 
 public class Vdoor : MonoBehaviour
 {
+    public RoomsProperties[,] grid;
+    public int size;
     private Vector3 dest;
     private Vector3 playerTP;
     public int movementDirection;
@@ -17,68 +19,79 @@ public class Vdoor : MonoBehaviour
     private float Speed = 3f;
     public float Delay = 10f;
     private Vector3 _cam;
-    
+    public static int[] pos;
 
-    
-    private void Start() {
+    private void Awake()
+    {
         mc = GameObject.FindGameObjectWithTag("MainCamera").transform;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        grid= RoomTemplates.grid;
+        size = RoomTemplates.size;
+        pos = new[] {size / 2, size / 2};
     }
 
     private void Update()
     {
         if (isLerp)
         {
-            PositionChanging();
+            PositionChanging(grid, ref pos[0], ref pos[1]);
         }
     }
 
-    void PositionChanging()
-    {
-        if (movementDirection == 1)
+    void PositionChanging(RoomsProperties[,] grid, ref int x, ref int y) {
+        int currX = x;
+        int currY = y;
+        switch (movementDirection)
         {
-            //bottom
-            
-            mc.transform.position += new Vector3(0, (float) -13, 0);
-            
-            player.transform.position += Vector3.up;
-            player.transform.position += Vector3.right*3;
-            player.transform.position += Vector3.down*4;
-            player.transform.position += Vector3.left*3;
-            isLerp = false;
-        }
-        else if (movementDirection == 2)
-        {
-            //top
-            mc.transform.position += new Vector3(0, (float) 13, 0);
-            
-            player.transform.position += Vector3.down;
-            player.transform.position += Vector3.right*3;
-            player.transform.position += Vector3.up*4;
-            player.transform.position += Vector3.left*3;
-            isLerp = false;
-        }
-        else if (movementDirection == 3)
-        {
-            //left
-            mc.transform.position += new Vector3((float) -27, 0, 0);
+            case 1:
+                //bottom
 
-            player.transform.position += Vector3.right;
-            player.transform.position += Vector3.up*3;
-            player.transform.position += Vector3.left*4;
-            player.transform.position += Vector3.down*3;
-            isLerp = false;
+                mc.transform.position += new Vector3(0, (float) -13, 0);
+
+                player.transform.position += Vector3.up;
+                player.transform.position += Vector3.right * 3;
+                player.transform.position += Vector3.down * 4;
+                player.transform.position += Vector3.left * 3;
+                isLerp = false;
+                
+                y--;
+                break;
+            case 2:
+                //top
+                mc.transform.position += new Vector3(0, (float) 13, 0);
+
+                player.transform.position += Vector3.down;
+                player.transform.position += Vector3.right * 3;
+                player.transform.position += Vector3.up * 4;
+                player.transform.position += Vector3.left * 3;
+                isLerp = false;
+                y++;
+                break;
+            case 3:
+                //left
+                mc.transform.position += new Vector3((float) -27, 0, 0);
+
+                player.transform.position += Vector3.right;
+                player.transform.position += Vector3.up * 3;
+                player.transform.position += Vector3.left * 4;
+                player.transform.position += Vector3.down * 3;
+                isLerp = false;
+                x--;
+                break;
+            case 4:
+                //right
+                mc.transform.position += new Vector3((float) 27, 0, 0);
+                player.transform.position += Vector3.left;
+                player.transform.position += Vector3.up * 3;
+                player.transform.position += Vector3.right * 4;
+                player.transform.position += Vector3.down * 3;
+                isLerp = false;
+                x++;
+                break;
         }
-        else if (movementDirection == 4)
-        {
-            //right
-            mc.transform.position += new Vector3((float) 27, 0, 0);
-            player.transform.position += Vector3.left;
-            player.transform.position += Vector3.up*3;
-            player.transform.position += Vector3.right*4;
-            player.transform.position += Vector3.down*3;
-            isLerp = false; 
-        }
+
+        grid[currX, currY].IsPLayerIn = false;
+        grid[x,y].IsPLayerIn = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -96,4 +109,8 @@ public class Vdoor : MonoBehaviour
             isLerp = false;
         }
     }
+
+    // public static int[] Enter()
+    // {
+    // }
 }

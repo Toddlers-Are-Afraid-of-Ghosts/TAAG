@@ -144,8 +144,8 @@ public class Stay : Enemy
         spawntime = 7;
         var rnd = Random.Range(0, allenemi.Count - 1);
         var rndEnemi = allenemi[rnd];
-        var en = generatorEnemi.CreateEnemy(rndEnemi.name);
-        generatorEnemi.alive.Add(en);
+        // var en = generatorEnemi.CreateEnemy(rndEnemi.name);
+        // generatorEnemi.alive.Add(en);
     }
 
     bool Dead()

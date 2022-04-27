@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class RoomsProperties : MonoBehaviour {
-
+public class RoomsProperties : MonoBehaviour
+{
     private bool top;
     private bool bottom;
     private bool left;
@@ -18,29 +21,38 @@ public class RoomsProperties : MonoBehaviour {
     private bool isItems;
     private bool isDeadEnd;
     private bool isStart;
-    
-    public bool Top {
+    private bool hasBeenEntered;
+    private bool isPlayerIn;
+
+    public bool Top
+    {
         get => this.top;
-        set {this.top = value;}
+        set { this.top = value; }
     }
 
-    public bool Bottom {
+    public bool Bottom
+    {
         get => this.bottom;
         set { this.bottom = value; }
     }
-    public bool Left {
+
+    public bool Left
+    {
         get => this.left;
         set { this.left = value; }
     }
-    public bool Right {
+
+    public bool Right
+    {
         get => this.right;
         set { this.right = value; }
     }
 
+
     public GameObject Room;
     public int X;
     public int Y;
-    
+
     public bool IsSpecial;
 
     public bool IsPath;
@@ -54,8 +66,15 @@ public class RoomsProperties : MonoBehaviour {
     public bool IsDeadEnd;
 
     public bool IsStart;
+    public bool HasBeenEntered;
+    public bool IsPLayerIn;
 
-    public RoomsProperties(bool top, bool bottom, bool left, bool right) {
+    public List<GameObject> spawnPoin = new List<GameObject>();
+
+   
+
+    public RoomsProperties(bool top, bool bottom, bool left, bool right)
+    {
         Top = top;
         Bottom = bottom;
         Right = right;
@@ -70,5 +89,8 @@ public class RoomsProperties : MonoBehaviour {
         IsItems = false;
         IsDeadEnd = false;
         IsStart = false;
+        HasBeenEntered = false;
+        IsPLayerIn = false;
+        spawnPoin = new List<GameObject>();
     }
 }
