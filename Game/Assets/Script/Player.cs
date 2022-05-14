@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -21,6 +23,14 @@ public class Player : MonoBehaviour
     public Animator animator;
     private float actualcooldown;
     public float Health => health;
+
+    //needed for player selection
+    public CharacterDatabase CharacterDB;
+
+    public SpriteRenderer artworkSprite;
+
+    private int SelectedOption = 0;
+
 
     public void OnCollisionEnter2D(Collision2D other)
     {
@@ -53,6 +63,17 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         actualcooldown = cooldown;
         animator = GetComponent<Animator>();
+
+        if(!PlayerPrefs.HasKey("SelectedOption"))
+        {
+            SelectedOption=0;
+        }
+        else
+        {
+            Load();
+        }
+
+        UpdateCharacter(SelectedOption);
     }
 
     void FixedUpdate()
@@ -146,5 +167,17 @@ public class Player : MonoBehaviour
                 break;
             }
         }
+    }
+
+    //function copied from charactermanager
+    private void UpdateCharacter(int SelectedOption)
+    {
+        Character character= CharacterDB.GetCharacter(SelectedOption);
+        artworkSprite.sprite=character.CharacterSprite;
+    }
+
+    private void Load()
+    {
+        SelectedOption = PlayerPrefs.GetInt("SelectedOption");
     }
 }

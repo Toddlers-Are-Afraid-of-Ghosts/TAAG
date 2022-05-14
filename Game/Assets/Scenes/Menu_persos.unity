@@ -1313,7 +1313,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2032032370}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2070050822}
+        m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2032032370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1426,7 +1438,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -760644450, guid: 6760ae5fb840cd742a14f09ed7a1d921, type: 3}
+  m_Sprite: {fileID: -25643544, guid: 85e3f856735efb3498fceec69648c4af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1445,7 +1457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2070050821}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0414, y: 0.1672, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0.1672, z: 0}
   m_LocalScale: {x: 0.74603075, y: 0.7330165, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
