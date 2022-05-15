@@ -64,6 +64,8 @@ public class Player : MonoBehaviour
         actualcooldown = cooldown;
         animator = GetComponent<Animator>();
 
+
+        //fonction start de charactermanager
         if(!PlayerPrefs.HasKey("SelectedOption"))
         {
             SelectedOption=0;
@@ -175,7 +177,8 @@ public class Player : MonoBehaviour
         Character character= CharacterDB.GetCharacter(SelectedOption);
         artworkSprite.sprite=character.CharacterSprite;
     }
-
+    
+    //function copied from charactermanager
     private void Load()
     {
         SelectedOption = PlayerPrefs.GetInt("SelectedOption");

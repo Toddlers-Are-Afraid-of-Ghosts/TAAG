@@ -29,6 +29,7 @@ public class CharacterManager : MonoBehaviour
         UpdateCharacter(SelectedOption);
     }
 
+    //permet d'afficher le character suivant en cliquant sur le bouton suivant
     public void NextOption()
     {
         SelectedOption++;
@@ -42,6 +43,8 @@ public class CharacterManager : MonoBehaviour
         Save();
     }
 
+
+    //permet d'afficher le character précédent en cliquant sur le bouton retour
     public void BackOption()
     {
         SelectedOption--;
@@ -55,6 +58,7 @@ public class CharacterManager : MonoBehaviour
         Save();
     }
 
+    //change les caractéristiques du character affiché
     private void UpdateCharacter(int SelectedOption)
     {
         Character character= CharacterDB.GetCharacter(SelectedOption);
@@ -62,16 +66,21 @@ public class CharacterManager : MonoBehaviour
         nameText.text=character.CharacterName;
     }
 
+    //permet de commencer avec le joueur choisi
     private void Load()
     {
         SelectedOption = PlayerPrefs.GetInt("SelectedOption");
     }
 
+
+    // sauvegarde le dernier character sur lequel était le joueur
+    // pour qu'il puisse revenir dessus
     private void Save()
     {
         PlayerPrefs.SetInt("SelectedOption", SelectedOption);
     }
 
+    //commencer la partie
     public void ChangeScene (int SceneID)
     {
         SceneManager.LoadScene(SceneID);
