@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public int shotSpeed; //vitesse des projeciles
     public float cooldown; //cadence de l'attaque
     public float attackRange; //distance d'attaque
+    public int gold;
     public GameObject bullet;
     public GameObject player;
     Rigidbody2D rb;
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void addstat(float he, int boHe, int sp, int at, int shSp, int co, float atRa)
+    public void addstat(float he, int boHe, int sp, int at, int shSp, float co, float atRa, int go)
     {
         this.health += he;
         if (this.health > this.maxHealth)
@@ -44,6 +45,7 @@ public class Player : MonoBehaviour
         this.shotSpeed += shSp;
         this.cooldown -= co;
         this.attackRange += atRa;
+        this.gold += go;
     }
 
 

@@ -9,48 +9,13 @@ public class Item : MonoBehaviour
     public int speed;
     public int attack;
     public int shotSpeed;
-    public int cooldown;
+    public float cooldown;
     public float attackRange;
+    public int gold;
 
     public GameObject item;
 
-    public int Health
-    {
-        get => this.health;
-        set { this.health = value; }
-    }
-    public int BonusHealth
-    {
-        get => this.bonusHealth;
-        set { this.bonusHealth = value; }
-    }
-    public int Speed
-    {
-        get => this.speed;
-        set { this.speed = value; }
-    }
-    public int Attack
-    {
-        get => this.attack;
-        set { this.attack = value; }
-    }
-    public int ShotSpeed
-    {
-        get => this.shotSpeed;
-        set { this.shotSpeed = value; }
-    }
-    public int Cooldown
-    {
-        get => this.cooldown;
-        set { this.cooldown = value; }
-    }
-    public float AttackRange
-    {
-        get => this.attackRange;
-        set { this.attackRange = value; }
-    }
-
-    public Item(int health = 0, int bonusHealth = 0, int speed = 0, int attack = 0, int shotSpeed = 0, int cooldown = 0, float attackRange = 0)
+    public Item(int health = 0, int bonusHealth = 0, int speed = 0, int attack = 0, int shotSpeed = 0, float cooldown = 0, float attackRange = 0, int gold = 0)
     {
         this.health = health;
         this.bonusHealth = bonusHealth;
@@ -59,6 +24,7 @@ public class Item : MonoBehaviour
         this.shotSpeed = shotSpeed;
         this.cooldown = cooldown;
         this.attackRange = attackRange;
+        this.gold = gold;
     }
 
     // Start is called before the first frame update
@@ -73,7 +39,7 @@ public class Item : MonoBehaviour
         if (other.gameObject.tag is "Player")
         {
             var compt = other.gameObject.GetComponent<Player>();
-            compt.addstat(this.health, this.bonusHealth, this.speed, this.attack, this.shotSpeed, this.cooldown, this.attackRange);
+            compt.addstat(this.health, this.bonusHealth, this.speed, this.attack, this.shotSpeed, this.cooldown, this.attackRange, this.gold);
             Destroy(this.gameObject);
         }
     }
