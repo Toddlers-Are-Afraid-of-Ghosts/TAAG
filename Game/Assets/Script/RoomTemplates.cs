@@ -137,7 +137,7 @@ public class RoomTemplates : MonoBehaviour
         };
 
         // min size = 8, sinon ca nique tout
-        size = 10;
+        size = 7;
         grid = GenerationV3.Spawn(size);
         grid = GenerationV3.PlaceRooms(grid, size, RoomArray);
     }
