@@ -46,7 +46,7 @@ public class Vdoor : MonoBehaviour
             case 1:
                 //bottom
 
-                mc.transform.position += new Vector3(0, (float) -13, 0);
+                mc.transform.position += new Vector3(0, (float) -19, 0);
 
                 player.transform.position += Vector3.up;
                 player.transform.position += Vector3.right * 3;
@@ -58,7 +58,7 @@ public class Vdoor : MonoBehaviour
                 break;
             case 2:
                 //top
-                mc.transform.position += new Vector3(0, (float) 13, 0);
+                mc.transform.position += new Vector3(0, (float) 19, 0);
 
                 player.transform.position += Vector3.down;
                 player.transform.position += Vector3.right * 3;
@@ -69,7 +69,7 @@ public class Vdoor : MonoBehaviour
                 break;
             case 3:
                 //left
-                mc.transform.position += new Vector3((float) -27, 0, 0);
+                mc.transform.position += new Vector3((float) -39, 0, 0);
 
                 player.transform.position += Vector3.right;
                 player.transform.position += Vector3.up * 3;
@@ -80,7 +80,7 @@ public class Vdoor : MonoBehaviour
                 break;
             case 4:
                 //right
-                mc.transform.position += new Vector3((float) 27, 0, 0);
+                mc.transform.position += new Vector3((float) 39, 0, 0);
                 player.transform.position += Vector3.left;
                 player.transform.position += Vector3.up * 3;
                 player.transform.position += Vector3.right * 4;
