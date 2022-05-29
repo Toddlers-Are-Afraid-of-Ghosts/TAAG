@@ -231,8 +231,8 @@ public class GenerationV3 : MonoBehaviour
             {
                 if (grid[x, y].IsPath || grid[x, y].IsSpecial || grid[x, y].IsStart)
                 {
-                    grid[x, y].X = (x - middle) * 27;
-                    grid[x, y].Y = (y - middle) * 13;
+                    grid[x, y].X = (x - middle) * 39;
+                    grid[x, y].Y = (y - middle) * 19;
                 }
             }
         }
