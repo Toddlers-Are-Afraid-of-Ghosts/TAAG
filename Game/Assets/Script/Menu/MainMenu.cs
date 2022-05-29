@@ -8,8 +8,10 @@ public class MainMenu : MonoBehaviour
 {
     public string LevelToLoad;
     public GameObject settingsWindows;
+    public GameObject musicSetting;
     public GameObject playPanel;
     bool flag = true;
+    bool music= true;
     
     public void PlayGame()
     {
@@ -28,6 +30,11 @@ public class MainMenu : MonoBehaviour
         flag = !flag;
     }
 
+    public void MusicSetting()
+    {
+        musicSetting.SetActive(music);
+        music = !music;
+    }
     public void QuitGame()
     {
         Application.Quit();
