@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class CharacterManager : MonoBehaviour
 {
     public CharacterDatabase CharacterDB;
@@ -11,15 +12,16 @@ public class CharacterManager : MonoBehaviour
     public Text nameText;
     public SpriteRenderer artworkSprite;
 
+    public Levelloader Levelloader;
     private int SelectedOption = 0;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        if(!PlayerPrefs.HasKey("SelectedOption"))
+        if (!PlayerPrefs.HasKey("SelectedOption"))
         {
-            SelectedOption=0;
+            SelectedOption = 0;
         }
         else
         {
@@ -34,9 +36,9 @@ public class CharacterManager : MonoBehaviour
     {
         SelectedOption++;
 
-        if(SelectedOption>=CharacterDB.CharacterCount)
+        if (SelectedOption >= CharacterDB.CharacterCount)
         {
-            SelectedOption=0;
+            SelectedOption = 0;
         }
 
         UpdateCharacter(SelectedOption);
@@ -49,9 +51,9 @@ public class CharacterManager : MonoBehaviour
     {
         SelectedOption--;
 
-        if(SelectedOption < 0)
+        if (SelectedOption < 0)
         {
-            SelectedOption=CharacterDB.CharacterCount-1;
+            SelectedOption = CharacterDB.CharacterCount - 1;
         }
 
         UpdateCharacter(SelectedOption);
@@ -61,9 +63,9 @@ public class CharacterManager : MonoBehaviour
     //change les caractéristiques du character affiché
     private void UpdateCharacter(int SelectedOption)
     {
-        Character character= CharacterDB.GetCharacter(SelectedOption);
-        artworkSprite.sprite=character.CharacterSprite;
-        nameText.text=character.CharacterName;
+        Character character = CharacterDB.GetCharacter(SelectedOption);
+        artworkSprite.sprite = character.CharacterSprite;
+        nameText.text = character.CharacterName;
     }
 
     //permet de commencer avec le joueur choisi
@@ -80,9 +82,12 @@ public class CharacterManager : MonoBehaviour
         PlayerPrefs.SetInt("SelectedOption", SelectedOption);
     }
 
-    //commencer la partie
-    public void ChangeScene (int SceneID)
+    public void ChangeScene(int SceneID)
     {
-        SceneManager.LoadScene(SceneID);
+        Levelloader.Loadlevel(SceneID);
+    }
+    public void ChangeSceneWithoutLevelLoader(int SceneID)
+    {
+       SceneManager.LoadScene(SceneID);
     }
 }

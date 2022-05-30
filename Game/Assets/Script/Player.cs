@@ -26,11 +26,7 @@ public class Player : MonoBehaviour
     public float Health => health;
 
     //needed for player selection
-    public CharacterDatabase CharacterDB;
-
-    public SpriteRenderer artworkSprite;
-
-    private int SelectedOption = 0;
+   
 
 
     public void OnCollisionEnter2D(Collision2D other)
@@ -68,16 +64,7 @@ public class Player : MonoBehaviour
 
 
         //fonction start de charactermanager
-        if(!PlayerPrefs.HasKey("SelectedOption"))
-        {
-            SelectedOption=0;
-        }
-        else
-        {
-            Load();
-        }
-
-        UpdateCharacter(SelectedOption);
+        
     }
 
     void FixedUpdate()
@@ -174,15 +161,5 @@ public class Player : MonoBehaviour
     }
 
     //function copied from charactermanager
-    private void UpdateCharacter(int SelectedOption)
-    {
-        Character character= CharacterDB.GetCharacter(SelectedOption);
-        artworkSprite.sprite=character.CharacterSprite;
-    }
-    
-    //function copied from charactermanager
-    private void Load()
-    {
-        SelectedOption = PlayerPrefs.GetInt("SelectedOption");
-    }
+   
 }
