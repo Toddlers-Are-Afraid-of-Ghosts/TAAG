@@ -24,7 +24,7 @@ public class Vdoor : MonoBehaviour
     private void Awake()
     {
         mc = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        
         grid= RoomTemplates.grid;
         size = RoomTemplates.size;
         pos = new[] {size / 2, size / 2};
@@ -32,6 +32,7 @@ public class Vdoor : MonoBehaviour
 
     private void Update()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         if (isLerp)
         {
             PositionChanging(grid, ref pos[0], ref pos[1]);
