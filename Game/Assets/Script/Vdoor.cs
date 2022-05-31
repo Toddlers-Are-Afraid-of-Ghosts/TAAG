@@ -6,8 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Vdoor : MonoBehaviour
-{
+public class Vdoor : MonoBehaviour {
     public RoomsProperties[,] grid;
     public int size;
     private Vector3 dest;
@@ -21,29 +20,23 @@ public class Vdoor : MonoBehaviour
     private Vector3 _cam;
     public static int[] pos;
 
-    private void Awake()
-    {
+    private void Awake() {
         mc = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        
-        grid= RoomTemplates.grid;
+
+        grid = RoomTemplates.grid;
         size = RoomTemplates.size;
         pos = new[] {size / 2, size / 2};
     }
 
-    private void Update()
-    {
+    private void Update() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        if (isLerp)
-        {
-            PositionChanging(grid, ref pos[0], ref pos[1]);
-        }
+        if (isLerp) PositionChanging(grid, ref pos[0], ref pos[1]);
     }
 
-    void PositionChanging(RoomsProperties[,] grid, ref int x, ref int y) {
-        int currX = x;
-        int currY = y;
-        switch (movementDirection)
-        {
+    private void PositionChanging(RoomsProperties[,] grid, ref int x, ref int y) {
+        var currX = x;
+        var currY = y;
+        switch (movementDirection) {
             case 1:
                 //bottom
 
@@ -54,7 +47,7 @@ public class Vdoor : MonoBehaviour
                 player.transform.position += Vector3.down * 4;
                 player.transform.position += Vector3.left * 3;
                 isLerp = false;
-                
+
                 y--;
                 break;
             case 2:
@@ -92,23 +85,15 @@ public class Vdoor : MonoBehaviour
         }
 
         grid[currX, currY].IsPLayerIn = false;
-        grid[x,y].IsPLayerIn = true;
+        grid[x, y].IsPLayerIn = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isLerp = true;
-        }
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.CompareTag("Player")) isLerp = true;
     }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isLerp = false;
-        }
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.CompareTag("Player")) isLerp = false;
     }
 
     // public static int[] Enter()

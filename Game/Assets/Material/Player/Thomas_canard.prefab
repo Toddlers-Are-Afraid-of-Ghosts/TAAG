@@ -32,7 +32,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.45, y: 0.45, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8271166361502492267}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -147,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4e22bff0a56ac40a996c1a0ae0ebf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
   maxHealth: 20
   bonusHealth: 0
   speed: 25
@@ -154,6 +156,7 @@ MonoBehaviour:
   shotSpeed: 1000
   cooldown: 0.5
   attackRange: 5
+  gold: 0
   bullet: {fileID: 8762579411195906640, guid: 58c721810647b6742af9f9d370be4ce6, type: 3}
   player: {fileID: 8249988126736134428, guid: 83c028f4e81c5b944a964807e8b521f3, type: 3}
   animator: {fileID: -8082173129707627366}
@@ -177,6 +180,68 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1001 &7537507432563163248
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8249988126736134496}
+    m_Modifications:
+    - target: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525213101972152032, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+      propertyPath: m_Name
+      value: MiniMapPlayer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+--- !u!4 &8271166361502492267 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1897016997926888987, guid: d953d6349d32fae4cbf8b909b13f83cc, type: 3}
+  m_PrefabInstance: {fileID: 7537507432563163248}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4487662079799331877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4e22bff0a56ac40a996c1a0ae0ebf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
   maxHealth: 0
   bonusHealth: 0
   speed: 0
@@ -196,6 +262,7 @@ MonoBehaviour:
   shotSpeed: 0
   cooldown: 0
   attackRange: 0
+  gold: 0
   bullet: {fileID: 0}
   player: {fileID: 0}
   animator: {fileID: 0}
