@@ -124,6 +124,12 @@ public class RoomTemplates : MonoBehaviour
 
         List<RoomsProperties> AllRooms =
             ExtractRooms("Rooms/RoomsTemplate/AllRooms", "A", true, true, true, true);
+        
+        GameObject FullRoom = Resources.Load<GameObject>("Rooms/RoomsTemplate/FullRooms");
+        RoomsProperties property = new RoomsProperties(false, false, false, false);
+        property.Room = FullRoom;
+        List<RoomsProperties> FullRooms = new List<RoomsProperties> {property};
+
 
         List<RoomsProperties>[] RoomArray =
         {
@@ -133,10 +139,9 @@ public class RoomTemplates : MonoBehaviour
             TopLeftRightRooms, TopBottomLeftRooms, TopBottomRigthRooms,
             BottomLeftRightRooms, StartRooms, TopSpecialRooms,
             BottomSpecialRooms, LeftSpecialRooms, RightSpecialRooms,
-            AllRooms
+            AllRooms, FullRooms
         };
-
-        // min size = 8, sinon ca nique tout
+        
         size = 7;
         grid = GenerationV3.Spawn(size);
         grid = GenerationV3.PlaceRooms(grid, size, RoomArray);
