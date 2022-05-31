@@ -12,7 +12,7 @@ public class CharacterManager : MonoBehaviour
     public Text nameText;
     public SpriteRenderer artworkSprite;
 
-    public Levelloader Levelloader;
+    public levelloader Levelloader;
     private int SelectedOption = 0;
 
 
