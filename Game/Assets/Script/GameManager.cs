@@ -11,12 +11,26 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject winPanel;
     private GeneratorEnemi generator;
+    public CharacterDatabase CharacterDB;
+
+
+    private int SelectedOption = 0;
+    public List<GameObject> players = new List<GameObject>();
 
     void Start()
     {
-        numberOfPlayer = GameObject.FindGameObjectsWithTag("Player").Length;
-        generator = this.GetComponent<GeneratorEnemi>();
+        if (!PlayerPrefs.HasKey("SelectedOption"))
+        {
+            SelectedOption = 0;
+        }
+        else
+        {
+            Load();
+        }
         
+        Instantiate(players[SelectedOption % 2]);
+        generator = this.GetComponent<GeneratorEnemi>();
+        numberOfPlayer = GameObject.FindGameObjectsWithTag("Player").Length;
     }
 
     // Update is called once per frame
@@ -43,13 +57,19 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
         Time.timeScale = 1;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("World");
     }
-
 
 
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+
+    //function copied from charactermanager
+    private void Load()
+    {
+        SelectedOption = PlayerPrefs.GetInt("SelectedOption");
     }
 }

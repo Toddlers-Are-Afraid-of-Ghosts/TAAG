@@ -48,7 +48,7 @@ public class GenerationV3 : MonoBehaviour
             }
         }
 
-        Debug.Log(str);
+        // Debug.Log(str);
         Console.WriteLine(str);
     }
 
@@ -61,7 +61,7 @@ public class GenerationV3 : MonoBehaviour
         }
 
         ;
-        Debug.Log(grid[0, 0].Top);
+        // Debug.Log(grid[0, 0].Top);
         return grid;
     }
 
