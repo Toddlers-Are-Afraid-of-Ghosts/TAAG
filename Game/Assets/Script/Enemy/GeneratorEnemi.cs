@@ -11,37 +11,35 @@ using UnityEngine.SceneManagement;
 public class GeneratorEnemi : MonoBehaviour
 {
     public GameObject[] ennemi;
-
     public GameObject[] boss;
 
-    // private List<GameObject> allenemi;
     private Transform cam;
+    
     public List<Enemy> alive;
-    float spawntime;
+    
     GameObject rndEnemi;
-    Vector2 spawnPos;
+    
     public int max;
     private int spawn = 0;
-    float waitspawn;
+    
     public bool active = false;
+    
     public bool win = false;
-    private Transform spawnPoint;
+    
+    private GameObject spawnPoint;
     private RoomsProperties[,] grid;
+    
     private int[] pos;
-    private int size;
-
+    
     private List<GameObject> allspawnpoint;
+    private List<GameObject> listPoint;
 
     // Start is called before the first frame update
     void Start()
     {
-        waitspawn = 2;
-        spawnPos = new Vector2(2, 3);
         alive = new List<Enemy>();
-        spawntime = Random.Range(0, 10);
         cam = GameObject.FindWithTag("MainCamera").transform;
         pos = Vdoor.pos;
-        size = RoomTemplates.size;
         grid = RoomTemplates.grid;
         allspawnpoint = CollectSpawnPoint();
     }
@@ -51,39 +49,28 @@ public class GeneratorEnemi : MonoBehaviour
     void Update()
     {
         pos = Vdoor.pos;
-        if (grid[pos[0], pos[1]].HasBeenEntered && grid[pos[0], pos[1]].IsPLayerIn && !grid[pos[0], pos[1]].IsBoss )
+        if (grid[pos[0], pos[1]].HasBeenEntered && grid[pos[0], pos[1]].IsPLayerIn && !grid[pos[0], pos[1]].IsBoss)
+        {
+            ClearSpawnPoint(CollectWhoIame());
             return;
+        }
 
         if (active && spawn < max)
         {
-            if (spawntime > 0)
+            listPoint = CollectWhoIame();
+            if (listPoint.Count <= 0)
             {
-                if (waitspawn <= 0)
-                {
-                    var listPoint = CollectWhoIame();
-                    if (listPoint.Count <= 0)
-                    {
-                        waitspawn = 2;
-                        return;
-                    }
-                    rndEnemi = ennemi[Random.Range(0, ennemi.Length - 1)];
-                    var en = CreateEnemy(rndEnemi.name, listPoint);
-                    alive.Add(en);
-                    spawntime -= Time.deltaTime;
-                    spawn++;
-                    waitspawn = 2;
-                }
-
-                waitspawn -= Time.deltaTime;
+                return;
             }
 
-            if (alive.Count <= 0)
-            {
-                spawntime = Random.Range(0, 10);
-            }
+            rndEnemi = ennemi[Random.Range(0, ennemi.Length - 1)];
+            var en = CreateEnemy(rndEnemi.name);
+            alive.Add(en);
+
+            spawn++;
         }
 
-        if ((spawn == max || grid[pos[0],pos[1]].IsBoss) && alive.Count <= 0 )
+        if ((spawn == max || grid[pos[0], pos[1]].IsBoss) && alive.Count <= 0)
         {
             if (grid[pos[0], pos[1]].IsBoss)
             {
@@ -92,10 +79,12 @@ public class GeneratorEnemi : MonoBehaviour
                 if (listPoint.Count <= 0)
                     return;
                 rndEnemi = b;
-                alive.Add(CreateEnemy(b.name, listPoint));
+                alive.Add(CreateEnemy(b.name));
             }
+
             grid[pos[0], pos[1]].HasBeenEntered = true;
             spawn = 0;
+            ClearSpawnPoint(CollectWhoIame());
             CleanSpot();
         }
 
@@ -125,7 +114,7 @@ public class GeneratorEnemi : MonoBehaviour
             for (int i = 0; i < Rooms.spawnPoin.Count; i++)
             {
                 allspawn.Add(Rooms.spawnPoin[i]);
-                Rooms.spawnPoin.Remove(Rooms.spawnPoin[i]);
+                // Rooms.spawnPoin.Remove(Rooms.spawnPoin[i]);
             }
         }
 
@@ -148,10 +137,22 @@ public class GeneratorEnemi : MonoBehaviour
         return listPoint;
     }
 
-    public Enemy CreateEnemy(string name, List<GameObject> listPoint)
+    public void ClearSpawnPoint(List<GameObject> spawnPoint)
     {
-        spawnPoint = listPoint[Random.Range(0, listPoint.Count - 1)].transform;
-        var en = Instantiate(rndEnemi, spawnPoint.position, Quaternion.identity, cam);
+        foreach (var gameObject in spawnPoint)
+        {
+            allspawnpoint.Remove(gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+    public Enemy CreateEnemy(string name)
+    {
+        spawnPoint = listPoint[Random.Range(0, listPoint.Count - 1)];
+        allspawnpoint.Remove(spawnPoint);
+        this.listPoint.Remove(spawnPoint);
+        Destroy(spawnPoint);
+        var en = Instantiate(rndEnemi, spawnPoint.transform.position, Quaternion.identity, cam);
         var ComptEn = en.GetComponent<Enemy>();
 
 
@@ -181,8 +182,9 @@ public class GeneratorEnemi : MonoBehaviour
             "Mickey_marron" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
             "Fantome_rouge" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
             "Boo_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Pacman" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Boss_Thomas" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
+            //Section Boss
+            "Pacman" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2),
+            "Boss_Thomas" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2),
 
 
             _ => throw new ArgumentException("invalid name of enemy")
