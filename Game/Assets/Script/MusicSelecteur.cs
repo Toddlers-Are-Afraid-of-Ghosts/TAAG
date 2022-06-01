@@ -24,7 +24,7 @@ public class MusicSelecteur : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"{actualClip.time} / {actualClip.clip.length}");
+        // Debug.Log($"{actualClip.time} / {actualClip.clip.length}");
         if (actualClip.time >= actualClip.clip.length)
         {
             var music = allMusic[nextClip];
