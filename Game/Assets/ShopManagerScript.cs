@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ShopManagerScript : MonoBehaviour
 {
+    public Player player;
     public int[,] ShopItems=new int[10,10];
-    public float coins;
     public Text CoinsTXT;
+
+    private int coins;
 
 
     void Start()
     {
+        //methode pour récuperer la money du player (je sais pas si ça marche)
+        coins=player.gold;
         CoinsTXT.text= "Coins:"+ coins.ToString();
 
         //ID's
@@ -63,6 +68,14 @@ public class ShopManagerScript : MonoBehaviour
             ShopItems[2,ButtonRef.GetComponent<buttoninfo>().ItemID] --;
             CoinsTXT.text= "Coins:"+ coins.ToString();
             ButtonRef.GetComponent<buttoninfo>().Quantity.text=ShopItems[2,ButtonRef.GetComponent<buttoninfo>().ItemID].ToString();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene(2);
         }
     }
 }
