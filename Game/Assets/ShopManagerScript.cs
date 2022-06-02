@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class ShopManagerScript : MonoBehaviour
 {
-    public Player player;
+    
+    protected Player player;
     public int[,] ShopItems=new int[10,10];
     public Text CoinsTXT;
 
@@ -16,7 +17,7 @@ public class ShopManagerScript : MonoBehaviour
 
     void Start()
     {
-        //methode pour récuperer la money du player (je sais pas si ça marche)
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         coins=player.gold;
         CoinsTXT.text= "Coins:"+ coins.ToString();
 
@@ -60,6 +61,7 @@ public class ShopManagerScript : MonoBehaviour
 
     public void Buy()
     {
+
         GameObject ButtonRef= GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
     
         if ( ShopItems[2,ButtonRef.GetComponent<buttoninfo>().ItemID]>0 && coins>=ShopItems[1,ButtonRef.GetComponent<buttoninfo>().ItemID])
@@ -73,9 +75,9 @@ public class ShopManagerScript : MonoBehaviour
 
     void FixedUpdate()
     {
+        coins=player.gold;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene(2);
         }
     }
 }

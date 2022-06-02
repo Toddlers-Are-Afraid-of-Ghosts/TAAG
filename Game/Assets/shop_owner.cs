@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class shop_owner : MonoBehaviour
 {
-    public int sceneID, scenebase;
-
+    public  bool isPaused = false;
+    public GameObject shopaccess;
     private bool Isinrange;
     public float speed, speedsafe;
     public Transform moveSpots;
@@ -16,7 +16,7 @@ public class shop_owner : MonoBehaviour
     private float waitTime;
     private bool wallhit = false;
     private Transform cam;
-    public float maxX, minX, maxY, minY, startWaitTime;
+    public float maxX, minX, maxY, minY, distanceRange,startWaitTime;
     public Animator animator; //objet animation
 
     public void OnCollisionEnter2D(Collision2D other)
@@ -24,7 +24,6 @@ public class shop_owner : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Wall":
-            case "Ennemy":
                 spot.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY)) + cam.position;
                 wallhit = true;
                 break;
@@ -34,6 +33,7 @@ public class shop_owner : MonoBehaviour
 
     void Start()
     {
+        shopaccess.SetActive(false);
         animator=GetComponent<Animator>();
         cam = GameObject.FindWithTag("MainCamera").transform;
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
@@ -46,10 +46,10 @@ public class shop_owner : MonoBehaviour
     void FixedUpdate()
     {
         //ouvre scene shop lorsque spacebar est pressée et joueur est dans zone de collision
-        if (Isinrange && Input.GetKeyDown(KeyCode.Space) && !wallhit)
+        if (DistanceToPlayer()<=distanceRange && Input.GetKeyDown(KeyCode.Space) &&!isPaused)
         {
             speed=0;
-            SceneManager.LoadScene(sceneID);
+            Paused();
         }
         else
         {
@@ -63,8 +63,8 @@ public class shop_owner : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, spot.position, speed * Time.deltaTime);
 
         //animation
-        //animator.SetFloat("Horizontal", transform.position.x);
-        //animator.SetFloat("Speed", transform.position.magnitude);
+        animator.SetFloat("Horizontal", transform.position.x);
+        animator.SetFloat("Speed", transform.position.magnitude);
     }
 
     private void Patro()
@@ -92,22 +92,18 @@ public class shop_owner : MonoBehaviour
         return Vector2.Distance(player.transform.position, this.transform.position);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Paused() //active le menu pause et arrete le temps.
     {
-        if(collision.CompareTag("Player"))
-        {
-            Isinrange=true;
-        }
 
+        shopaccess.SetActive(true);
+        Time.timeScale = 0;
+        isPaused = true;
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
+    public void Resume()
     {
-        if(collision.CompareTag("Player"))
-        {
-            Isinrange=false;
-        }
-
+        isPaused = false;
+        shopaccess.SetActive(false);
+        Time.timeScale = 1;
     }
 
 
