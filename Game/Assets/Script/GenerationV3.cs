@@ -324,7 +324,7 @@ public class GenerationV3 : MonoBehaviour {
         for (var x = 0; x < size; x++)
         for (var y = 0; y < size; y++) {
             ChooseRoom(grid, x, y, roomArray);
-            if (grid[x, y].Room != null) {
+            if (grid[x, y].Room is not null) {
                 var here = grid[x, y];
                 var hare = grid[x, y].Room.name;
                 var coordinates = new Vector3(grid[x, y].X, grid[x, y].Y, 0);
