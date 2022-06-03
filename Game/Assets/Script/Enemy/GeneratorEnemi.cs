@@ -17,6 +17,12 @@ public class GeneratorEnemi : MonoBehaviour
 
     public List<Enemy> alive;
     private GameObject rndEnemi;
+
+    public GameObject RndEnemi
+    {
+        set { rndEnemi = value; }
+    }
+
     public GameObject turn, spawnG, patrol, follower;
 
 
@@ -63,6 +69,8 @@ public class GeneratorEnemi : MonoBehaviour
                 listPoint = CollectWhoIame();
 
                 rndEnemi = ennemi[Random.Range(0, ennemi.Length - 1)];
+                while (rndEnemi.name != "Skull_gris")
+                    rndEnemi = ennemi[Random.Range(0, ennemi.Length - 1)];
                 var en = CreateEnemy(rndEnemi.name);
                 alive.Add(en);
 
@@ -149,12 +157,20 @@ public class GeneratorEnemi : MonoBehaviour
         }
     }
 
-    public Enemy CreateEnemy(string name)
+    public Enemy CreateEnemy(string name, GameObject position = null)
     {
-        spawnPoint = listPoint[Random.Range(0, listPoint.Count - 1)];
-        allspawnpoint.Remove(spawnPoint);
-        this.listPoint.Remove(spawnPoint);
-        Destroy(spawnPoint);
+        if (position == null)
+        {
+            spawnPoint = listPoint[Random.Range(0, listPoint.Count - 1)];
+            allspawnpoint.Remove(spawnPoint);
+            this.listPoint.Remove(spawnPoint);
+            Destroy(spawnPoint);
+        }
+        else
+        {
+            spawnPoint = position;
+            spawnPoint.transform.position += Vector3.up;
+        }
 
 
         var en = Instantiate(rndEnemi, spawnPoint.transform.position, Quaternion.identity, cam);
@@ -165,23 +181,23 @@ public class GeneratorEnemi : MonoBehaviour
         {
             "Patrol" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
 
-            "Fantom_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Fantome_orange" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Fantome_rose" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Fantome_rouge" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Fantom_bleu" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2),
+            "Fantome_orange" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
+            "Fantome_rose" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
+            "Fantome_rouge" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
 
-            "Boo_argent" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Boo_gold" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Boo_jaune" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Boo_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Boo_argent" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2),
+            "Boo_gold" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
+            "Boo_jaune" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
+            "Boo_violet" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
 
 
             "Turn" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
 
-            "Mickey_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Mickey_noir" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Mickey_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Mickey_marron" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Mickey_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 2, 2),
+            "Mickey_noir" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
+            "Mickey_vert" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
+            "Mickey_marron" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
 
             "Chase" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
 

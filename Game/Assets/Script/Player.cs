@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     private float actualcooldown;
     public float Health => health;
 
+    public bool god = true;
     //needed for player selection
 
 
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag is "EnemyBullet")
         {
+            if (god) return;
             var compt = other.gameObject.GetComponent<EnemyBullet>();
             health -= compt.Attack;
             ManagerSfx.PlaySound("playerHit");
