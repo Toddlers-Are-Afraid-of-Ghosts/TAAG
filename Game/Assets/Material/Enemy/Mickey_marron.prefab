@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1914465274159993232}
   - component: {fileID: 6020016497722742389}
-  - component: {fileID: 4085975372821092302}
   - component: {fileID: 6318365151390464359}
   - component: {fileID: 7628480395479986318}
   - component: {fileID: 1705885630916936194}
+  - component: {fileID: -1002479350943027388}
   m_Layer: 0
   m_Name: Mickey_marron
   m_TagString: Ennemy
@@ -88,27 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4085975372821092302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8652642676092952775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d766e7f9e4af87469fb53f886e58694, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 8249988126736134428, guid: 83c028f4e81c5b944a964807e8b521f3, type: 3}
-  moveSpots: {fileID: 1845712989278218627, guid: a1a770de4ad66bf45a4161396d20178b, type: 3}
-  bullet: {fileID: 8762579411195906640, guid: e82e700d319808b43b90a011b2512c38, type: 3}
-  ennemi: []
-  animator: {fileID: 1705885630916936194}
-  minX: -11.5
-  minY: -6
-  maxX: 11
-  maxY: 6
 --- !u!50 &6318365151390464359
 Rigidbody2D:
   serializedVersion: 4
@@ -176,3 +155,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-1002479350943027388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8652642676092952775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9382cdbf286fed4fa4c35e50cb35a6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 8249988126736134428, guid: 83c028f4e81c5b944a964807e8b521f3, type: 3}
+  moveSpawn: {fileID: 6436595841136754026, guid: a1a770de4ad66bf45a4161396d20178b, type: 3}
+  bullet: {fileID: 8762579411195906640, guid: e82e700d319808b43b90a011b2512c38, type: 3}
+  animator: {fileID: 7854917887377470511, guid: 28830212cb1a59d49bb2e4223a1ddd10, type: 3}

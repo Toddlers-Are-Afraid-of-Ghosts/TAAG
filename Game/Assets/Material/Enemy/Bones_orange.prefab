@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4924597595334145557}
   - component: {fileID: 4924597595334145556}
-  - component: {fileID: 4924597595334145559}
   - component: {fileID: 4924597595334145554}
   - component: {fileID: 4924597595334145555}
   - component: {fileID: 5567496557955859379}
+  - component: {fileID: 6284666364128242655}
   m_Layer: 0
   m_Name: Bones_orange
   m_TagString: Ennemy
@@ -88,22 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4924597595334145559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4924597595334145558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9382cdbf286fed4fa4c35e50cb35a6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 8249988126736134428, guid: 83c028f4e81c5b944a964807e8b521f3, type: 3}
-  moveSpawn: {fileID: 6436595841136754026, guid: a1a770de4ad66bf45a4161396d20178b, type: 3}
-  bullet: {fileID: 8762579411195906640, guid: e82e700d319808b43b90a011b2512c38, type: 3}
-  animator: {fileID: 5567496557955859379}
 --- !u!61 &4924597595334145554
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -171,3 +155,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6284666364128242655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4924597595334145558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95871a031b68c746a50b25f91178872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 8249988126736134428, guid: 83c028f4e81c5b944a964807e8b521f3, type: 3}
+  moveSpots: {fileID: 1845712989278218627, guid: a1a770de4ad66bf45a4161396d20178b, type: 3}
+  bullet: {fileID: 8762579411195906640, guid: e82e700d319808b43b90a011b2512c38, type: 3}
+  animator: {fileID: 0}

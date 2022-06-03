@@ -63,8 +63,10 @@ public class ManagerSfx : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (var sfx in allaudio)
+        int i = 0;
+        while (i < allaudio.Count)
         {
+            var sfx = allaudio[i];
             var comp = sfx.GetComponent<CreateSfx>();
 
             if (comp.AudioSource.time >= comp.AudioSource.clip.length)
@@ -72,6 +74,10 @@ public class ManagerSfx : MonoBehaviour
                 allaudio.Remove(sfx);
                 Destroy(sfx);
                 Debug.Log("Destroy");
+            }
+            else
+            {
+                i++;
             }
         }
     }

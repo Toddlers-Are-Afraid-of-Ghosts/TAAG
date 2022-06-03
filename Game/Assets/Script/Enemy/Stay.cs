@@ -156,13 +156,13 @@ public class Stay : Enemy
     private new void Attack()
     {
         actualcooldown = cooldown;
-        var bullet1 = Instantiate(bullet, transform.position + Vector3.up, Quaternion.identity);
+        // var bullet1 = Instantiate(bullet, transform.position + Vector3.up, Quaternion.identity);
         var bullet2 = Instantiate(bullet, transform.position + Vector3.down, Quaternion.identity);
-        var bullet3 = Instantiate(bullet, transform.position + Vector3.left, Quaternion.identity);
-        var bullet4 = Instantiate(bullet, transform.position + Vector3.right, Quaternion.identity);
-        bullet1.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.up);
-        bullet2.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.down);
-        bullet3.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.left);
-        bullet4.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.right);
+        // var bullet3 = Instantiate(bullet, transform.position + Vector3.left, Quaternion.identity);
+        // var bullet4 = Instantiate(bullet, transform.position + Vector3.right, Quaternion.identity);
+        // bullet1.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.up);
+        bullet2.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, (Vector2.down+Vector2.down)/2);
+        // bullet3.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.left);
+        // bullet4.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.right);
     }
 }

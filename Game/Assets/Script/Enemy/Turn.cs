@@ -41,7 +41,7 @@ public class Turn : Enemy
 
         playerSpots.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
 
-        CreateMoveAroundPoint(amountToSpawn, playerSpots.position, 3, playerSpots);
+        CreateMoveAroundPoint(amountToSpawn, playerSpots.position, 4, playerSpots);
 
         pos = Random.Range(0, amountToSpawn - 1);
     }
