@@ -7,6 +7,7 @@ public class LevelChanger : MonoBehaviour {
     private Transform player;
     public Transform camera;
     public Player playerStats;
+    private levelloader loader = new levelloader();
 
     public static bool isIn;
     // Start is called before the first frame update
@@ -21,8 +22,9 @@ public class LevelChanger : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         if (isIn) {
-            camera.transform.position = new Vector3(0,0, -10);
-            player.transform.position = Vector3.zero;
+            loader.Loadlevel(2);
+            //camera.transform.position = new Vector3(0,0, -10);
+            //player.transform.position = Vector3.zero;
             PlayerPrefs.SetFloat("health", playerStats.health);
             PlayerPrefs.SetFloat("attack", playerStats.attack);
             PlayerPrefs.SetFloat("speed", playerStats.speed);
@@ -30,13 +32,14 @@ public class LevelChanger : MonoBehaviour {
             PlayerPrefs.SetFloat("bonushealth", playerStats.bonusHealth);
             PlayerPrefs.SetFloat("cooldown", playerStats.cooldown);
             PlayerPrefs.SetFloat("attackrange", playerStats.attackRange);
-            SceneManager.LoadScene("World");
-            SceneManager.UnloadSceneAsync("World");
+            
         }
     }
     
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.CompareTag("Player")) isIn = true;
+        if (other.gameObject.CompareTag("Player")) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
