@@ -7,8 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class ShopManagerScript : MonoBehaviour
 {
-    
-    protected Player player;
+    private Player player;
     public int[,] ShopItems=new int[10,10];
     public Text CoinsTXT;
 
@@ -61,12 +60,57 @@ public class ShopManagerScript : MonoBehaviour
 
     public void Buy()
     {
-
         GameObject ButtonRef= GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
-    
         if ( ShopItems[2,ButtonRef.GetComponent<buttoninfo>().ItemID]>0 && coins>=ShopItems[1,ButtonRef.GetComponent<buttoninfo>().ItemID])
         {
             coins -=ShopItems[1,ButtonRef.GetComponent<buttoninfo>().ItemID];
+            switch (ShopItems[0,ButtonRef.GetComponent<buttoninfo>().ItemID])
+            {
+                case 1:
+                {
+                    player.speed+=15;
+                    player.attack+=3;
+                    player.shotSpeed+=600;
+                    player.cooldown-=(float)0.15;
+                    player.attackRange+=3;
+                    break;
+                }
+                case 2:
+                {
+                    player.cooldown-=(float)0.1;
+                    break;
+                }
+                case 3:
+                {
+                    player.attackRange+=2;
+                    break;
+                }
+                case 4:
+                {
+                    player.shotSpeed+=400;;
+                    break;
+                }
+                case 5:
+                {
+                    player.bonusHealth+=2;
+                    break;
+                }
+                case 6:
+                {
+                    player.health+=2;
+                    break;
+                }
+                case 7:
+                {
+                    player.speed+=10;
+                    break;
+                }
+                case 8:
+                {
+                    player.attack+=2;
+                    break;
+                }
+            }
             ShopItems[2,ButtonRef.GetComponent<buttoninfo>().ItemID] --;
             CoinsTXT.text= "Coins:"+ coins.ToString();
             ButtonRef.GetComponent<buttoninfo>().Quantity.text=ShopItems[2,ButtonRef.GetComponent<buttoninfo>().ItemID].ToString();
@@ -75,9 +119,7 @@ public class ShopManagerScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        coins=player.gold;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-        }
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        coins=player.gold;  
     }
 }
