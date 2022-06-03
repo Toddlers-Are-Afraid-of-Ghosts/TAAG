@@ -150,15 +150,15 @@ public class RoomTemplates : MonoBehaviour
         grid = GenerationV3.PlaceRooms(grid, size, RoomArray);
     }
 
-    void Update() {
-        if (LevelChanger.isIn) {
-            GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
-            foreach(GameObject room in rooms)
-                GameObject.Destroy(room);
-            size += level * 2;
-            level++;
-            grid = GenerationV3.Spawn(size); 
-            grid = GenerationV3.PlaceRooms(grid, size, RoomArray);
-        }
-    }
+    // void Update() {
+    //     if (LevelChanger.isIn) {
+    //         GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+    //         foreach(GameObject room in rooms)
+    //             GameObject.Destroy(room);
+    //         size += level * 2;
+    //         level++;
+    //         grid = GenerationV3.Spawn(size); 
+    //         grid = GenerationV3.PlaceRooms(grid, size, RoomArray);
+    //     }
+    // }
 }
