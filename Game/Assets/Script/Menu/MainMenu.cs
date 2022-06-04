@@ -10,8 +10,10 @@ public class MainMenu : MonoBehaviour
     public GameObject settingsWindows;
     public GameObject musicSetting;
     public GameObject playPanel;
+    public GameObject inputSetting;
     bool flag = true;
     bool music= true;
+    bool input = true;
     
     public void PlayGame()
     {
@@ -28,6 +30,12 @@ public class MainMenu : MonoBehaviour
     {
         settingsWindows.SetActive(flag);
         flag = !flag;
+    }
+
+    public void InputSetting()
+    {
+        inputSetting.SetActive(input);
+        input = !input;
     }
 
     public void MusicSetting()
