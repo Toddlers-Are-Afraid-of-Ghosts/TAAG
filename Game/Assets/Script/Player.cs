@@ -25,16 +25,18 @@ public class Player : MonoBehaviour
     private float actualcooldown;
     public float Health => health;
 
+    public bool god = true;
     //needed for player selection
-   
 
 
     public void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag is "EnemyBullet")
         {
+            if (god) return;
             var compt = other.gameObject.GetComponent<EnemyBullet>();
             health -= compt.Attack;
+            ManagerSfx.PlaySound("playerHit");
         }
     }
 
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour
         {
             this.health = this.maxHealth;
         }
+
         this.bonusHealth += boHe;
         this.speed += sp;
         this.attack += at;
@@ -66,15 +69,15 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         actualcooldown = cooldown;
         animator = GetComponent<Animator>();
-
-        //fonction start de charactermanager
-        
     }
 
     void FixedUpdate()
     {
+        
         if (IsAlive())
         {
+            if (health < 5)
+                ManagerSfx.PlaySound("Health");
             if (actualcooldown <= 0)
             {
                 Fire();
@@ -94,6 +97,7 @@ public class Player : MonoBehaviour
 
     void Moveto()
     {
+        // ManagerSfx.PlaySound("playerWalk");
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector2 move = new Vector2(horizontal * speed, vertical * speed);
@@ -165,5 +169,4 @@ public class Player : MonoBehaviour
     }
 
     //function copied from charactermanager
-   
 }

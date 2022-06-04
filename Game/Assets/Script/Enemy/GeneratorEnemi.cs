@@ -11,37 +11,42 @@ using UnityEngine.SceneManagement;
 public class GeneratorEnemi : MonoBehaviour
 {
     public GameObject[] ennemi;
-
     public GameObject[] boss;
 
-    // private List<GameObject> allenemi;
     private Transform cam;
-    public static List<Enemy> alive;
-    float spawntime;
-    GameObject rndEnemi;
-    Vector2 spawnPos;
-    public int max;
+
+    public List<Enemy> alive;
+    private GameObject rndEnemi;
+
+    public GameObject RndEnemi
+    {
+        set { rndEnemi = value; }
+    }
+
+    public GameObject turn, spawnG, patrol, follower;
+
     private int spawn = 0;
-    float waitspawn;
+
     public bool active = false;
+
     public bool win = false;
-    private Transform spawnPoint;
+
+    private GameObject spawnPoint;
     private RoomsProperties[,] grid;
+
     private int[] pos;
     private int size;
     public static bool inShop;
+
     private List<GameObject> allspawnpoint;
+    private List<GameObject> listPoint;
 
     // Start is called before the first frame update
     void Start()
     {
-        waitspawn = 2;
-        spawnPos = new Vector2(2, 3);
         alive = new List<Enemy>();
-        spawntime = Random.Range(0, 10);
         cam = GameObject.FindWithTag("MainCamera").transform;
         pos = Vdoor.pos;
-        size = RoomTemplates.size;
         grid = RoomTemplates.grid;
         allspawnpoint = CollectSpawnPoint();
     }
@@ -51,51 +56,46 @@ public class GeneratorEnemi : MonoBehaviour
     void Update()
     {
         pos = Vdoor.pos;
-        if (grid[pos[0], pos[1]].HasBeenEntered && grid[pos[0], pos[1]].IsPLayerIn && !grid[pos[0], pos[1]].IsBoss )
+        if (grid[pos[0], pos[1]].HasBeenEntered && grid[pos[0], pos[1]].IsPLayerIn && !grid[pos[0], pos[1]].IsBoss)
+        {
+            ClearSpawnPoint(CollectWhoIame());
             return;
         inShop = grid[pos[0], pos[1]].IsShop;
-        if (active && spawn < max)
+        if (active)
+
         {
-            if (spawntime > 0)
+            listPoint = CollectWhoIame();
+            while (listPoint.Count > 0)
             {
-                if (waitspawn <= 0)
-                {
-                    var listPoint = CollectWhoIame();
-                    if (listPoint.Count <= 0)
-                    {
-                        waitspawn = 2;
-                        return;
-                    }
-                    rndEnemi = ennemi[Random.Range(0, ennemi.Length - 1)];
-                    var en = CreateEnemy(rndEnemi.name, listPoint);
-                    alive.Add(en);
-                    spawntime -= Time.deltaTime;
-                    spawn++;
-                    waitspawn = 2;
-                }
+                listPoint = CollectWhoIame();
 
-                waitspawn -= Time.deltaTime;
-            }
+                rndEnemi = ennemi[Random.Range(0, ennemi.Length - 1)];
+        
+                var en = CreateEnemy(rndEnemi.name);
+                alive.Add(en);
 
-            if (alive.Count <= 0)
-            {
-                spawntime = Random.Range(0, 10);
+                spawn++;
             }
         }
 
-        if ((spawn == max || grid[pos[0],pos[1]].IsBoss) && alive.Count <= 0 )
+        if ((grid[pos[0], pos[1]].IsBoss) && alive.Count <= 0)
         {
             if (grid[pos[0], pos[1]].IsBoss)
             {
                 var b = boss[Random.Range(0, boss.Length - 1)];
                 var listPoint = CollectWhoIame();
                 if (listPoint.Count <= 0)
+                {
                     return;
+                }
+
                 rndEnemi = b;
-                alive.Add(CreateEnemy(b.name, listPoint));
+                alive.Add(CreateEnemy(b.name));
             }
+
             grid[pos[0], pos[1]].HasBeenEntered = true;
             spawn = 0;
+            ClearSpawnPoint(CollectWhoIame());
             CleanSpot();
         }
 
@@ -105,6 +105,7 @@ public class GeneratorEnemi : MonoBehaviour
             var enemy = alive[i];
             i++;
             if (enemy.Health > 0) continue;
+            ManagerSfx.PlaySound(enemy.SFX);
             alive.Remove(enemy);
             Destroy(enemy.gameObject);
             if (enemy.tag is "Boss")
@@ -125,7 +126,7 @@ public class GeneratorEnemi : MonoBehaviour
             for (int i = 0; i < Rooms.spawnPoin.Count; i++)
             {
                 allspawn.Add(Rooms.spawnPoin[i]);
-                Rooms.spawnPoin.Remove(Rooms.spawnPoin[i]);
+                // Rooms.spawnPoin.Remove(Rooms.spawnPoin[i]);
             }
         }
 
@@ -148,41 +149,75 @@ public class GeneratorEnemi : MonoBehaviour
         return listPoint;
     }
 
-    public Enemy CreateEnemy(string name, List<GameObject> listPoint)
+    public void ClearSpawnPoint(List<GameObject> spawnPoint)
     {
-        spawnPoint = listPoint[Random.Range(0, listPoint.Count - 1)].transform;
-        var en = Instantiate(rndEnemi, spawnPoint.position, Quaternion.identity, cam);
+        foreach (var gameObject in spawnPoint)
+        {
+            allspawnpoint.Remove(gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+    public Enemy CreateEnemy(string name, GameObject position = null)
+    {
+        if (position == null)
+        {
+            spawnPoint = listPoint[Random.Range(0, listPoint.Count - 1)];
+            allspawnpoint.Remove(spawnPoint);
+            this.listPoint.Remove(spawnPoint);
+            Destroy(spawnPoint);
+        }
+        else
+        {
+            spawnPoint = position;
+            spawnPoint.transform.position += Vector3.up;
+        }
+
+
+        var en = Instantiate(rndEnemi, spawnPoint.transform.position, Quaternion.identity, cam);
         var ComptEn = en.GetComponent<Enemy>();
 
 
         var result = name switch
         {
-            "Patrol" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Fantom_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Mickey_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Boo_argent" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Bones_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Skull_gris" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Turn" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Mickey_noir" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Fantome_orange" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Boo_gold" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Bones_orange" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Skull_noir" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Chase" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Skull_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Fantome_rose" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Boo_jaune" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Mickey_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Bones_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Stay" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Skull_pourpre" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Bones_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Mickey_marron" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Fantome_rouge" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Boo_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Pacman" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Boss_Thomas" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
+            "Patrol" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2,"ghost"),
+
+            "Fantom_bleu" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2,"ghost"),
+            "Fantome_orange" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+            "Fantome_rose" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+            "Fantome_rouge" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+
+            "Boo_argent" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2,"ghost"),
+            "Boo_gold" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+            "Boo_jaune" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+            "Boo_violet" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+
+
+            "Turn" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"mickey"),
+
+            "Mickey_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 2, 2,"mickey"),
+            "Mickey_noir" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2,"mickey"),
+            "Mickey_vert" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2,"mickey"),
+            "Mickey_marron" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2,"mickey"),
+
+            "Chase" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
+
+            "Bones_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2,"stick"),
+            "Bones_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
+            "Bones_orange" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
+            "Bones_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
+
+            "Stay" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
+
+            "Skull_noir" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
+            "Skull_gris" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2,"dreap"),
+            "Skull_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
+            "Skull_pourpre" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
+
+
+            //Section Boss
+            "Pacman" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2,"boss"),
+            "Boss_Thomas" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2,"boss"),
 
 
             _ => throw new ArgumentException("invalid name of enemy")

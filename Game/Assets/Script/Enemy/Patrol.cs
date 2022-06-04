@@ -55,6 +55,11 @@ public class Patrol : Enemy
         {
             this.Patro();
         }
+
+        if (Dead())
+        {
+            
+        }
     }
 
     private void Move()
