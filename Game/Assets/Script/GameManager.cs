@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private int SelectedOption = 0;
     public List<GameObject> players = new List<GameObject>();
 
+    public static int level;
     void Start()
     {
         if (!PlayerPrefs.HasKey("SelectedOption"))
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
         Instantiate(players[SelectedOption % 2]);
         generator = this.GetComponent<GeneratorEnemi>();
         numberOfPlayer = GameObject.FindGameObjectsWithTag("Player").Length;
+        level = 1;
     }
 
     // Update is called once per frame
