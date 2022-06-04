@@ -62,7 +62,6 @@ public class Player : MonoBehaviour
         actualcooldown = cooldown;
         animator = GetComponent<Animator>();
 
-
         //fonction start de charactermanager
         
     }

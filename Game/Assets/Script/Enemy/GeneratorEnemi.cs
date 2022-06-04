@@ -29,7 +29,7 @@ public class GeneratorEnemi : MonoBehaviour
     private RoomsProperties[,] grid;
     private int[] pos;
     private int size;
-
+    public static bool inShop;
     private List<GameObject> allspawnpoint;
 
     // Start is called before the first frame update
@@ -53,7 +53,7 @@ public class GeneratorEnemi : MonoBehaviour
         pos = Vdoor.pos;
         if (grid[pos[0], pos[1]].HasBeenEntered && grid[pos[0], pos[1]].IsPLayerIn && !grid[pos[0], pos[1]].IsBoss )
             return;
-
+        inShop = grid[pos[0], pos[1]].IsShop;
         if (active && spawn < max)
         {
             if (spawntime > 0)
