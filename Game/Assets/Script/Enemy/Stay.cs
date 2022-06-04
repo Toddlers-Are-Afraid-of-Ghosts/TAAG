@@ -37,7 +37,7 @@ public class Stay : Enemy
 
     void Start()
     {
-        spawntime = 7;
+        spawntime = 5;
         animator=GetComponent<Animator>();
         cam = GameObject.FindWithTag("MainCamera").transform;
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
@@ -142,12 +142,12 @@ public class Stay : Enemy
 
     void Spawn()
     {
-        spawntime = 7;
+        spawntime = 5;
         var rnd = Random.Range(0, allenemi.Count - 1);
         var rndEnemi = allenemi[rnd];
         generatorEnemi.RndEnemi = rndEnemi;
         var en = generatorEnemi.CreateEnemy(rndEnemi.name,this.gameObject);
-        generatorEnemi.alive.Add(en);
+        GeneratorEnemi.alive.Add(en);
     }
 
     bool Dead()

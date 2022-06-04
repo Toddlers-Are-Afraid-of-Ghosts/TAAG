@@ -15,7 +15,7 @@ public class GeneratorEnemi : MonoBehaviour
 
     private Transform cam;
 
-    public List<Enemy> alive;
+    public static List<Enemy> alive;
     private GameObject rndEnemi;
 
     public GameObject RndEnemi
@@ -23,7 +23,7 @@ public class GeneratorEnemi : MonoBehaviour
         set { rndEnemi = value; }
     }
 
-    public GameObject turn, spawnG, patrol, follower;
+    public GameObject levelchanger;
 
     private int spawn = 0;
 
@@ -49,6 +49,7 @@ public class GeneratorEnemi : MonoBehaviour
         pos = Vdoor.pos;
         grid = RoomTemplates.grid;
         allspawnpoint = CollectSpawnPoint();
+        levelchanger.SetActive(false);
     }
 
 
@@ -58,11 +59,15 @@ public class GeneratorEnemi : MonoBehaviour
         pos = Vdoor.pos;
         if (grid[pos[0], pos[1]].HasBeenEntered && grid[pos[0], pos[1]].IsPLayerIn && !grid[pos[0], pos[1]].IsBoss)
         {
+            if (alive.Count <= 0)
+                Destroy(GameObject.FindGameObjectWithTag("Door"));
             ClearSpawnPoint(CollectWhoIame());
+            inShop = grid[pos[0], pos[1]].IsShop;
             return;
-        inShop = grid[pos[0], pos[1]].IsShop;
-        if (active)
+        }
 
+        inShop = grid[pos[0], pos[1]].IsShop;
+        if (active && !grid[pos[0], pos[1]].IsBoss)
         {
             listPoint = CollectWhoIame();
             while (listPoint.Count > 0)
@@ -70,34 +75,39 @@ public class GeneratorEnemi : MonoBehaviour
                 listPoint = CollectWhoIame();
 
                 rndEnemi = ennemi[Random.Range(0, ennemi.Length - 1)];
-        
+
                 var en = CreateEnemy(rndEnemi.name);
                 alive.Add(en);
 
                 spawn++;
             }
         }
-
-        if ((grid[pos[0], pos[1]].IsBoss) && alive.Count <= 0)
+        else
         {
-            if (grid[pos[0], pos[1]].IsBoss)
-            {
-                var b = boss[Random.Range(0, boss.Length - 1)];
-                var listPoint = CollectWhoIame();
-                if (listPoint.Count <= 0)
-                {
-                    return;
-                }
+            grid[pos[0], pos[1]].HasBeenEntered = true;
+        }
 
-                rndEnemi = b;
-                alive.Add(CreateEnemy(b.name));
+        if (grid[pos[0], pos[1]].IsBoss && alive.Count<=0)
+        {
+            var b = boss[Random.Range(0, boss.Length - 1)];
+            listPoint = CollectWhoIame();
+            if (listPoint.Count <= 0)
+            {
+                return;
             }
 
+            rndEnemi = b;
+            alive.Add(CreateEnemy(b.name));
+        }
+        if (alive.Count<=0)
+        {
             grid[pos[0], pos[1]].HasBeenEntered = true;
             spawn = 0;
             ClearSpawnPoint(CollectWhoIame());
             CleanSpot();
+            Destroy(GameObject.FindGameObjectWithTag("Door"));
         }
+
 
         int i = 0;
         while (i < alive.Count)
@@ -110,7 +120,8 @@ public class GeneratorEnemi : MonoBehaviour
             Destroy(enemy.gameObject);
             if (enemy.tag is "Boss")
             {
-                win = true;
+                levelchanger.transform.position = enemy.transform.position;
+                levelchanger.SetActive(true);
             }
         }
     }
@@ -180,44 +191,44 @@ public class GeneratorEnemi : MonoBehaviour
 
         var result = name switch
         {
-            "Patrol" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2,"ghost"),
+            "Patrol" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2, "ghost"),
 
-            "Fantom_bleu" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2,"ghost"),
-            "Fantome_orange" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
-            "Fantome_rose" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
-            "Fantome_rouge" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+            "Fantom_bleu" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2, "ghost"),
+            "Fantome_orange" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2, "ghost"),
+            "Fantome_rose" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2, "ghost"),
+            "Fantome_rouge" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2, "ghost"),
 
-            "Boo_argent" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2,"ghost"),
-            "Boo_gold" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
-            "Boo_jaune" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
-            "Boo_violet" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+            "Boo_argent" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2, "ghost"),
+            "Boo_gold" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2, "ghost"),
+            "Boo_jaune" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2, "ghost"),
+            "Boo_violet" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2, "ghost"),
 
 
-            "Turn" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"mickey"),
+            "Turn" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2, "mickey"),
 
-            "Mickey_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 2, 2,"mickey"),
-            "Mickey_noir" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2,"mickey"),
-            "Mickey_vert" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2,"mickey"),
-            "Mickey_marron" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2,"mickey"),
+            "Mickey_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 2, 2, "mickey"),
+            "Mickey_noir" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2, "mickey"),
+            "Mickey_vert" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2, "mickey"),
+            "Mickey_marron" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2, "mickey"),
 
-            "Chase" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
+            "Chase" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2, "stick"),
 
-            "Bones_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2,"stick"),
-            "Bones_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
-            "Bones_orange" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
-            "Bones_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
+            "Bones_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2, "stick"),
+            "Bones_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2, "stick"),
+            "Bones_orange" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2, "stick"),
+            "Bones_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2, "stick"),
 
-            "Stay" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
+            "Stay" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2, "dreap"),
 
-            "Skull_noir" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
-            "Skull_gris" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2,"dreap"),
-            "Skull_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
-            "Skull_pourpre" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
+            "Skull_noir" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2, "dreap"),
+            "Skull_gris" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2, "dreap"),
+            "Skull_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2, "dreap"),
+            "Skull_pourpre" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2, "dreap"),
 
 
             //Section Boss
-            "Pacman" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2,"boss"),
-            "Boss_Thomas" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2,"boss"),
+            "Pacman" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2, "boss"),
+            "Boss_Thomas" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2, "boss"),
 
 
             _ => throw new ArgumentException("invalid name of enemy")
