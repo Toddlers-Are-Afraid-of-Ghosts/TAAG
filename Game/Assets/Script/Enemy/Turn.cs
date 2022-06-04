@@ -92,9 +92,12 @@ public class Turn : Enemy
             Vector2.MoveTowards(transform.position, spot[pos].transform.position, this.speed * Time.deltaTime);
         
         //animation
-        animator.SetFloat("Vertical", transform.position.y);
-        animator.SetFloat("Horizontal", transform.position.x);
-        animator.SetFloat("Speed", transform.position.magnitude);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector2 move = new Vector2(horizontal * speed, vertical * speed);
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);
+        animator.SetFloat("Speed", move.magnitude);
         
         if (DistanceToSpot() < 1)
         {

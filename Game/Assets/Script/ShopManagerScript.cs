@@ -8,17 +8,18 @@ using UnityEngine.SceneManagement;
 
 public class ShopManagerScript : MonoBehaviour
 {
-    private Player player;
+    private Player playerStats;
     public int[,] ShopItems=new int[10,10];
     public Text CoinsTXT;
+    private GameObject ButtonRef;
 
     private int coins;
 
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        coins=player.gold;
+        playerStats=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        coins=playerStats.gold;
 
         CoinsTXT.text= "Coins:"+ coins.ToString();
 
@@ -62,54 +63,55 @@ public class ShopManagerScript : MonoBehaviour
 
     public void Buy()
     {
-        GameObject ButtonRef= GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
-        if ( ShopItems[2,ButtonRef.GetComponent<buttoninfo>().ItemID]>0 && coins>=ShopItems[1,ButtonRef.GetComponent<buttoninfo>().ItemID])
+        coins=playerStats.gold;
+        ButtonRef= GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
+        if (ShopItems[2,ButtonRef.GetComponent<buttoninfo>().ItemID]>0 && coins>=ShopItems[1,ButtonRef.GetComponent<buttoninfo>().ItemID])
         {
             coins -=ShopItems[1,ButtonRef.GetComponent<buttoninfo>().ItemID];
             switch (ShopItems[0,ButtonRef.GetComponent<buttoninfo>().ItemID])
             {
                 case 1:
                 {
-                    player.speed+=15;
-                    player.attack+=3;
-                    player.shotSpeed+=600;
-                    player.cooldown-=(float)0.15;
-                    player.attackRange+=3;
+                    playerStats.speed+=15;
+                    playerStats.attack+=3;
+                    playerStats.shotSpeed+=600;
+                    playerStats.cooldown-=(float)0.15;
+                    playerStats.attackRange+=3;
                     break;
                 }
                 case 2:
                 {
-                    player.cooldown-=(float)0.1;
+                    playerStats.cooldown-=(float)0.1;
                     break;
                 }
                 case 3:
                 {
-                    player.attackRange+=2;
+                    playerStats.attackRange+=2;
                     break;
                 }
                 case 4:
                 {
-                    player.shotSpeed+=400;;
+                    playerStats.shotSpeed+=400;;
                     break;
                 }
                 case 5:
                 {
-                    player.bonusHealth+=2;
+                    playerStats.bonusHealth+=2;
                     break;
                 }
                 case 6:
                 {
-                    player.health+=2;
+                    playerStats.health+=2;
                     break;
                 }
                 case 7:
                 {
-                    player.speed+=10;
+                    playerStats.speed+=10;
                     break;
                 }
                 case 8:
                 {
-                    player.attack+=2;
+                    playerStats.attack+=2;
                     break;
                 }
             }
@@ -122,8 +124,7 @@ public class ShopManagerScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        coins=player.gold;  
+        coins=playerStats.gold;  
     }
 
 }
