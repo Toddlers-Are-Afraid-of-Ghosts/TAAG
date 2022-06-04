@@ -16,7 +16,7 @@ public class GeneratorEnemi : MonoBehaviour
 
     // private List<GameObject> allenemi;
     private Transform cam;
-    public List<Enemy> alive;
+    public static List<Enemy> alive;
     float spawntime;
     GameObject rndEnemi;
     Vector2 spawnPos;

@@ -14,6 +14,8 @@ public class RoomTemplates : MonoBehaviour
 {
     public static int size;
     public static RoomsProperties[,] grid;
+    public static int level;
+    public static List<RoomsProperties>[] RoomArray;
     public static List<RoomsProperties> ExtractRooms(string path, string roomCode, bool top, bool bottom, bool left,
         bool right)
     {
@@ -141,9 +143,22 @@ public class RoomTemplates : MonoBehaviour
             BottomSpecialRooms, LeftSpecialRooms, RightSpecialRooms,
             AllRooms, FullRooms
         };
-        
+
+        level = 1;
         size = 7;
         grid = GenerationV3.Spawn(size);
         grid = GenerationV3.PlaceRooms(grid, size, RoomArray);
     }
+
+    // void Update() {
+    //     if (LevelChanger.isIn) {
+    //         GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+    //         foreach(GameObject room in rooms)
+    //             GameObject.Destroy(room);
+    //         size += level * 2;
+    //         level++;
+    //         grid = GenerationV3.Spawn(size); 
+    //         grid = GenerationV3.PlaceRooms(grid, size, RoomArray);
+    //     }
+    // }
 }

@@ -57,7 +57,12 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        health = maxHealth;
+        if (PlayerPrefs.HasKey("health")) {
+            health = PlayerPrefs.GetFloat("health");
+        }
+        else {
+            health = maxHealth;
+        }
         rb = GetComponent<Rigidbody2D>();
         actualcooldown = cooldown;
         animator = GetComponent<Animator>();
