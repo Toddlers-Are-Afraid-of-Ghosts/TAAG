@@ -82,7 +82,7 @@ public class Stay : Enemy
             stayedx = Random.Range(-8, 8);
             stayedy = Random.Range(-8, 8);
             spot.position = new Vector3(player.transform.position.x + stayedx,
-                player.transform.position.y + stayedy);
+            player.transform.position.y + stayedy);
         }
 
         if (actualcooldown <= 0)
@@ -101,9 +101,12 @@ public class Stay : Enemy
         transform.position = Vector2.MoveTowards(transform.position, spot.position, this.speed * Time.deltaTime);
     
         //animation
-        animator.SetFloat("Vertical", transform.position.y);
-        animator.SetFloat("Horizontal", transform.position.x);
-        animator.SetFloat("Speed", transform.position.magnitude);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector2 move = new Vector2(horizontal * speed, vertical * speed);
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);
+        animator.SetFloat("Speed", move.magnitude);
     }
 
     private float DistanceToPlayer(Transform obj, Transform obj2)
