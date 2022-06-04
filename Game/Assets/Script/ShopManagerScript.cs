@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 using UnityEngine.SceneManagement;
 
 public class ShopManagerScript : MonoBehaviour
@@ -18,6 +19,7 @@ public class ShopManagerScript : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         coins=player.gold;
+
         CoinsTXT.text= "Coins:"+ coins.ToString();
 
         //ID's
@@ -111,6 +113,7 @@ public class ShopManagerScript : MonoBehaviour
                     break;
                 }
             }
+
             ShopItems[2,ButtonRef.GetComponent<buttoninfo>().ItemID] --;
             CoinsTXT.text= "Coins:"+ coins.ToString();
             ButtonRef.GetComponent<buttoninfo>().Quantity.text=ShopItems[2,ButtonRef.GetComponent<buttoninfo>().ItemID].ToString();
@@ -122,4 +125,5 @@ public class ShopManagerScript : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         coins=player.gold;  
     }
+
 }
