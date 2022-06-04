@@ -38,6 +38,13 @@ public class Player : MonoBehaviour
             health -= compt.Attack;
             ManagerSfx.PlaySound("playerHit");
         }
+
+        if (other.gameObject.tag is "Boss")
+        {
+            var compt = other.gameObject.GetComponent<Boss>();
+            health -= compt.Attack;
+            ManagerSfx.PlaySound("playerHit");
+        }
     }
 
     public void addstat(float he, int boHe, int sp, int at, int shSp, float co, float atRa, int go)
