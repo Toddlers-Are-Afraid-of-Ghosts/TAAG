@@ -69,8 +69,7 @@ public class GeneratorEnemi : MonoBehaviour
                 listPoint = CollectWhoIame();
 
                 rndEnemi = ennemi[Random.Range(0, ennemi.Length - 1)];
-                while (rndEnemi.name != "Skull_gris")
-                    rndEnemi = ennemi[Random.Range(0, ennemi.Length - 1)];
+        
                 var en = CreateEnemy(rndEnemi.name);
                 alive.Add(en);
 
@@ -105,6 +104,7 @@ public class GeneratorEnemi : MonoBehaviour
             var enemy = alive[i];
             i++;
             if (enemy.Health > 0) continue;
+            ManagerSfx.PlaySound(enemy.SFX);
             alive.Remove(enemy);
             Destroy(enemy.gameObject);
             if (enemy.tag is "Boss")
@@ -179,44 +179,44 @@ public class GeneratorEnemi : MonoBehaviour
 
         var result = name switch
         {
-            "Patrol" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
+            "Patrol" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2,"ghost"),
 
-            "Fantom_bleu" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2),
-            "Fantome_orange" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
-            "Fantome_rose" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
-            "Fantome_rouge" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
+            "Fantom_bleu" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2,"ghost"),
+            "Fantome_orange" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+            "Fantome_rose" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+            "Fantome_rouge" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
 
-            "Boo_argent" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2),
-            "Boo_gold" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
-            "Boo_jaune" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
-            "Boo_violet" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2),
+            "Boo_argent" => ComptEn.Create(name, 10, 2, 5, 500, Convert.ToSingle(0.6), 2,"ghost"),
+            "Boo_gold" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+            "Boo_jaune" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
+            "Boo_violet" => ComptEn.Create(name, 10, 2, 5, 400, Convert.ToSingle(0.6), 2,"ghost"),
 
 
-            "Turn" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Turn" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"mickey"),
 
-            "Mickey_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 2, 2),
-            "Mickey_noir" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
-            "Mickey_vert" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
-            "Mickey_marron" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2),
+            "Mickey_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 2, 2,"mickey"),
+            "Mickey_noir" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2,"mickey"),
+            "Mickey_vert" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2,"mickey"),
+            "Mickey_marron" => ComptEn.Create(name, 10, 2, 5, 400, 2, 2,"mickey"),
 
-            "Chase" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Chase" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
 
-            "Bones_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Bones_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Bones_orange" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Bones_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Bones_bleu" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2,"stick"),
+            "Bones_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
+            "Bones_orange" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
+            "Bones_violet" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"stick"),
 
-            "Stay" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Stay" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
 
-            "Skull_noir" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Skull_gris" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2),
-            "Skull_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
-            "Skull_pourpre" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2),
+            "Skull_noir" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
+            "Skull_gris" => ComptEn.Create(name, 10, 2, 5, 500, 1, 2,"dreap"),
+            "Skull_vert" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
+            "Skull_pourpre" => ComptEn.Create(name, 10, 2, 5, 400, 1, 2,"dreap"),
 
 
             //Section Boss
-            "Pacman" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2),
-            "Boss_Thomas" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2),
+            "Pacman" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2,"boss"),
+            "Boss_Thomas" => ComptEn.Create(name, 50, 2, 5, 500, 1, 2,"boss"),
 
 
             _ => throw new ArgumentException("invalid name of enemy")

@@ -125,6 +125,17 @@ public class ManagerSfx : MonoBehaviour
                 sfx.Play();
                 allaudio.Add(obj);
                 break;
+            case "dreap":
+                obj = Instantiate(originalst, parentst.transform);
+                obj.name = clip;
+                obj.AddComponent<CreateSfx>();
+                sfx = obj.GetComponent<CreateSfx>();
+                source = obj.AddComponent<AudioSource>();
+                sfx.Setup(source, dreapDeathst, clip,
+                    audioSrc.outputAudioMixerGroup);
+                sfx.Play();
+                allaudio.Add(obj);
+                break;
             case "mickey":
                 obj = Instantiate(originalst, parentst.transform);
                 obj.name = clip;
