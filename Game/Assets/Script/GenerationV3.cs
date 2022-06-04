@@ -113,6 +113,7 @@ public class GenerationV3 : MonoBehaviour {
         var mid = size / 2;
         grid[mid, mid].IsStart = true;
         grid[mid, mid].HasBeenEntered = true;
+        grid[mid, mid].DoorEntered = true;
         grid[mid, mid].IsPLayerIn = true;
         for (var x = 0; x < size; x++)
         for (var y = 0; y < size; y++)
@@ -323,11 +324,11 @@ public class GenerationV3 : MonoBehaviour {
         for (var x = 0; x < size; x++)
         for (var y = 0; y < size; y++) {
             ChooseRoom(grid, x, y, roomArray);
-            if (grid[x, y].Room != null) {
+            if (grid[x, y].Room is not null) {
                 var here = grid[x, y];
                 var hare = grid[x, y].Room.name;
                 var coordinates = new Vector3(grid[x, y].X, grid[x, y].Y, 0);
-                var gameObject = Instantiate(grid[x, y].Room, coordinates, quaternion.identity);
+                var gameObject = Instantiate(grid[x, y].Room, coordinates, Quaternion.identity);
                 foreach (Transform t in gameObject.transform)
                     if (t.gameObject.CompareTag("SpawnPoint")) {
                         t.gameObject.GetComponent<SpawnSpointProperties>().Setup(x, y);

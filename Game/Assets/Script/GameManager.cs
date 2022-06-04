@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
         numberOfPlayer = GameObject.FindGameObjectsWithTag("Player").Length;
         if (numberOfPlayer <= 0)
         {
+            PlayerPrefs.DeleteAll();
             generator.CleanEnemy();
             Time.timeScale = 0;
             gameOverPanel.SetActive(true);

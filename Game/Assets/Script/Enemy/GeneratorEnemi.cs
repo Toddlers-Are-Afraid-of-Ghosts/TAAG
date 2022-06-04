@@ -25,7 +25,6 @@ public class GeneratorEnemi : MonoBehaviour
 
     public GameObject turn, spawnG, patrol, follower;
 
-
     private int spawn = 0;
 
     public bool active = false;
@@ -36,6 +35,8 @@ public class GeneratorEnemi : MonoBehaviour
     private RoomsProperties[,] grid;
 
     private int[] pos;
+    private int size;
+    public static bool inShop;
 
     private List<GameObject> allspawnpoint;
     private List<GameObject> listPoint;
@@ -59,9 +60,9 @@ public class GeneratorEnemi : MonoBehaviour
         {
             ClearSpawnPoint(CollectWhoIame());
             return;
-        }
-
+        inShop = grid[pos[0], pos[1]].IsShop;
         if (active)
+
         {
             listPoint = CollectWhoIame();
             while (listPoint.Count > 0)

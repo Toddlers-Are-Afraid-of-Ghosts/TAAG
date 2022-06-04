@@ -22,6 +22,7 @@ public class RoomsProperties : MonoBehaviour {
     private bool isStart;
     private bool hasBeenEntered;
     private bool isPlayerIn;
+    private bool doorEntered;
 
     public bool Top {
         get => top;
@@ -62,6 +63,7 @@ public class RoomsProperties : MonoBehaviour {
 
     public bool IsStart;
     public bool HasBeenEntered;
+    public bool DoorEntered;
     public bool IsPLayerIn;
 
     public List<GameObject> spawnPoin = new();
@@ -85,5 +87,6 @@ public class RoomsProperties : MonoBehaviour {
         HasBeenEntered = false;
         IsPLayerIn = false;
         spawnPoin = new List<GameObject>();
+        DoorEntered = false;
     }
 }
