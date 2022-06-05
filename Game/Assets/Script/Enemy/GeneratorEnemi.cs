@@ -122,7 +122,13 @@ public class GeneratorEnemi : MonoBehaviour
             {
                 levelchanger.transform.position = enemy.transform.position;
                 levelchanger.SetActive(true);
-                //GameManager.level++;
+                if (Player.level == 2) {
+                    win = true;
+                }
+                else {
+                    Player.level++;
+                }
+                
             }
         }
     }

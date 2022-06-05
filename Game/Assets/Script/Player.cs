@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     public float Health => health;
 
     public bool god = true;
+
+    public static int level;
     //needed for player selection
 
 
@@ -65,14 +67,9 @@ public class Player : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        if (PlayerPrefs.HasKey("health")) {
-            health = PlayerPrefs.GetFloat("health");
-        }
-        else {
-            health = maxHealth;
-        }
+    void Start() {
+        level = 0;
+        health = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         actualcooldown = cooldown;
         animator = GetComponent<Animator>();

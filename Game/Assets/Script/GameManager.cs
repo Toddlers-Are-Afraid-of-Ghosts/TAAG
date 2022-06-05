@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public static int level;
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         if (!PlayerPrefs.HasKey("SelectedOption"))
         {
             SelectedOption = 0;
