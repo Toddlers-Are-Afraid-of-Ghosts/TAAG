@@ -105,8 +105,24 @@ public class Player : MonoBehaviour
     void Moveto()
     {
         // ManagerSfx.PlaySound("playerWalk");
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal=0;
+        float vertical=0;
+        if (Input.GetKey(InputManager.IM.moveUp))
+        {
+            vertical++;
+        }
+        if (Input.GetKey(InputManager.IM.moveLeft))
+        {
+            horizontal--;
+        }
+        if (Input.GetKey(InputManager.IM.moveRight))
+        {
+            horizontal++;
+        }
+        if (Input.GetKey(InputManager.IM.moveDown))
+        {
+            vertical--;
+        }
         Vector2 move = new Vector2(horizontal * speed, vertical * speed);
         rb.velocity = (move * speed * Time.deltaTime);
 
@@ -123,8 +139,24 @@ public class Player : MonoBehaviour
 
     void Fire()
     {
-        float firehorizontal = Input.GetAxis("FireHorizontal");
-        float firevertical = Input.GetAxis("FireVertical");
+        float firehorizontal = 0;
+        float firevertical = 0;
+        if (Input.GetKey(InputManager.IM.fireUp))
+        {
+            firevertical++;
+        }
+        if (Input.GetKey(InputManager.IM.fireLeft))
+        {
+            firehorizontal--;
+        }
+        if (Input.GetKey(InputManager.IM.fireRight))
+        {
+            firehorizontal++;
+        }
+        if (Input.GetKey(InputManager.IM.fireDown))
+        {
+            firevertical--;
+        }
 
         switch (firevertical)
         {

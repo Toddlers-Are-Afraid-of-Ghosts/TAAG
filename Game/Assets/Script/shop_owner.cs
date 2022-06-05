@@ -27,7 +27,7 @@ public class shop_owner : MonoBehaviour
         inShop = GeneratorEnemi.inShop;
         //ouvre scene shop lorsque spacebar est pressée et joueur est dans zone de collision
         if (!inShop) return;
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(InputManager.IM.openShop))
             if (isPaused)
             {
                 Resume();
