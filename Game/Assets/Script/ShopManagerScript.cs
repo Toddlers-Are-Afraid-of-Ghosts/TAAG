@@ -11,18 +11,14 @@ public class ShopManagerScript : MonoBehaviour
     private Player playerStats;
     public int[,] ShopItems=new int[10,10];
     public Text CoinsTXT;
-    private GameObject ButtonRef;
+    GameObject ButtonRef;
 
     private int coins;
 
 
     void Start()
     {
-        playerStats=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        coins=playerStats.gold;
-
-        CoinsTXT.text= "Coins:"+ coins.ToString();
-
+        
         //ID's
         ShopItems[0,0]=1;
         ShopItems[0,1]=2;
@@ -37,15 +33,15 @@ public class ShopManagerScript : MonoBehaviour
 
 
         //Prices
-        ShopItems[1,0]=10;
-        ShopItems[1,1]=20;
-        ShopItems[1,2]=30;
-        ShopItems[1,3]=40;
-        ShopItems[1,4]=50;
-        ShopItems[1,5]=60;
-        ShopItems[1,6]=70;
-        ShopItems[1,7]=80;
-        ShopItems[1,8]=90;
+        ShopItems[1,0]=9;
+        ShopItems[1,1]=9;
+        ShopItems[1,2]=4;
+        ShopItems[1,3]=4;
+        ShopItems[1,4]=4;
+        ShopItems[1,5]=3;
+        ShopItems[1,6]=3;
+        ShopItems[1,7]=4;
+        ShopItems[1,8]=4;
     
 
         //Quantities
@@ -63,8 +59,9 @@ public class ShopManagerScript : MonoBehaviour
 
     public void Buy()
     {
+        playerStats=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         coins=playerStats.gold;
-        ButtonRef= GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
+        ButtonRef= GameObject.FindGameObjectWithTag("Menu").GetComponent<EventSystem>().currentSelectedGameObject;
         if (ShopItems[2,ButtonRef.GetComponent<buttoninfo>().ItemID]>0 && coins>=ShopItems[1,ButtonRef.GetComponent<buttoninfo>().ItemID])
         {
             coins -=ShopItems[1,ButtonRef.GetComponent<buttoninfo>().ItemID];
@@ -124,7 +121,12 @@ public class ShopManagerScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        coins=playerStats.gold;  
+        playerStats=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        coins=playerStats.gold;
+
+        CoinsTXT.text= "Coins:"+ coins.ToString();
+        
+    
     }
 
 }

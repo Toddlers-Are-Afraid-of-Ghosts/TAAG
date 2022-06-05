@@ -15,6 +15,7 @@ public class InputManager : MonoBehaviour
     public KeyCode fireRight {get;set;}
     public KeyCode fireDown {get;set;}
     public KeyCode openShop {get;set;}
+    public KeyCode pause {get;set;}
 
     void Awake()
     {
@@ -36,6 +37,8 @@ public class InputManager : MonoBehaviour
         fireRight = (KeyCode) System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("fireRightKey","RightArrow"));
         fireDown = (KeyCode) System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("fireDownKey","DownArrow"));
         openShop = (KeyCode) System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("openShop","Space"));
+        pause = (KeyCode) System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("pause","Escape"));
+
     }
 
 
