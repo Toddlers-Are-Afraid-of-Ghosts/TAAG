@@ -73,6 +73,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         actualcooldown = cooldown;
         animator = GetComponent<Animator>();
+        //gold=2;
     }
 
     void FixedUpdate()
