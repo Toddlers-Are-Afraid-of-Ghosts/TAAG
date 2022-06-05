@@ -46,7 +46,7 @@ public class GeneratorEnemi : MonoBehaviour
     {
         alive = new List<Enemy>();
         cam = GameObject.FindWithTag("MainCamera").transform;
-        pos = Vdoor.pos;
+        pos = Player.pos;
         grid = RoomTemplates.grid;
         allspawnpoint = CollectSpawnPoint();
         levelchanger.SetActive(false);
@@ -56,7 +56,7 @@ public class GeneratorEnemi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pos = Vdoor.pos;
+        pos = Player.pos;
         if (grid[pos[0], pos[1]].HasBeenEntered && grid[pos[0], pos[1]].IsPLayerIn && !grid[pos[0], pos[1]].IsBoss)
         {
             if (alive.Count <= 0)

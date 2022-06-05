@@ -18,19 +18,22 @@ public class Vdoor : MonoBehaviour {
     private float Speed = 3f;
     public float Delay = 10f;
     private Vector3 _cam;
-    public static int[] pos;
+    private GameObject HVD;
+    private GameObject VVD;
 
     private void Awake() {
         mc = GameObject.FindGameObjectWithTag("MainCamera").transform;
-
         grid = RoomTemplates.grid;
         size = RoomTemplates.size;
-        pos = new[] {size / 2, size / 2};
+        HVD = Resources.Load<GameObject>("Rooms/HorizontalRDoor");
+        VVD = Resources.Load<GameObject>("Rooms/VerticalRDoor");
+        grid = RoomTemplates.grid;
+        size = RoomTemplates.size;
     }
 
     private void Update() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        if (isLerp) PositionChanging(grid, ref pos[0], ref pos[1]);
+        if (isLerp) PositionChanging(grid, ref Player.pos[0], ref Player.pos[1]);
     }
 
     private void PositionChanging(RoomsProperties[,] grid, ref int x, ref int y) {

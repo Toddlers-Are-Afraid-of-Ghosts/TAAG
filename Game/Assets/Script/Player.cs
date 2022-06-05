@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     public Animator animator;
     private float actualcooldown;
+    public static int[] pos;
+    public static int size;
     public float Health => health;
 
     public bool god = true;
@@ -65,14 +67,10 @@ public class Player : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        if (PlayerPrefs.HasKey("health")) {
-            health = PlayerPrefs.GetFloat("health");
-        }
-        else {
-            health = maxHealth;
-        }
+    void Start() {
+        size = RoomTemplates.size;
+        pos = new[] {size / 2, size / 2};
+        health = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         actualcooldown = cooldown;
         animator = GetComponent<Animator>();
