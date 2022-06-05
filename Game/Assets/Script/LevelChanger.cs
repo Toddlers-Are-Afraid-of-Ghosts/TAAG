@@ -33,10 +33,8 @@ public class LevelChanger : MonoBehaviour
         camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         if (isIn)
         {
-            loader.Loadlevel(2);
-            //camera.transform.position = new Vector3(0,0, -10);
-            //player.transform.position = Vector3.zero;
             PlayerPrefs.SetFloat("health", playerStats.health);
+            loader.Loadlevel(2);
             PlayerPrefs.SetFloat("attack", playerStats.attack);
             PlayerPrefs.SetFloat("speed", playerStats.speed);
             PlayerPrefs.SetFloat("shotspeed", playerStats.shotSpeed);
