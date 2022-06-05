@@ -53,9 +53,6 @@ public class RDoor : MonoBehaviour
             grid[pos[0], pos[1]].DoorEntered = true;
 
         }
-
-        // if (grid[pos[0], pos[1]].DoorEntered && grid[pos[0], pos[1]].IsPLayerIn && alive.Count == 0) {
-        //     Destroy(GameObject.FindGameObjectWithTag("Door"));
-        // }
+        
     }
 }
