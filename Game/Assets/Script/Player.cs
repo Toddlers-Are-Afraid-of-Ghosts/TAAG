@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
 
 
     void Start() {
+        DontDestroyOnLoad(this.gameObject);
         level = 0;
         health = maxHealth;
         rb = GetComponent<Rigidbody2D>();

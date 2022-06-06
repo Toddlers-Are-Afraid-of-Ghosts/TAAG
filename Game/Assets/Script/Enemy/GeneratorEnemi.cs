@@ -236,6 +236,7 @@ public class GeneratorEnemi : MonoBehaviour
             //Section Boss
             "Pacman" => ComptEn.Create(name, 50, 3, 5, 500, 1, 2, "boss"),
             "Boss_Thomas" => ComptEn.Create(name, 50, 3, 5, 500, 1, 2, "boss"),
+            "Hitler" => ComptEn.Create(name, 50, 3, 5, 500, 1, 2, "boss"),
 
 
             _ => throw new ArgumentException("invalid name of enemy")

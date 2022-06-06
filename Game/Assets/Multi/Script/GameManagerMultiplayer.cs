@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Mirror;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = System.Random;
 
@@ -14,7 +15,7 @@ public class GameManagerMultiplayer : NetworkBehaviour
     [SerializeField] private List<GameObject> prefabEnemy;
     private float cooldown, actualCD;
     public bool active = true;
-  
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,8 @@ public class GameManagerMultiplayer : NetworkBehaviour
     void Update()
     {
         if (!isServer) return;
+        var g = GameObject.FindGameObjectsWithTag("Player").Length;
+        if (g <= 0) SceneManager.LoadScene("Menu");
         if (!active) return;
         if (actualCD <= 0)
         {

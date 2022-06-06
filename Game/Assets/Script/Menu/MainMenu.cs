@@ -20,6 +20,8 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
+ 
+
     public void PanelPlay()
     {
         playPanel.SetActive(flag);
