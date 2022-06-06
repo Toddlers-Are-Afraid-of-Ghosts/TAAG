@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMultiplayer : NetworkBehaviour
 {
-    public float health; //nombre de health
+    [SyncVar] public float health; //nombre de health
     public float maxHealth; //Santé Max
     public int bonusHealth; //nombre de health bonus
     public int speed; //stat de vitesse
@@ -23,6 +23,23 @@ public class PlayerMultiplayer : NetworkBehaviour
     public bool god = true;
 
     // Start is called before the first frame update
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag is "EnemyBullet")
+        {
+            if (god) return;
+            var compt = other.gameObject.GetComponent<EnemyBulletMultiplayer>();
+            health -= compt.Attack;
+            ManagerSfx.PlaySound("playerHit");
+        }
+
+        if (other.gameObject.tag is "Boss")
+        {
+            var compt = other.gameObject.GetComponent<Boss>();
+            health -= compt.Attack;
+            ManagerSfx.PlaySound("playerHit");
+        }
+    }
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -61,7 +78,7 @@ public class PlayerMultiplayer : NetworkBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            NetworkServer.Destroy(this.gameObject);
         }
     }
 

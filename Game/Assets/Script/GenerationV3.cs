@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 using System.Collections.Generic;
-using Unity.Mathematics;
+
 
 public class GenerationV3 : MonoBehaviour {
     public static RoomsProperties[,] Spawn(int size) {

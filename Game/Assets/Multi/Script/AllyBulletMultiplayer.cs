@@ -12,7 +12,7 @@ public class AllyBulletMultiplayer : NetworkBehaviour
     [SyncVar] protected Vector2 position;
     protected Vector2 direction;
 
-    protected GameObject allyBullet;
+    [SyncVar] protected GameObject allyBullet;
     public GameObject Bullet => this.allyBullet;
 
     public int Attack
