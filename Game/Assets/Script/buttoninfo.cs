@@ -12,7 +12,7 @@ public class buttoninfo : MonoBehaviour
 
     void Update()
     {
-        PriceTag.text="Price: $"+ShopManager.GetComponent<ShopManagerScript>().ShopItems[1,ItemID].ToString();
-        Quantity.text=ShopManager.GetComponent<ShopManagerScript>().ShopItems[2,ItemID].ToString();
+        PriceTag.text="Price: $"+ShopManager.GetComponent<ShopManagerScript>().ShopItems[2,ItemID].ToString();
+        Quantity.text=ShopManager.GetComponent<ShopManagerScript>().ShopItems[3,ItemID].ToString();
     }
 }
