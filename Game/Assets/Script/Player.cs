@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class Player : MonoBehaviour
     public int shotSpeed; //vitesse des projeciles
     public float cooldown; //cadence de l'attaque
     public float attackRange; //distance d'attaque
+    public int gold;
     public GameObject bullet;
     public GameObject player;
     Rigidbody2D rb;
@@ -22,43 +25,65 @@ public class Player : MonoBehaviour
     private float actualcooldown;
     public float Health => health;
 
+    public bool god = true;
+
+    public static int level;
+    //needed for player selection
+
+
     public void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag is "EnemyBullet")
         {
+            if (god) return;
             var compt = other.gameObject.GetComponent<EnemyBullet>();
             health -= compt.Attack;
+            ManagerSfx.PlaySound("playerHit");
+        }
+
+        if (other.gameObject.tag is "Boss")
+        {
+            var compt = other.gameObject.GetComponent<Boss>();
+            health -= compt.Attack;
+            ManagerSfx.PlaySound("playerHit");
         }
     }
 
-    public void addstat(float he, int boHe, int sp, int at, int shSp, int co, float atRa)
+    public void addstat(float he, int boHe, int sp, int at, int shSp, float co, float atRa, int go)
     {
         this.health += he;
         if (this.health > this.maxHealth)
         {
             this.health = this.maxHealth;
         }
+
         this.bonusHealth += boHe;
         this.speed += sp;
         this.attack += at;
         this.shotSpeed += shSp;
         this.cooldown -= co;
         this.attackRange += atRa;
+        this.gold += go;
     }
 
 
-    void Start()
-    {
+    void Start() {
+        DontDestroyOnLoad(this.gameObject);
+        level = 0;
         health = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         actualcooldown = cooldown;
         animator = GetComponent<Animator>();
+        //gold=2;
     }
 
     void FixedUpdate()
     {
+        
         if (IsAlive())
         {
+            if (health < 5)
+                ManagerSfx.PlaySound("Health");
             if (actualcooldown <= 0)
             {
                 Fire();
@@ -78,8 +103,25 @@ public class Player : MonoBehaviour
 
     void Moveto()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        // ManagerSfx.PlaySound("playerWalk");
+        float horizontal=0;
+        float vertical=0;
+        if (Input.GetKey(InputManager.IM.moveUp))
+        {
+            vertical++;
+        }
+        if (Input.GetKey(InputManager.IM.moveLeft))
+        {
+            horizontal--;
+        }
+        if (Input.GetKey(InputManager.IM.moveRight))
+        {
+            horizontal++;
+        }
+        if (Input.GetKey(InputManager.IM.moveDown))
+        {
+            vertical--;
+        }
         Vector2 move = new Vector2(horizontal * speed, vertical * speed);
         rb.velocity = (move * speed * Time.deltaTime);
 
@@ -96,8 +138,24 @@ public class Player : MonoBehaviour
 
     void Fire()
     {
-        float firehorizontal = Input.GetAxis("FireHorizontal");
-        float firevertical = Input.GetAxis("FireVertical");
+        float firehorizontal = 0;
+        float firevertical = 0;
+        if (Input.GetKey(InputManager.IM.fireUp))
+        {
+            firevertical++;
+        }
+        if (Input.GetKey(InputManager.IM.fireLeft))
+        {
+            firehorizontal--;
+        }
+        if (Input.GetKey(InputManager.IM.fireRight))
+        {
+            firehorizontal++;
+        }
+        if (Input.GetKey(InputManager.IM.fireDown))
+        {
+            firevertical--;
+        }
 
         switch (firevertical)
         {
@@ -147,4 +205,6 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    //function copied from charactermanager
 }

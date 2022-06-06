@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
         set { this.health = value; }
     }
 
+
     public int Speed
     {
         get => this.speed;
@@ -56,9 +57,13 @@ public class Enemy : MonoBehaviour
         set { this.attackrange = value; }
     }
 
+    protected string sfx;
+    public string SFX => this.sfx;
+                    
+
     public int Create(string name, int health, int attack, int speed, int shotspeed,
         float cooldown,
-        int attackrange)
+        int attackrange,string sfx)
     {
         this.health = health;
         this.speed = speed;
@@ -69,6 +74,7 @@ public class Enemy : MonoBehaviour
         this.cooldown = cooldown;
         this.attackrange = attackrange;
         actualcooldown = cooldown;
+        this.sfx = sfx;
         return 1;
     }
 

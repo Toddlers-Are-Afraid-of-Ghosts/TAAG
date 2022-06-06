@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -14,6 +13,8 @@ public class RoomTemplates : MonoBehaviour
 {
     public static int size;
     public static RoomsProperties[,] grid;
+    public static int level;
+    public static List<RoomsProperties>[] RoomArray;
     public static List<RoomsProperties> ExtractRooms(string path, string roomCode, bool top, bool bottom, bool left,
         bool right)
     {
@@ -124,6 +125,12 @@ public class RoomTemplates : MonoBehaviour
 
         List<RoomsProperties> AllRooms =
             ExtractRooms("Rooms/RoomsTemplate/AllRooms", "A", true, true, true, true);
+        
+        GameObject FullRoom = Resources.Load<GameObject>("Rooms/RoomsTemplate/FullRooms");
+        RoomsProperties property = new RoomsProperties(false, false, false, false);
+        property.Room = FullRoom;
+        List<RoomsProperties> FullRooms = new List<RoomsProperties> {property};
+
 
         List<RoomsProperties>[] RoomArray =
         {
@@ -133,12 +140,24 @@ public class RoomTemplates : MonoBehaviour
             TopLeftRightRooms, TopBottomLeftRooms, TopBottomRigthRooms,
             BottomLeftRightRooms, StartRooms, TopSpecialRooms,
             BottomSpecialRooms, LeftSpecialRooms, RightSpecialRooms,
-            AllRooms
+            AllRooms, FullRooms
         };
 
-        // min size = 8, sinon ca nique tout
-        size = 10;
+        level = 1;
+        size = 7;
         grid = GenerationV3.Spawn(size);
         grid = GenerationV3.PlaceRooms(grid, size, RoomArray);
     }
+
+    // void Update() {
+    //     if (LevelChanger.isIn) {
+    //         GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+    //         foreach(GameObject room in rooms)
+    //             GameObject.Destroy(room);
+    //         size += level * 2;
+    //         level++;
+    //         grid = GenerationV3.Spawn(size); 
+    //         grid = GenerationV3.PlaceRooms(grid, size, RoomArray);
+    //     }
+    // }
 }

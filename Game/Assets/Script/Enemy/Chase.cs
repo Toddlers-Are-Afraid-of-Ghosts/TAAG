@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public class Chase : Enemy
@@ -29,7 +28,7 @@ public class Chase : Enemy
 
     void Start()
     {
-        animator=GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         cam = GameObject.FindWithTag("MainCamera").transform;
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
         player = GameObject.FindWithTag("Player");
@@ -56,11 +55,14 @@ public class Chase : Enemy
     private void Move()
     {
         transform.position = Vector2.MoveTowards(transform.position, spot.position, this.speed * Time.deltaTime);
-       
+
         //animation
-        animator.SetFloat("Vertical", transform.position.y);
-        animator.SetFloat("Horizontal", transform.position.x);
-        animator.SetFloat("Speed", transform.position.magnitude);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector2 move = new Vector2(horizontal * speed, vertical * speed);
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);
+        animator.SetFloat("Speed", move.magnitude);
     }
 
     private void Chased()
@@ -86,8 +88,6 @@ public class Chase : Enemy
                 var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
                 var tir = bul.GetComponent<EnemyBullet>();
                 tir.Setup(attack, shotspeed, attackrange, direction);
-                
-               
             }
             else
             {
@@ -111,7 +111,8 @@ public class Chase : Enemy
                 Vector3 direction = Vector2.down;
                 var bul = Instantiate(bullet, transform.position + direction, Quaternion.identity);
                 var tir = bul.GetComponent<EnemyBullet>();
-                tir.Setup(attack, shotspeed, attackrange, direction);;
+                tir.Setup(attack, shotspeed, attackrange, direction);
+                ;
             }
         }
     }

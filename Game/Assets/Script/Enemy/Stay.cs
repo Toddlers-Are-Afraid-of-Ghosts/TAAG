@@ -31,12 +31,13 @@ public class Stay : Enemy
                 this.health -= compt.Attack;
                 break;
             }
+            
         }
     }
 
     void Start()
     {
-        spawntime = 7;
+        spawntime = 5;
         animator=GetComponent<Animator>();
         cam = GameObject.FindWithTag("MainCamera").transform;
         spot = Instantiate(moveSpots, this.transform.position, Quaternion.identity, cam);
@@ -81,7 +82,7 @@ public class Stay : Enemy
             stayedx = Random.Range(-8, 8);
             stayedy = Random.Range(-8, 8);
             spot.position = new Vector3(player.transform.position.x + stayedx,
-                player.transform.position.y + stayedy);
+            player.transform.position.y + stayedy);
         }
 
         if (actualcooldown <= 0)
@@ -100,9 +101,12 @@ public class Stay : Enemy
         transform.position = Vector2.MoveTowards(transform.position, spot.position, this.speed * Time.deltaTime);
     
         //animation
-        animator.SetFloat("Vertical", transform.position.y);
-        animator.SetFloat("Horizontal", transform.position.x);
-        animator.SetFloat("Speed", transform.position.magnitude);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector2 move = new Vector2(horizontal * speed, vertical * speed);
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);
+        animator.SetFloat("Speed", move.magnitude);
     }
 
     private float DistanceToPlayer(Transform obj, Transform obj2)
@@ -141,11 +145,12 @@ public class Stay : Enemy
 
     void Spawn()
     {
-        spawntime = 7;
+        spawntime = 5;
         var rnd = Random.Range(0, allenemi.Count - 1);
         var rndEnemi = allenemi[rnd];
-        // var en = generatorEnemi.CreateEnemy(rndEnemi.name);
-        // generatorEnemi.alive.Add(en);
+        generatorEnemi.RndEnemi = rndEnemi;
+        var en = generatorEnemi.CreateEnemy(rndEnemi.name,this.gameObject);
+        GeneratorEnemi.alive.Add(en);
     }
 
     bool Dead()
@@ -157,11 +162,11 @@ public class Stay : Enemy
     {
         actualcooldown = cooldown;
         var bullet1 = Instantiate(bullet, transform.position + Vector3.up, Quaternion.identity);
-        var bullet2 = Instantiate(bullet, transform.position + Vector3.down, Quaternion.identity);
+        var bullet2 = Instantiate(bullet, transform.position + Vector3.down*2, Quaternion.identity);
         var bullet3 = Instantiate(bullet, transform.position + Vector3.left, Quaternion.identity);
         var bullet4 = Instantiate(bullet, transform.position + Vector3.right, Quaternion.identity);
         bullet1.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.up);
-        bullet2.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.down);
+        bullet2.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, (Vector2.down));
         bullet3.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.left);
         bullet4.GetComponent<EnemyBullet>().Setup(attack, shotspeed, attackrange, Vector2.right);
     }

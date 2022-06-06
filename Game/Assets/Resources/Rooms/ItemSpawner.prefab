@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &687745938120565324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7857842313639004695}
+  - component: {fileID: 6385018850484797049}
+  m_Layer: 0
+  m_Name: ItemSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7857842313639004695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687745938120565324}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6385018850484797049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687745938120565324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50318d25f0dc5c4e8f6e95b672b40c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 5967507914407538212, guid: 41e321431986abc43a251395b4e118bf, type: 3}
+  - {fileID: 7158464343300573204, guid: fc4e834e9a7166f4e8e8c3f8d70f8830, type: 3}
+  - {fileID: 7191286267558600340, guid: ebb6ad5a3e9eb574fae8c3633bbae879, type: 3}
+  - {fileID: 4992339052915135342, guid: 0306626e0e4be9449a27692a918593a7, type: 3}
+  - {fileID: 7087649977416725853, guid: 0f3886bd61a411744a61c6a05b4bc77a, type: 3}
+  - {fileID: 6869049904583703321, guid: feef510e46d13c24fbd463a98ca09d4d, type: 3}
+  - {fileID: 7191286267558600340, guid: ebb6ad5a3e9eb574fae8c3633bbae879, type: 3}
+  coin: {fileID: 8458295937498309299, guid: 3f85a4f4b61668340a9e6c1b47d17133, type: 3}
+  health: {fileID: 2170583726474423746, guid: 816ad0ccd5f171b43b3bd5f8b44be8f8, type: 3}

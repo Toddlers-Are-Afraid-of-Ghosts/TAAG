@@ -41,7 +41,7 @@ public class Turn : Enemy
 
         playerSpots.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
 
-        CreateMoveAroundPoint(amountToSpawn, playerSpots.position, 3, playerSpots);
+        CreateMoveAroundPoint(amountToSpawn, playerSpots.position, 4, playerSpots);
 
         pos = Random.Range(0, amountToSpawn - 1);
     }
@@ -92,9 +92,12 @@ public class Turn : Enemy
             Vector2.MoveTowards(transform.position, spot[pos].transform.position, this.speed * Time.deltaTime);
         
         //animation
-        animator.SetFloat("Vertical", transform.position.y);
-        animator.SetFloat("Horizontal", transform.position.x);
-        animator.SetFloat("Speed", transform.position.magnitude);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector2 move = new Vector2(horizontal * speed, vertical * speed);
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);
+        animator.SetFloat("Speed", move.magnitude);
         
         if (DistanceToSpot() < 1)
         {

@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1914465274159993232}
   - component: {fileID: 6020016497722742389}
-  - component: {fileID: 4085975372821092302}
   - component: {fileID: 6318365151390464359}
   - component: {fileID: 7628480395479986318}
   - component: {fileID: 5750175265864269391}
+  - component: {fileID: -5872816550408221963}
   m_Layer: 0
   m_Name: Skull_pourpre
   m_TagString: Ennemy
@@ -88,27 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4085975372821092302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8652642676092952775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d766e7f9e4af87469fb53f886e58694, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 8249988126736134428, guid: 83c028f4e81c5b944a964807e8b521f3, type: 3}
-  moveSpots: {fileID: 1845712989278218627, guid: a1a770de4ad66bf45a4161396d20178b, type: 3}
-  bullet: {fileID: 8762579411195906640, guid: e82e700d319808b43b90a011b2512c38, type: 3}
-  ennemi: []
-  animator: {fileID: 5750175265864269391}
-  minX: -11.5
-  minY: -6
-  maxX: 11
-  maxY: 6
 --- !u!50 &6318365151390464359
 Rigidbody2D:
   serializedVersion: 4
@@ -176,3 +155,40 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-5872816550408221963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8652642676092952775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d766e7f9e4af87469fb53f886e58694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 8249988126736134428, guid: 83c028f4e81c5b944a964807e8b521f3, type: 3}
+  moveSpots: {fileID: 1845712989278218627, guid: a1a770de4ad66bf45a4161396d20178b, type: 3}
+  bullet: {fileID: 8762579411195906640, guid: e82e700d319808b43b90a011b2512c38, type: 3}
+  ennemi:
+  - {fileID: 5531041243868058009, guid: 39b6d61cd1f757848b8537be6e8154b1, type: 3}
+  - {fileID: 4924597595334145558, guid: c9fe6d49338099d42b15b086f733f33c, type: 3}
+  - {fileID: 7390433593208594132, guid: ef523c440083430449a3c1b9907004c0, type: 3}
+  - {fileID: 8652642676092952775, guid: f4213dfeef7e2a84589a616566b8f1ee, type: 3}
+  - {fileID: 5531041243868058009, guid: 2af49b3c4a0659f4eb94715480373f53, type: 3}
+  - {fileID: 4924597595334145558, guid: da93432f3fa76764288e343427681e7d, type: 3}
+  - {fileID: 7390433593208594132, guid: 12729aa0ba0dc024b978eb0c3c3aa057, type: 3}
+  - {fileID: 8652642676092952775, guid: 84bd32c62906d1a40a7d9b70a70e8690, type: 3}
+  - {fileID: 5531041243868058009, guid: 4dc5390081d363d4a8ce195c17f6f31f, type: 3}
+  - {fileID: 4924597595334145558, guid: 74ab8b11281096e4083d16bae3ec557f, type: 3}
+  - {fileID: 7390433593208594132, guid: b40114bd5a3e1e042a846feca14c8864, type: 3}
+  - {fileID: 8652642676092952775, guid: 2be765b775519514190ec4df2a0996c2, type: 3}
+  - {fileID: 5531041243868058009, guid: 13ff02a46e6eae041b577b354388e30a, type: 3}
+  - {fileID: 8652642676092952775, guid: b8636a644ec396548aaf1cf437064472, type: 3}
+  - {fileID: 4924597595334145558, guid: 28830212cb1a59d49bb2e4223a1ddd10, type: 3}
+  - {fileID: 7390433593208594132, guid: 5f495c20af86fbd4884f114a30625fed, type: 3}
+  animator: {fileID: 0}
+  minX: -11.5
+  minY: -6
+  maxX: 11
+  maxY: 6
