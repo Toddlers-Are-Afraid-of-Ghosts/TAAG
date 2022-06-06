@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
             Load();
         }
         
-        Instantiate(players[SelectedOption % 2]);
+        Instantiate(players[SelectedOption]);
         generator = this.GetComponent<GeneratorEnemi>();
         numberOfPlayer = GameObject.FindGameObjectsWithTag("Player").Length;
         level = 1;
